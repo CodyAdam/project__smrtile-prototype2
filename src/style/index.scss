@@ -1,0 +1,128 @@
+$myRed: #e04f5f;
+$myWhite: rgb(243, 243, 243);
+
+//Dark Theme
+$fontColor: rgb(243, 243, 243);
+$backgroundColor: rgb(243, 243, 243);
+$themeColor1: #21252b;
+$themeColor2: #181a1f;
+$themeColor3: #111111;
+
+// Light Theme WIP
+// $fontColor: #0f0f0f;
+// $backgroundColor : rgb(243, 243, 243);
+// $themeColor1: #c3c7cd;
+// $themeColor2: #dfe4e7;
+// $themeColor3: #f8f8f8;
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	overflow: hidden;
+	user-select: none;
+}
+
+body {
+	border-radius: 15px;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+		"Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+#App {
+	display: grid;
+	height: 100vh;
+	grid-template-rows: 30px 45px 1fr 25px;
+	grid-template-columns: 1fr 300px;
+	grid-template-areas:
+		"TitleArea       	TitleArea"
+		"ToolBarArea   		ToolBarArea"
+		"EditingArea     	PanelArea"
+		"StatusBarArea      StatusBarArea";
+}
+
+#EditingArea {
+	grid-area: EditingArea;
+	background-color: $backgroundColor;
+	div {
+		z-index: -10;
+	}
+}
+
+#TitleArea {
+	grid-area: TitleArea;
+	background-color: $themeColor1;
+	z-index: 10;
+	-webkit-app-region: drag;
+	.drag {
+		position: absolute; //TODO FIX SIZE = 0
+		grid-area: TitleArea;
+		-webkit-app-region: drag;
+		padding: 3px 3px 3px 0;
+	}
+	.title {
+		color: $fontColor;
+		padding: 4px;
+		margin: 0;
+		text-align: center;
+		width: 100%;
+	}
+	.iconContainer {
+		position: absolute;
+		height: 30px;
+		right: 0;
+		top: 0;
+		width: 105px;
+		-webkit-app-region: no-drag;
+		img {
+			padding: 9px 10px 9px 10px;
+			height: 30px;
+		}
+	}
+}
+
+#ToolBarArea {
+	grid-area: ToolBarArea;
+	background-color: $themeColor2;
+}
+
+#PanelArea {
+	grid-area: PanelArea;
+	background-color: $themeColor2;
+
+	width: 100%;
+	flex-flow: column;
+	color: $fontColor;
+
+	.header {
+		height: 25px;
+		h1 {
+			height: 25px;
+			text-align: center;
+			font-size: 1em;
+			margin: 0;
+			background-color: $themeColor1;
+			color: $fontColor;
+		}
+	}
+	.body {
+		h2 {
+			margin: 8px;
+			font-size: 0.8em;
+			line-height: 20px;
+		}
+		p {
+			margin: 8px;
+			font-size: 0.7em;
+			line-height: 20px;
+		}
+	}
+}
+
+#StatusBarArea {
+	grid-area: StatusBarArea;
+	background-color: $themeColor3;
+}

@@ -1,0 +1,138 @@
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  overflow: hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+body {
+  border-radius: 15px;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#App {
+  display: -ms-grid;
+  display: grid;
+  height: 100vh;
+  -ms-grid-rows: 30px 45px 1fr 25px;
+      grid-template-rows: 30px 45px 1fr 25px;
+  -ms-grid-columns: 1fr 300px;
+      grid-template-columns: 1fr 300px;
+      grid-template-areas: "TitleArea       	TitleArea" "ToolBarArea   		ToolBarArea" "EditingArea     	PanelArea" "StatusBarArea      StatusBarArea";
+}
+
+#EditingArea {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  grid-area: EditingArea;
+  background-color: #f3f3f3;
+}
+
+#EditingArea div {
+  z-index: -10;
+}
+
+#TitleArea {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: TitleArea;
+  background-color: #21252b;
+  z-index: 10;
+  -webkit-app-region: drag;
+}
+
+#TitleArea .drag {
+  position: absolute;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: TitleArea;
+  -webkit-app-region: drag;
+  padding: 3px 3px 3px 0;
+}
+
+#TitleArea .title {
+  color: #f3f3f3;
+  padding: 4px;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
+
+#TitleArea .iconContainer {
+  position: absolute;
+  height: 30px;
+  right: 0;
+  top: 0;
+  width: 105px;
+  -webkit-app-region: no-drag;
+}
+
+#TitleArea .iconContainer img {
+  padding: 9px 10px 9px 10px;
+  height: 30px;
+}
+
+#ToolBarArea {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: ToolBarArea;
+  background-color: #181a1f;
+}
+
+#PanelArea {
+  -ms-grid-row: 3;
+  -ms-grid-column: 2;
+  grid-area: PanelArea;
+  background-color: #181a1f;
+  width: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  color: #f3f3f3;
+}
+
+#PanelArea .header {
+  height: 25px;
+}
+
+#PanelArea .header h1 {
+  height: 25px;
+  text-align: center;
+  font-size: 1em;
+  margin: 0;
+  background-color: #21252b;
+  color: #f3f3f3;
+}
+
+#PanelArea .body h2 {
+  margin: 8px;
+  font-size: 0.8em;
+  line-height: 20px;
+}
+
+#PanelArea .body p {
+  margin: 8px;
+  font-size: 0.7em;
+  line-height: 20px;
+}
+
+#StatusBarArea {
+  -ms-grid-row: 4;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: StatusBarArea;
+  background-color: #111111;
+}
+/*# sourceMappingURL=index.css.map */
