@@ -1,6 +1,6 @@
 import React from "react";
 import tileImg from "./assets/tileset/test.png";
-import { getTileCoordinateAtMousePos, getMouseInCanvas } from "./EditingFunctions";
+import { getCoordinateAt, getMouseInCanvas } from "./EditingFunctions";
 import { Layer, Grid } from "./Layer";
 import Tile from "./Tile";
 
@@ -167,7 +167,7 @@ class EditingArea extends React.Component {
         let actions = this.state.actions;
         let toPlace = null;
         const mousePos = getMouseInCanvas({ x: e.pageX, y: e.pageY }, this.state.container);
-        const TileCoordinateAtMousePos = getTileCoordinateAtMousePos(mousePos, this.state.grid);
+        const TileCoordinateAtMousePos = getCoordinateAt(mousePos, this.state.grid);
         if (e.which === 1) {
             actions.isPlacing = true;
             Layer.getCurrent(this.layers).setAt(
@@ -195,7 +195,7 @@ class EditingArea extends React.Component {
         const map = this.state.map;
         let grid = this.state.grid;
         const mousePos = getMouseInCanvas({ x: e.pageX, y: e.pageY }, container);
-        const TileCoordinateAtMousePos = getTileCoordinateAtMousePos(mousePos, grid);
+        const TileCoordinateAtMousePos = getCoordinateAt(mousePos, grid);
 
         if (actions.isPanning) {
             if (
