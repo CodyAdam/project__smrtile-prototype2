@@ -91,78 +91,12 @@ class EditingArea extends React.Component {
 
         context.clearRect(0, 0, container.width, container.height);
         this.updateLayers();
-        //this.draw();
     }
 
     updateLayers() {
         for (let i = 0; i < this.layers.length; i++) {
             if (this.layers[i].delete) this.layers.splice(i, 1);
             else this.layers[i].render(this.state);
-        }
-    }
-
-    draw() {
-        const context = this.refs.canvas.getContext("2d");
-        const offset = this.state.grid.offset;
-        const grid = this.state.grid;
-        const map = this.state.map;
-
-        //TODO grid all canvas
-        //const container = this.state.container;
-        // for (let i = 0; i < container.width / grid.size; i++) {
-        // 	for (let j = 0; j < container.height / grid.size; j++) {
-        // 		context.beginPath();
-        // 		context.fillStyle = "grey";
-        // 		context.arc(
-        // 			i * grid.size,
-        // 			j * grid.size,
-        // 			(grid.size * grid.dotSize) / 2,
-        // 			0,
-        // 			2 * Math.PI,
-        // 			false
-        // 		);
-        // 		context.globalAlpha = 0.3;
-        // 		context.fill();
-        // 		context.globalAlpha = 1;
-        // 	}
-        // }
-
-        //draw the grid
-        for (let x = 0; x <= map.width; x++) {
-            for (let y = 0; y <= map.height; y++) {
-                if (grid.useDotGrid) {
-                    context.beginPath();
-                    context.fillStyle = "grey";
-                    context.arc(
-                        offset.x + x * grid.size,
-                        offset.y + y * grid.size,
-                        (grid.size * grid.dotSize) / 2,
-                        0,
-                        2 * Math.PI,
-                        false,
-                    );
-                    context.globalAlpha = 0.3;
-                    context.fill();
-                    context.globalAlpha = 1;
-                } else {
-                    //TODO : make a real cross cause center darker
-                    context.fillStyle = "grey";
-                    context.globalAlpha = 0.3;
-                    context.fillRect(
-                        offset.x + x * grid.size - 0.5 * grid.size,
-                        offset.y + y * grid.size - 0.5 * grid.size + grid.size * (0.5 - 0.07 / 2),
-                        grid.size,
-                        grid.size * 0.07,
-                    );
-                    context.fillRect(
-                        offset.x + x * grid.size - 0.5 * grid.size + grid.size * (0.5 - 0.07 / 2),
-                        offset.y + y * grid.size - 0.5 * grid.size,
-                        grid.size * 0.07,
-                        grid.size,
-                    );
-                    context.globalAlpha = 1;
-                }
-            }
         }
     }
 
