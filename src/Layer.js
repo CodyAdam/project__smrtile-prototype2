@@ -1,11 +1,9 @@
 export default class Layer {
-    layout;
-
     constructor(name, width, height) {
         this.name = name;
         this.width = width;
         this.height = height;
-        layout = initLayout(width, height);
+        this.layout = Layer.initLayout(width, height);
     }
 
     static initLayout(width, height) {
@@ -25,21 +23,20 @@ export default class Layer {
     }
 
     setTileAt(tile, x, y) {
-        //this.layout[x][y] = tile;
-        layout[x][y] = tile;
+        this.layout[x][y] = tile;
     }
 
     removeTileAt(x, y) {
-        if (layout[x][y] !== null) {
-            layout[x][y].destroy();
-            layout[x][y] = null;
+        if (this.layout[x][y] !== null) {
+            this.layout[x][y].destroy();
+            this.layout[x][y] = null;
         }
     }
 
     render(state) {
-        for (let x = 0; x < width; x++) {
-            for (let y = 0; y < height; y++) {
-                if (layout[x][y] !== null) layout[x][y].render();
+        for (let x = 0; x < this.width; x++) {
+            for (let y = 0; y < this.height; y++) {
+                if (this.layout[x][y] !== null) this.layout[x][y].render();
             }
         }
     }
