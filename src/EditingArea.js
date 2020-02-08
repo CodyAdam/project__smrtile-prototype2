@@ -25,8 +25,8 @@ class EditingArea extends React.Component {
             },
             map: {
                 layout: null,
-                width: 25,
-                height: 15,
+                width: 3,
+                height: 3,
             },
             actions: {
                 isPanning: false,
@@ -120,6 +120,10 @@ class EditingArea extends React.Component {
         // 		context.globalAlpha = 1;
         // 	}
         // }
+
+        for (let i = 0; i < this.layers.length; i++) {
+            this.layers[i].render(this.state);
+        }
 
         //draw the grid
         for (let x = 0; x <= map.width; x++) {
@@ -254,12 +258,18 @@ class EditingArea extends React.Component {
         const TileCoordinateAtMousePos = getTileCoordinateAtMousePos(mousePos, this.state.grid);
         if (e.which === 1) {
             actions.isPlacing = true;
-            toPlace = true;
+            Layer.getCurrent(this.layers).setAt(
+                new Tile(this.state.img.tile, TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y),
+                TileCoordinateAtMousePos.x,
+                TileCoordinateAtMousePos.y,
+            );
+            //toPlace = true;
         } else if (e.which === 2) {
             actions.isPanning = true;
         } else if (e.which === 3) {
             actions.isErasing = true;
-            toPlace = false;
+            Layer.getCurrent(this.layers).removeAt(TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y);
+            //toPlace = false;
         }
         this.setState({ actions: actions, lastMousePos: { x: e.pageX, y: e.pageY } }, () => {
             if (toPlace != null) this.setAtCoordinate(toPlace, TileCoordinateAtMousePos);
@@ -299,6 +309,7 @@ class EditingArea extends React.Component {
             Layer.getCurrent(this.layers).removeAt(TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y);
             //this.setAtCoordinate(false, TileCoordinateAtMousePos);
         }
+
         this.setState({ lastMousePos: { x: e.pageX, y: e.pageY } });
     }
 
