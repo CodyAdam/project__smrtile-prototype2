@@ -1,7 +1,7 @@
 import React from "react";
 import tileImg from "./assets/tileset/test.png";
-import { createMap, getTileCoordinateAtMousePos, getMouseInCanvas } from "./EditingFunctions";
-import Layer from "./Layer";
+import { getTileCoordinateAtMousePos, getMouseInCanvas } from "./EditingFunctions";
+import { Layer, Grid } from "./Layer";
 import Tile from "./Tile";
 
 class EditingArea extends React.Component {
@@ -24,9 +24,8 @@ class EditingArea extends React.Component {
                 offset: { x: 0, y: 0 },
             },
             map: {
-                layout: null,
-                width: 3,
-                height: 3,
+                width: 6,
+                height: 4,
             },
             actions: {
                 isPanning: false,
@@ -37,7 +36,10 @@ class EditingArea extends React.Component {
             lastMousePos: { x: 0, y: 0 },
         };
 
-        this.layers = [new Layer("layer 1", this.state.map.width, this.state.map.height)];
+        this.layers = [
+            new Layer("layer 1", this.state.map.width, this.state.map.height),
+            new Grid(this.state.map.width, this.state.map.height),
+        ];
     }
 
     componentDidMount() {
@@ -59,21 +61,18 @@ class EditingArea extends React.Component {
         container.canvas = canvas;
         container.div = this.refs.div;
         this.setState({ container: container });
+
         this.handleResize();
         this.onStart();
     }
 
     onStart() {
-        //create the map
         let map = this.state.map;
-        map.layout = createMap(map.width, map.height);
-
-        //load img
         let img = this.state.img;
-        img.tile.src = tileImg;
-
         let grid = this.state.grid;
         const div = this.refs.div;
+
+        img.tile.src = tileImg;
 
         grid.offset = {
             x: Math.round(div.offsetWidth / 2 - (map.width * this.state.grid.size) / 2),
@@ -82,7 +81,6 @@ class EditingArea extends React.Component {
         this.setState({
             grid: grid,
             img: img,
-            map: map,
         });
     }
 
@@ -92,7 +90,15 @@ class EditingArea extends React.Component {
         //Clear canvas
 
         context.clearRect(0, 0, container.width, container.height);
-        this.draw();
+        this.updateLayers();
+        //this.draw();
+    }
+
+    updateLayers() {
+        for (let i = 0; i < this.layers.length; i++) {
+            if (this.layers[i].delete) this.layers.splice(i, 1);
+            else this.layers[i].render(this.state);
+        }
     }
 
     draw() {
@@ -120,10 +126,6 @@ class EditingArea extends React.Component {
         // 		context.globalAlpha = 1;
         // 	}
         // }
-
-        for (let i = 0; i < this.layers.length; i++) {
-            this.layers[i].render(this.state);
-        }
 
         //draw the grid
         for (let x = 0; x <= map.width; x++) {
@@ -159,21 +161,6 @@ class EditingArea extends React.Component {
                         grid.size,
                     );
                     context.globalAlpha = 1;
-                }
-            }
-        }
-
-        //draw the tiles
-        for (let x = 0; x < map.width; x++) {
-            for (let y = 0; y < map.height; y++) {
-                if (map.layout[x][y] === true) {
-                    context.drawImage(
-                        this.state.img.tile,
-                        offset.x + x * grid.size,
-                        offset.y + y * grid.size,
-                        grid.size,
-                        grid.size,
-                    );
                 }
             }
         }
@@ -241,15 +228,6 @@ class EditingArea extends React.Component {
         actions.isErasing = false;
         this.setState({ actions: actions });
     }
-
-    //TODO to remove
-    //setAtCoordinate(content, coordinate) {
-    //    let map = this.state.map;
-    //    if (coordinate.x >= 0 && coordinate.x < map.width && coordinate.y >= 0 && coordinate.y < map.height) {
-    //        map.layout[coordinate.x][coordinate.y] = content;
-    //        this.setState({ map: map });
-    //    }
-    //}
 
     handleMouseDown(e) {
         let actions = this.state.actions;

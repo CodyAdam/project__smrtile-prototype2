@@ -1,17 +1,3 @@
-//A metre dans la classe Layer
-export function createMap(width, height) {
-    console.log("Map created (" + width + " x " + height + ")");
-    let layout;
-    layout = new Array(width);
-    for (let x = 0; x < layout.length; x++) {
-        layout[x] = new Array(height);
-        for (let y = 0; y < layout[x].length; y++) {
-            layout[x][y] = false;
-        }
-    }
-    return layout;
-}
-
 // dans la classe Layer
 export function getTileCoordinateAtMousePos(mousePos, grid) {
     const offset = grid.offset;
