@@ -7,8 +7,8 @@ class EditingArea extends React.Component {
         super(props);
         this.state = {
             container: {
-                div: null,
-                canvas: null,
+                div: 1,
+                canvas: 1,
                 width: 0,
                 height: 0,
                 offset: { x: 0, y: 0 },
@@ -34,6 +34,8 @@ class EditingArea extends React.Component {
             img: { tile: new Image() },
             lastMousePos: { x: 0, y: 0 },
         };
+
+        this.layers = [];
     }
 
     componentDidMount() {
@@ -53,7 +55,7 @@ class EditingArea extends React.Component {
 
         let container = this.state.container;
         container.canvas = canvas;
-        container.div = this.refs.container;
+        container.div = this.refs.div;
         this.setState({ container: container });
         this.handleResize();
         this.onStart();
@@ -72,11 +74,11 @@ class EditingArea extends React.Component {
         img.tile.src = tileImg;
 
         let grid = this.state.grid;
-        const container = this.refs.container;
+        const div = this.refs.div;
 
         grid.offset = {
-            x: Math.round(container.offsetWidth / 2 - (map.width * this.state.grid.size) / 2),
-            y: Math.round(container.offsetHeight / 2 - (map.height * this.state.grid.size) / 2),
+            x: Math.round(div.offsetWidth / 2 - (map.width * this.state.grid.size) / 2),
+            y: Math.round(div.offsetHeight / 2 - (map.height * this.state.grid.size) / 2),
         };
         this.setState(
             {
@@ -184,18 +186,19 @@ class EditingArea extends React.Component {
     }
 
     handleResize() {
-        const container = this.refs.container;
-        const w = container.offsetWidth;
-        const h = container.offsetHeight;
-        const containerOffset = { x: container.offsetLeft, y: container.offsetTop };
+        const div = this.refs.div;
+        const w = div.offsetWidth;
+        const h = div.offsetHeight;
+        const containerOffset = { x: div.offsetLeft, y: div.offsetTop };
         console.log(containerOffset.x + "    " + containerOffset.y);
 
+        let container = this.state.container;
+        container.width = w;
+        container.height = h;
+        container.offset = containerOffset;
+
         this.setState({
-            container: {
-                width: w,
-                height: h,
-                offset: containerOffset,
-            },
+            container: container,
         });
         const canvas = this.refs.canvas;
         canvas.width = w;
@@ -305,7 +308,7 @@ class EditingArea extends React.Component {
 
     render() {
         return (
-            <div id="EditingArea" ref="container">
+            <div id="EditingArea" ref="div">
                 <canvas ref="canvas"></canvas>
                 {/* <input type="checkbox" id="useDot" ref={this.input} name="useDot" checked /> */}
             </div>
