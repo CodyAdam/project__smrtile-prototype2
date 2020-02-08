@@ -58,19 +58,27 @@ export class Layer {
 }
 
 export class Grid extends Layer {
-    constructor(width, height) {
-        super("Grid", width, height);
-        this.layout = Grid.initGrid(width, height);
+    constructor(useDot, width, height) {
+        super("Grid", width + 1, height + 1);
+        this.useDot = useDot;
+        this.layout = Grid.initGrid(useDot, this.width, this.height);
         this.active = false;
     }
 
-    static initGrid(width, height) {
+    toggleDot() {
+        this.useDot = !this.useDot;
+        this.layout.forEach((gridTile) => {
+            gridTile.useDot = this.useDot;
+        });
+    }
+
+    static initGrid(useDot, width, height) {
         let grid;
         grid = new Array(width);
         for (let x = 0; x < grid.length; x++) {
             grid[x] = new Array(height);
             for (let y = 0; y < grid[x].length; y++) {
-                grid[x][y] = new GridTile(false, x, y);
+                grid[x][y] = new GridTile(useDot, x, y);
             }
         }
         return grid;

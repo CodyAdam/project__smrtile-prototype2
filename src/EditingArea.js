@@ -38,7 +38,7 @@ class EditingArea extends React.Component {
 
         this.layers = [
             new Layer("layer 1", this.state.map.width, this.state.map.height),
-            new Grid(this.state.map.width, this.state.map.height),
+            new Grid(true, this.state.map.width, this.state.map.height),
         ];
     }
 
