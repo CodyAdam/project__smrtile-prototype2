@@ -28,7 +28,7 @@ export default class Layer {
     }
 
     setAt(tile, x, y) {
-        this.layout[x][y] = tile;
+        if (this.isMouseOnLayer(x, y)) this.layout[x][y] = tile;
     }
 
     getAt(x, y) {
@@ -36,16 +36,21 @@ export default class Layer {
     }
 
     removeAt(x, y) {
-        if (this.layout[x][y] !== null) {
+        if (this.isMouseOnLayer(x, y) && this.layout[x][y] !== null) {
             this.layout[x][y].destroy();
             this.layout[x][y] = null;
         }
     }
 
+    isMouseOnLayer(x, y) {
+        console.log(x + "  " + y + "   " + (x >= 0 && y >= 0 && x < this.width && y < this.height));
+        return x >= 0 && y >= 0 && x < this.width && y < this.height;
+    }
+
     render(state) {
         for (let x = 0; x < this.width; x++) {
             for (let y = 0; y < this.height; y++) {
-                if (this.layout[x][y] !== null) this.layout[x][y].render();
+                if (this.layout[x][y] !== null) this.layout[x][y].render(state);
             }
         }
     }
