@@ -4,6 +4,7 @@ export default class Layer {
         this.width = width;
         this.height = height;
         this.layout = Layer.initLayout(width, height);
+        this.active = true;
     }
 
     static initLayout(width, height) {
@@ -18,15 +19,23 @@ export default class Layer {
         return layout;
     }
 
+    static getCurrent(layers) {
+        for (let i = 0; i < layers.length; i++) if (layers[i].active) return layers[i];
+    }
+
     destroy() {
         this.delete = true;
     }
 
-    setTileAt(tile, x, y) {
+    setAt(tile, x, y) {
         this.layout[x][y] = tile;
     }
 
-    removeTileAt(x, y) {
+    getAt(x, y) {
+        return this.layout[x][y];
+    }
+
+    removeAt(x, y) {
         if (this.layout[x][y] !== null) {
             this.layout[x][y].destroy();
             this.layout[x][y] = null;

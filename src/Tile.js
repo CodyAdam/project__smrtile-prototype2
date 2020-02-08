@@ -15,7 +15,7 @@ export default class Tile {
         const offset = grid.offset;
 
         context.drawImage(
-            this.state.img.tile,
+            this.sprite,
             offset.x + this.x * grid.size,
             offset.y + this.y * grid.size,
             grid.size,

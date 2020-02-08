@@ -37,7 +37,7 @@ class EditingArea extends React.Component {
             lastMousePos: { x: 0, y: 0 },
         };
 
-        this.layers = [new Layer("layer 1", 10, 10)];
+        this.layers = [new Layer("layer 1", this.state.map.width, this.state.map.height)];
     }
 
     componentDidMount() {
@@ -67,9 +67,6 @@ class EditingArea extends React.Component {
         //create the map
         let map = this.state.map;
         map.layout = createMap(map.width, map.height);
-
-        console.log(createMap(map.width, map.height));
-        console.log(map.layout);
 
         //load img
         let img = this.state.img;
@@ -183,7 +180,6 @@ class EditingArea extends React.Component {
         const w = div.offsetWidth;
         const h = div.offsetHeight;
         const containerOffset = { x: div.offsetLeft, y: div.offsetTop };
-        console.log(containerOffset.x + "    " + containerOffset.y);
 
         let container = this.state.container;
         container.width = w;
@@ -242,13 +238,14 @@ class EditingArea extends React.Component {
         this.setState({ actions: actions });
     }
 
-    setAtCoordinate(content, coordinate) {
-        let map = this.state.map;
-        if (coordinate.x >= 0 && coordinate.x < map.width && coordinate.y >= 0 && coordinate.y < map.height) {
-            map.layout[coordinate.x][coordinate.y] = content;
-            this.setState({ map: map });
-        }
-    }
+    //TODO to remove
+    //setAtCoordinate(content, coordinate) {
+    //    let map = this.state.map;
+    //    if (coordinate.x >= 0 && coordinate.x < map.width && coordinate.y >= 0 && coordinate.y < map.height) {
+    //        map.layout[coordinate.x][coordinate.y] = content;
+    //        this.setState({ map: map });
+    //    }
+    //}
 
     handleMouseDown(e) {
         let actions = this.state.actions;
@@ -292,9 +289,15 @@ class EditingArea extends React.Component {
                 this.setState({ grid: grid });
             }
         } else if (actions.isPlacing) {
-            this.setAtCoordinate(true, TileCoordinateAtMousePos);
+            Layer.getCurrent(this.layers).setAt(
+                new Tile(this.state.img.tile, TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y),
+                TileCoordinateAtMousePos.x,
+                TileCoordinateAtMousePos.y,
+            );
+            //this.setAtCoordinate(true, TileCoordinateAtMousePos);
         } else if (actions.isErasing) {
-            this.setAtCoordinate(false, TileCoordinateAtMousePos);
+            Layer.getCurrent(this.layers).removeAt(TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y);
+            //this.setAtCoordinate(false, TileCoordinateAtMousePos);
         }
         this.setState({ lastMousePos: { x: e.pageX, y: e.pageY } });
     }
