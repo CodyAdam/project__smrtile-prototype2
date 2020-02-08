@@ -10,7 +10,7 @@ export default class Tile {
     }
 
     render(state) {
-        const context = this.refs.canvas.getContext("2d");
+        const context = state.container.canvas.getContext("2d");
         const grid = state.grid;
         const offset = grid.offset;
 
