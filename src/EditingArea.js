@@ -1,6 +1,8 @@
 import React from "react";
 import tileImg from "./assets/tileset/test.png";
 import { createMap, getTileCoordinateAtMousePos, getMouseInCanvas } from "./EditingFunctions";
+import Layer from "./Layer";
+import Tile from "./Tile";
 
 class EditingArea extends React.Component {
     constructor(props) {
@@ -35,7 +37,7 @@ class EditingArea extends React.Component {
             lastMousePos: { x: 0, y: 0 },
         };
 
-        this.layers = [];
+        this.layers = [new Layer("layer 1", 10, 10)];
     }
 
     componentDidMount() {
@@ -80,24 +82,19 @@ class EditingArea extends React.Component {
             x: Math.round(div.offsetWidth / 2 - (map.width * this.state.grid.size) / 2),
             y: Math.round(div.offsetHeight / 2 - (map.height * this.state.grid.size) / 2),
         };
-        this.setState(
-            {
-                grid: grid,
-                img: img,
-                map: map,
-            },
-            () => {
-                this.update();
-            },
-        );
+        this.setState({
+            grid: grid,
+            img: img,
+            map: map,
+        });
     }
 
-    update() {
+    componentDidUpdate() {
         const container = this.state.container;
         const context = this.refs.canvas.getContext("2d");
         //Clear canvas
-        context.clearRect(0, 0, container.width, container.height);
 
+        context.clearRect(0, 0, container.width, container.height);
         this.draw();
     }
 
@@ -179,10 +176,6 @@ class EditingArea extends React.Component {
                 }
             }
         }
-    }
-
-    componentDidUpdate() {
-        this.update();
     }
 
     handleResize() {
