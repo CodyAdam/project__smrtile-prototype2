@@ -60,13 +60,13 @@ export class Layer {
 export class Grid extends Layer {
     constructor(width, height) {
         super("Grid", width + 1, height + 1);
-        this.layout = Grid.initGrid(this.width, this.height);
-        this.useDot = true;
-        this.dotSize = 0.14;
-        this.crossSize = 0.07;
-        this.opacity = 0.1;
-        this.color = "grey";
         this.active = false;
+        this.layout = Grid.initGrid(this.width, this.height);
+        this.useDot = false;
+        this.color = "grey";
+        this.opacity = 0.4;
+        this.dotSize = 0.12;
+        this.crossSize = 0.05;
     }
 
     set useDot(value) {

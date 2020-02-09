@@ -26,6 +26,7 @@ export default class Brush {
             this.click.right = true;
             Layer.getActive(layers).removeAt(coordinateAtMouse.x, coordinateAtMouse.y);
         }
+        this.lastMouse = { x: e.pageX, y: e.pageY };
     }
 
     onMouseUp(e) {
@@ -39,11 +40,24 @@ export default class Brush {
         const CoordinateAtMouse = getCoordinateAt(mousePos, grid);
 
         if (this.click.left) {
-            Layer.getActive(layers).setAt(
-                new Tile(this.sprite, CoordinateAtMouse.x, CoordinateAtMouse.y),
-                CoordinateAtMouse.x,
-                CoordinateAtMouse.y,
+            this.verifyLine(
+                getCoordinateAt(getMouseInCanvas(this.lastMouse, state.container), grid),
+                CoordinateAtMouse,
+                (x, y) => {
+                    console.log(x + "   " + y);
+                    Layer.getActive(layers).setAt(
+                        new Tile(this.sprite, CoordinateAtMouse.x, CoordinateAtMouse.y),
+                        x,
+                        y,
+                    );
+                },
             );
+
+            //Layer.getActive(layers).setAt(
+            //    new Tile(this.sprite, CoordinateAtMouse.x, CoordinateAtMouse.y),
+            //    CoordinateAtMouse.x,
+            //    CoordinateAtMouse.y,
+            //);
         } else if (this.click.right) {
             Layer.getActive(layers).removeAt(CoordinateAtMouse.x, CoordinateAtMouse.y);
         }
@@ -54,5 +68,24 @@ export default class Brush {
     onMouseLeave() {
         this.click.left = false;
         this.click.right = false;
+    }
+
+    verifyLine(start, end, action) {
+        var difX = end.x - start.x;
+        var difY = end.y - start.y;
+        var dist = Math.abs(difX) + Math.abs(difY);
+        if (dist < 0.5) {
+            action(Math.floor(start.x), Math.floor(start.y));
+            return;
+        }
+
+        var dx = difX / dist;
+        var dy = difY / dist;
+
+        for (var i = 0, x, y; i <= Math.ceil(dist); i++) {
+            x = Math.floor(start.x + dx * i);
+            y = Math.floor(start.y + dy * i);
+            action(x, y);
+        }
     }
 }
