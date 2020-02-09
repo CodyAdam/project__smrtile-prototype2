@@ -1,8 +1,10 @@
 import React from "react";
 import tileImg from "../assets/tileset/test.png";
-import { getCoordinateAt, getMouseInCanvas } from "./EditingFunctions";
+import { getCoordinateAt, getMouseInCanvas } from "./Helper";
 import { Layer, Grid } from "./Layer";
 import Tile from "./Tile";
+import Tool from "./Tools/Tool";
+import Brush from "./Tools/Brush";
 
 class EditingArea extends React.Component {
     constructor(props) {
@@ -24,13 +26,13 @@ class EditingArea extends React.Component {
                 offset: { x: 0, y: 0 },
             },
             map: {
-                width: 6,
-                height: 4,
+                width: 30,
+                height: 20,
             },
-            actions: {
-                isPanning: false,
-                isPlacing: false,
-                isErasing: false,
+            click: {
+                left: false,
+                middle: false,
+                right: false,
             },
             img: { tile: new Image() },
             lastMousePos: { x: 0, y: 0 },
@@ -40,7 +42,8 @@ class EditingArea extends React.Component {
             new Layer("layer 1", this.state.map.width, this.state.map.height),
             new Grid(true, this.state.map.width, this.state.map.height),
         ];
-        this.tools = {};
+        this.tools = { brush: new Brush(2) };
+        this.tools.brush.active = true;
     }
 
     componentDidMount() {
@@ -149,48 +152,48 @@ class EditingArea extends React.Component {
     }
 
     handleMouseUp(e) {
-        let actions = this.state.actions;
-        if (e.which === 1) actions.isPlacing = false;
-        if (e.which === 2) actions.isPanning = false;
-        if (e.which === 3) actions.isErasing = false;
-        this.setState({ actions: actions });
+        let click = this.state.click;
+        if (e.which === 1) click.left = false;
+        if (e.which === 2) click.middle = false;
+        if (e.which === 3) click.right = false;
+        this.setState({ click: click });
     }
 
     handleMouseLeave() {
-        let actions = this.state.actions;
-        actions.isPlacing = false;
-        actions.isPanning = false;
-        actions.isErasing = false;
-        this.setState({ actions: actions });
+        let click = this.state.click;
+        click.left = false;
+        click.middle = false;
+        click.right = false;
+        this.setState({ click: click });
     }
 
     handleMouseDown(e) {
-        let actions = this.state.actions;
+        let click = this.state.click;
         let toPlace = null;
         const mousePos = getMouseInCanvas({ x: e.pageX, y: e.pageY }, this.state.container);
         const TileCoordinateAtMousePos = getCoordinateAt(mousePos, this.state.grid);
         if (e.which === 1) {
-            actions.isPlacing = true;
-            Layer.getCurrent(this.layers).setAt(
+            click.left = true;
+            Layer.getActive(this.layers).setAt(
                 new Tile(this.state.img.tile, TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y),
                 TileCoordinateAtMousePos.x,
                 TileCoordinateAtMousePos.y,
             );
             //toPlace = true;
         } else if (e.which === 2) {
-            actions.isPanning = true;
+            click.middle = true;
         } else if (e.which === 3) {
-            actions.isErasing = true;
-            Layer.getCurrent(this.layers).removeAt(TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y);
+            click.right = true;
+            Layer.getActive(this.layers).removeAt(TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y);
             //toPlace = false;
         }
-        this.setState({ actions: actions, lastMousePos: { x: e.pageX, y: e.pageY } }, () => {
+        this.setState({ click: click, lastMousePos: { x: e.pageX, y: e.pageY } }, () => {
             if (toPlace != null) this.setAtCoordinate(toPlace, TileCoordinateAtMousePos);
         });
     }
 
     handleMouseMove(e) {
-        const actions = this.state.actions;
+        const click = this.state.click;
         const lastMousePos = this.state.lastMousePos;
         const container = this.state.container;
         const map = this.state.map;
@@ -198,7 +201,7 @@ class EditingArea extends React.Component {
         const mousePos = getMouseInCanvas({ x: e.pageX, y: e.pageY }, container);
         const TileCoordinateAtMousePos = getCoordinateAt(mousePos, grid);
 
-        if (actions.isPanning) {
+        if (click.middle) {
             if (
                 grid.offset.x - (lastMousePos.x - e.pageX) > container.width ||
                 grid.offset.x - (lastMousePos.x - e.pageX) < map.width * -grid.size ||
@@ -211,15 +214,15 @@ class EditingArea extends React.Component {
                 grid.offset.y -= lastMousePos.y - e.pageY;
                 this.setState({ grid: grid });
             }
-        } else if (actions.isPlacing) {
-            Layer.getCurrent(this.layers).setAt(
+        } else if (click.left) {
+            Layer.getActive(this.layers).setAt(
                 new Tile(this.state.img.tile, TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y),
                 TileCoordinateAtMousePos.x,
                 TileCoordinateAtMousePos.y,
             );
             //this.setAtCoordinate(true, TileCoordinateAtMousePos);
-        } else if (actions.isErasing) {
-            Layer.getCurrent(this.layers).removeAt(TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y);
+        } else if (click.right) {
+            Layer.getActive(this.layers).removeAt(TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y);
             //this.setAtCoordinate(false, TileCoordinateAtMousePos);
         }
 
