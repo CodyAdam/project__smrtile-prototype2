@@ -17,7 +17,7 @@ export class Layer {
         return this.layout[x][y];
     }
 
-    removeAt(x, y) {
+    eraseAt(x, y) {
         if (this.isMouseOnLayer(x, y) && this.layout[x][y] !== null) {
             this.layout[x][y].destroy();
             this.layout[x][y] = null;
@@ -62,7 +62,7 @@ export class Grid extends Layer {
         super("Grid", width + 1, height + 1);
         this.active = false;
         this.layout = Grid.initGrid(this.width, this.height);
-        this.useDot = false;
+        this.useDot = true;
         this.color = "grey";
         this.opacity = 0.4;
         this.dotSize = 0.12;
