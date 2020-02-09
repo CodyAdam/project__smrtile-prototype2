@@ -17,14 +17,10 @@ export default class Brush {
 
         if (e.which === 1) {
             this.click.left = true;
-            Layer.getActive(layers).setAt(
-                new Tile(this.sprite, coordinateAtMouse.x, coordinateAtMouse.y),
-                coordinateAtMouse.x,
-                coordinateAtMouse.y,
-            );
+            this.placeAt(coordinateAtMouse, layers);
         } else if (e.which === 3) {
             this.click.right = true;
-            Layer.getActive(layers).removeAt(coordinateAtMouse.x, coordinateAtMouse.y);
+            this.eraseAt(coordinateAtMouse, layers);
         }
         this.lastMouse = { x: e.pageX, y: e.pageY };
     }
@@ -34,32 +30,27 @@ export default class Brush {
         if (e.which === 3) this.click.right = false;
     }
 
+    placeAt(pos, layers) {
+        Layer.getActive(layers).setAt(new Tile(this.sprite, pos.x, pos.y), pos.x, pos.y);
+    }
+
+    eraseAt(pos, layers) {
+        Layer.getActive(layers).removeAt(pos.x, pos.y);
+    }
+
     onMouseMove(e, state, layers) {
         let grid = state.grid;
         const mousePos = getMouseInCanvas({ x: e.pageX, y: e.pageY }, state.container);
-        const CoordinateAtMouse = getCoordinateAt(mousePos, grid);
+        const coordinateAtMouse = getCoordinateAt(mousePos, grid);
 
         if (this.click.left) {
             this.verifyLine(
                 getCoordinateAt(getMouseInCanvas(this.lastMouse, state.container), grid),
-                CoordinateAtMouse,
-                (x, y) => {
-                    console.log(x + "   " + y);
-                    Layer.getActive(layers).setAt(
-                        new Tile(this.sprite, CoordinateAtMouse.x, CoordinateAtMouse.y),
-                        x,
-                        y,
-                    );
-                },
+                coordinateAtMouse,
+                layers,
             );
-
-            //Layer.getActive(layers).setAt(
-            //    new Tile(this.sprite, CoordinateAtMouse.x, CoordinateAtMouse.y),
-            //    CoordinateAtMouse.x,
-            //    CoordinateAtMouse.y,
-            //);
         } else if (this.click.right) {
-            Layer.getActive(layers).removeAt(CoordinateAtMouse.x, CoordinateAtMouse.y);
+            this.eraseAt(coordinateAtMouse, layers);
         }
 
         this.lastMouse = { x: e.pageX, y: e.pageY };
@@ -70,12 +61,12 @@ export default class Brush {
         this.click.right = false;
     }
 
-    verifyLine(start, end, action) {
+    verifyLine(start, end, layers) {
         var difX = end.x - start.x;
         var difY = end.y - start.y;
         var dist = Math.abs(difX) + Math.abs(difY);
         if (dist < 0.5) {
-            action(Math.floor(start.x), Math.floor(start.y));
+            this.placeAt({ x: Math.floor(start.x), y: Math.floor(start.y) }, layers);
             return;
         }
 
@@ -85,7 +76,7 @@ export default class Brush {
         for (var i = 0, x, y; i <= Math.ceil(dist); i++) {
             x = Math.floor(start.x + dx * i);
             y = Math.floor(start.y + dy * i);
-            action(x, y);
+            this.placeAt({ x: x, y: y }, layers);
         }
     }
 }
