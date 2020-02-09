@@ -21,7 +21,6 @@ class EditingArea extends React.Component {
                 size: 50,
                 minSize: 3,
                 maxSize: 300,
-                dotSize: 0.14,
                 useDotGrid: false,
                 offset: { x: 0, y: 0 },
             },
@@ -37,8 +36,8 @@ class EditingArea extends React.Component {
         };
 
         this.layers = [
+            new Grid(this.state.map.width, this.state.map.height),
             new Layer("layer 1", this.state.map.width, this.state.map.height),
-            new Grid(true, this.state.map.width, this.state.map.height),
         ];
 
         //TODO a changer le system de sprite

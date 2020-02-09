@@ -58,27 +58,68 @@ export class Layer {
 }
 
 export class Grid extends Layer {
-    constructor(useDot, width, height) {
+    constructor(width, height) {
         super("Grid", width + 1, height + 1);
-        this.useDot = useDot;
-        this.layout = Grid.initGrid(useDot, this.width, this.height);
+        this.layout = Grid.initGrid(this.width, this.height);
+        this.useDot = true;
+        this.dotSize = 0.14;
+        this.crossSize = 0.07;
+        this.opacity = 0.1;
+        this.color = "grey";
         this.active = false;
     }
 
-    toggleDot() {
-        this.useDot = !this.useDot;
-        this.layout.forEach((gridTile) => {
-            gridTile.useDot = this.useDot;
+    set useDot(value) {
+        console.log("use dot ");
+        this.layout.forEach((subTab) => {
+            subTab.forEach((gridTile) => {
+                gridTile.useDot = value;
+            });
         });
     }
 
-    static initGrid(useDot, width, height) {
+    set color(value) {
+        console.log("use dot ");
+        this.layout.forEach((subTab) => {
+            subTab.forEach((gridTile) => {
+                gridTile.color = value;
+            });
+        });
+    }
+
+    set opacity(value) {
+        console.log("set Opacity  " + value);
+
+        this.layout.forEach((subTab) => {
+            subTab.forEach((gridTile) => {
+                gridTile.opacity = value;
+            });
+        });
+    }
+
+    set dotSize(value) {
+        this.layout.forEach((subTab) => {
+            subTab.forEach((gridTile) => {
+                gridTile.dotSize = value;
+            });
+        });
+    }
+
+    set crossSize(value) {
+        this.layout.forEach((subTab) => {
+            subTab.forEach((gridTile) => {
+                gridTile.crossSize = value;
+            });
+        });
+    }
+
+    static initGrid(width, height) {
         let grid;
         grid = new Array(width);
         for (let x = 0; x < grid.length; x++) {
             grid[x] = new Array(height);
             for (let y = 0; y < grid[x].length; y++) {
-                grid[x][y] = new GridTile(useDot, x, y);
+                grid[x][y] = new GridTile(x, y);
             }
         }
         return grid;

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./style/index.css";
+
 import EditingArea from "./Editing/EditingArea.js";
 import PanelArea from "./PanelArea";
 import TitleArea from "./TitleArea";

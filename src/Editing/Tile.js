@@ -25,9 +25,13 @@ export default class Tile {
 }
 
 export class GridTile extends Tile {
-    constructor(useDot, x, y) {
+    constructor(x, y) {
         super(null, x, y);
-        this.useDot = useDot;
+        this.useDot = null;
+        this.dotSize = null;
+        this.crossSize = null;
+        this.opacity = null;
+        this.color = null;
     }
 
     render(state) {
@@ -37,32 +41,32 @@ export class GridTile extends Tile {
 
         if (this.useDot) {
             context.beginPath();
-            context.fillStyle = "grey";
+            context.fillStyle = this.color;
             context.arc(
                 offset.x + this.x * grid.size,
                 offset.y + this.y * grid.size,
-                (grid.size * grid.dotSize) / 2,
+                (grid.size * this.dotSize) / 2,
                 0,
                 2 * Math.PI,
                 false,
             );
-            context.globalAlpha = 0.3;
+            context.globalAlpha = this.opacity;
             context.fill();
             context.globalAlpha = 1;
         } else {
-            //TODO : make a real cross cause center darker
-            context.fillStyle = "grey";
-            context.globalAlpha = 0.3;
+            //TODO : make a real cross
+            context.fillStyle = this.color;
+            context.globalAlpha = this.opacity;
             context.fillRect(
                 offset.x + this.x * grid.size - 0.5 * grid.size,
-                offset.y + this.y * grid.size - 0.5 * grid.size + grid.size * (0.5 - 0.07 / 2),
+                offset.y + this.y * grid.size - 0.5 * grid.size + grid.size * (0.5 - this.crossSize / 2),
                 grid.size,
-                grid.size * 0.07,
+                grid.size * this.crossSize,
             );
             context.fillRect(
-                offset.x + this.x * grid.size - 0.5 * grid.size + grid.size * (0.5 - 0.07 / 2),
+                offset.x + this.x * grid.size - 0.5 * grid.size + grid.size * (0.5 - this.crossSize / 2),
                 offset.y + this.y * grid.size - 0.5 * grid.size,
-                grid.size * 0.07,
+                grid.size * this.crossSize,
                 grid.size,
             );
             context.globalAlpha = 1;

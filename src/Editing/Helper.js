@@ -1,4 +1,3 @@
-// dans la classe Layer
 export function getCoordinateAt(mousePos, grid) {
     const offset = grid.offset;
     const x = (mousePos.x - offset.x - mod(mousePos.x - offset.x, grid.size)) / grid.size;
@@ -11,7 +10,6 @@ function mod(n, m) {
     return ((n % m) + m) % m;
 }
 
-//jsp
 export function getMouseInCanvas(mousePosInWindow, container) {
     return {
         x: mousePosInWindow.x - container.offset.x,
