@@ -25,8 +25,8 @@ class EditingArea extends React.Component {
                 offset: { x: 0, y: 0 },
             },
             map: {
-                width: 90,
-                height: 50,
+                width: 450,
+                height: 450,
             },
             click: {
                 left: false,
@@ -34,7 +34,7 @@ class EditingArea extends React.Component {
                 right: false,
             },
         };
-
+        //TODO make the grid as css background
         this.layers = [
             new Grid(this.state.map.width, this.state.map.height),
             new Layer("layer 1", this.state.map.width, this.state.map.height),
