@@ -25,8 +25,8 @@ class EditingArea extends React.Component {
                 offset: { x: 0, y: 0 },
             },
             map: {
-                width: 30,
-                height: 20,
+                width: 90,
+                height: 50,
             },
             click: {
                 left: false,
@@ -118,6 +118,7 @@ class EditingArea extends React.Component {
         const canvas = this.refs.canvas;
         canvas.width = w;
         canvas.height = h;
+        this.updateLayers();
     }
 
     handleWheel(e) {
