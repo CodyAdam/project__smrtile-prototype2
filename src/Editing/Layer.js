@@ -52,7 +52,7 @@ export class Layer {
         return layout;
     }
 
-    static getCurrent(layers) {
+    static getActive(layers) {
         for (let i = 0; i < layers.length; i++) if (layers[i].active) return layers[i];
     }
 }
