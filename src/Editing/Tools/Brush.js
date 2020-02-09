@@ -35,7 +35,7 @@ export default class Brush {
     }
 
     eraseAt(pos, layers) {
-        Layer.getActive(layers).removeAt(pos.x, pos.y);
+        Layer.getActive(layers).eraseAt(pos.x, pos.y);
     }
 
     onMouseMove(e, state, layers) {
@@ -44,13 +44,19 @@ export default class Brush {
         const coordinateAtMouse = getCoordinateAt(mousePos, grid);
 
         if (this.click.left) {
-            this.verifyLine(
+            this.makeLine(
                 getCoordinateAt(getMouseInCanvas(this.lastMouse, state.container), grid),
                 coordinateAtMouse,
                 layers,
+                true,
             );
         } else if (this.click.right) {
-            this.eraseAt(coordinateAtMouse, layers);
+            this.makeLine(
+                getCoordinateAt(getMouseInCanvas(this.lastMouse, state.container), grid),
+                coordinateAtMouse,
+                layers,
+                false,
+            );
         }
 
         this.lastMouse = { x: e.pageX, y: e.pageY };
@@ -61,12 +67,13 @@ export default class Brush {
         this.click.right = false;
     }
 
-    verifyLine(start, end, layers) {
+    makeLine(start, end, layers, isPlacing) {
         var difX = end.x - start.x;
         var difY = end.y - start.y;
         var dist = Math.abs(difX) + Math.abs(difY);
         if (dist < 0.5) {
-            this.placeAt({ x: Math.floor(start.x), y: Math.floor(start.y) }, layers);
+            if (isPlacing) this.placeAt({ x: Math.floor(start.x), y: Math.floor(start.y) }, layers);
+            else this.eraseAt({ x: Math.floor(start.x), y: Math.floor(start.y) }, layers);
             return;
         }
 
@@ -76,7 +83,8 @@ export default class Brush {
         for (var i = 0, x, y; i <= Math.ceil(dist); i++) {
             x = Math.floor(start.x + dx * i);
             y = Math.floor(start.y + dy * i);
-            this.placeAt({ x: x, y: y }, layers);
+            if (isPlacing) this.placeAt({ x: x, y: y }, layers);
+            else this.eraseAt({ x: x, y: y }, layers);
         }
     }
 }
