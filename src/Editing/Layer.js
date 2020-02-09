@@ -70,7 +70,6 @@ export class Grid extends Layer {
     }
 
     set useDot(value) {
-        console.log("use dot ");
         this.layout.forEach((subTab) => {
             subTab.forEach((gridTile) => {
                 gridTile.useDot = value;
@@ -79,7 +78,6 @@ export class Grid extends Layer {
     }
 
     set color(value) {
-        console.log("use dot ");
         this.layout.forEach((subTab) => {
             subTab.forEach((gridTile) => {
                 gridTile.color = value;
@@ -88,8 +86,6 @@ export class Grid extends Layer {
     }
 
     set opacity(value) {
-        console.log("set Opacity  " + value);
-
         this.layout.forEach((subTab) => {
             subTab.forEach((gridTile) => {
                 gridTile.opacity = value;
