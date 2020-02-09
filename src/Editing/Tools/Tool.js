@@ -4,8 +4,8 @@ export default class Tool {
     }
 
     static getActive(tools) {
-        for (let [key, tool] of Object.entries(tools)) {
-            if (tool.active) return { key: key, tool: tool };
+        for (const [, tool] of Object.entries(tools)) {
+            if (tool.active) return tool;
         }
     }
 }

@@ -42,7 +42,9 @@ class EditingArea extends React.Component {
             new Layer("layer 1", this.state.map.width, this.state.map.height),
             new Grid(true, this.state.map.width, this.state.map.height),
         ];
-        this.tools = { brush: new Brush(2) };
+        //TODO a changer le system de sprite
+        this.state.img.tile.src = tileImg;
+        this.tools = { brush: new Brush(2, this.state.img.tile) };
         this.tools.brush.active = true;
     }
 
@@ -89,15 +91,16 @@ class EditingArea extends React.Component {
     }
 
     componentDidUpdate() {
-        const container = this.state.container;
-        const context = this.refs.canvas.getContext("2d");
-        //Clear canvas
-
-        context.clearRect(0, 0, container.width, container.height);
         this.updateLayers();
     }
 
     updateLayers() {
+        const container = this.state.container;
+        const context = container.canvas.getContext("2d");
+
+        //Clear canvas
+        context.clearRect(0, 0, container.width, container.height);
+
         for (let i = 0; i < this.layers.length; i++) {
             if (this.layers[i].delete) this.layers.splice(i, 1);
             else this.layers[i].render(this.state);
@@ -168,28 +171,25 @@ class EditingArea extends React.Component {
     }
 
     handleMouseDown(e) {
-        let click = this.state.click;
-        let toPlace = null;
-        const mousePos = getMouseInCanvas({ x: e.pageX, y: e.pageY }, this.state.container);
-        const TileCoordinateAtMousePos = getCoordinateAt(mousePos, this.state.grid);
-        if (e.which === 1) {
-            click.left = true;
-            Layer.getActive(this.layers).setAt(
-                new Tile(this.state.img.tile, TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y),
-                TileCoordinateAtMousePos.x,
-                TileCoordinateAtMousePos.y,
-            );
-            //toPlace = true;
-        } else if (e.which === 2) {
-            click.middle = true;
-        } else if (e.which === 3) {
-            click.right = true;
-            Layer.getActive(this.layers).removeAt(TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y);
-            //toPlace = false;
-        }
-        this.setState({ click: click, lastMousePos: { x: e.pageX, y: e.pageY } }, () => {
-            if (toPlace != null) this.setAtCoordinate(toPlace, TileCoordinateAtMousePos);
-        });
+        Tool.getActive(this.tools).onMouseDown(e, this.state, this.layers);
+        this.updateLayers();
+
+        //let click = this.state.click;
+        //const mousePos = getMouseInCanvas({ x: e.pageX, y: e.pageY }, this.state.container);
+        //const TileCoordinateAtMousePos = getCoordinateAt(mousePos, this.state.grid);
+        //if (e.which === 1) {
+        //    click.left = true;
+        //    Layer.getActive(this.layers).setAt(
+        //        new Tile(this.state.img.tile, TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y),
+        //        TileCoordinateAtMousePos.x,
+        //        TileCoordinateAtMousePos.y,
+        //    );
+        //} else if (e.which === 2) {
+        //    click.middle = true;
+        //} else if (e.which === 3) {
+        //    click.right = true;
+        //    Layer.getActive(this.layers).removeAt(TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y);
+        //}
     }
 
     handleMouseMove(e) {
@@ -199,7 +199,7 @@ class EditingArea extends React.Component {
         const map = this.state.map;
         let grid = this.state.grid;
         const mousePos = getMouseInCanvas({ x: e.pageX, y: e.pageY }, container);
-        const TileCoordinateAtMousePos = getCoordinateAt(mousePos, grid);
+        const CoordinateAtMouse = getCoordinateAt(mousePos, grid);
 
         if (click.middle) {
             if (
@@ -216,14 +216,12 @@ class EditingArea extends React.Component {
             }
         } else if (click.left) {
             Layer.getActive(this.layers).setAt(
-                new Tile(this.state.img.tile, TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y),
-                TileCoordinateAtMousePos.x,
-                TileCoordinateAtMousePos.y,
+                new Tile(this.state.img.tile, CoordinateAtMouse.x, CoordinateAtMouse.y),
+                CoordinateAtMouse.x,
+                CoordinateAtMouse.y,
             );
-            //this.setAtCoordinate(true, TileCoordinateAtMousePos);
         } else if (click.right) {
-            Layer.getActive(this.layers).removeAt(TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y);
-            //this.setAtCoordinate(false, TileCoordinateAtMousePos);
+            Layer.getActive(this.layers).removeAt(CoordinateAtMouse.x, CoordinateAtMouse.y);
         }
 
         this.setState({ lastMousePos: { x: e.pageX, y: e.pageY } });
