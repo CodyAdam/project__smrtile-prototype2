@@ -1,9 +1,8 @@
 import React from "react";
 import tileImg from "../assets/tileset/test.png";
-import { getCoordinateAt, getMouseInCanvas } from "./Helper";
 import { Layer, Grid } from "./Layer";
-import Tile from "./Tile";
 import Tool from "./Tools/Tool";
+import Camera from "./Tools/Camera";
 import Brush from "./Tools/Brush";
 
 class EditingArea extends React.Component {
@@ -44,7 +43,7 @@ class EditingArea extends React.Component {
         ];
         //TODO a changer le system de sprite
         this.state.img.tile.src = tileImg;
-        this.tools = { brush: new Brush(2, this.state.img.tile) };
+        this.tools = { brush: new Brush(2, this.state.img.tile), camera: new Camera() };
         this.tools.brush.active = true;
     }
 
@@ -127,104 +126,54 @@ class EditingArea extends React.Component {
     }
 
     handleWheel(e) {
-        const SCROLL_SENSIVITY = 0.1;
+        this.tools.camera.onWheel(e, this.state, this.setState.bind(this));
+        this.updateLayers();
+        // const SCROLL_SENSIVITY = 0.1;
 
-        const container = this.state.container;
-        const lastMousePos = this.state.lastMousePos;
-        let offset = this.state.grid.offset;
-        let grid = this.state.grid;
-        const scrollValue = 1 - Math.sign(e.deltaY) * SCROLL_SENSIVITY;
-        const before = {
-            x: lastMousePos.x - offset.x - container.offset.x,
-            y: lastMousePos.y - offset.y - container.offset.y,
-            gSize: grid.size,
-        };
-        if (Math.round(grid.size * scrollValue) < grid.minSize) grid.size = grid.minSize;
-        else if (Math.round(grid.size * scrollValue) > grid.maxSize) grid.size = grid.maxSize;
-        else grid.size = Math.round(grid.size * scrollValue);
-        const after = {
-            xDif: (before.x * grid.size) / before.gSize,
-            yDif: (before.y * grid.size) / before.gSize,
-            gsize: grid.size,
-        };
+        // const container = this.state.container;
+        // const lastMousePos = this.state.lastMousePos;
+        // let offset = this.state.grid.offset;
+        // let grid = this.state.grid;
+        // const scrollValue = 1 - Math.sign(e.deltaY) * SCROLL_SENSIVITY;
+        // const before = {
+        //     x: lastMousePos.x - offset.x - container.offset.x,
+        //     y: lastMousePos.y - offset.y - container.offset.y,
+        //     gSize: grid.size,
+        // };
+        // if (Math.round(grid.size * scrollValue) < grid.minSize) grid.size = grid.minSize;
+        // else if (Math.round(grid.size * scrollValue) > grid.maxSize) grid.size = grid.maxSize;
+        // else grid.size = Math.round(grid.size * scrollValue);
+        // const after = {
+        //     xDif: (before.x * grid.size) / before.gSize,
+        //     yDif: (before.y * grid.size) / before.gSize,
+        //     gsize: grid.size,
+        // };
 
-        offset.x += Math.round(before.x - after.xDif);
-        offset.y += Math.round(before.y - after.yDif);
-        grid.offset = offset;
-        this.setState({ grid: grid });
-    }
-
-    handleMouseUp(e) {
-        let click = this.state.click;
-        if (e.which === 1) click.left = false;
-        if (e.which === 2) click.middle = false;
-        if (e.which === 3) click.right = false;
-        this.setState({ click: click });
+        // offset.x += Math.round(before.x - after.xDif);
+        // offset.y += Math.round(before.y - after.yDif);
+        // grid.offset = offset;
+        // this.setState({ grid: grid });
     }
 
     handleMouseLeave() {
-        let click = this.state.click;
-        click.left = false;
-        click.middle = false;
-        click.right = false;
-        this.setState({ click: click });
+        Tool.getActive(this.tools).onMouseLeave();
+        this.tools.camera.onMouseLeave();
     }
 
     handleMouseDown(e) {
         Tool.getActive(this.tools).onMouseDown(e, this.state, this.layers);
+        this.tools.camera.onMouseDown(e);
         this.updateLayers();
-
-        //let click = this.state.click;
-        //const mousePos = getMouseInCanvas({ x: e.pageX, y: e.pageY }, this.state.container);
-        //const TileCoordinateAtMousePos = getCoordinateAt(mousePos, this.state.grid);
-        //if (e.which === 1) {
-        //    click.left = true;
-        //    Layer.getActive(this.layers).setAt(
-        //        new Tile(this.state.img.tile, TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y),
-        //        TileCoordinateAtMousePos.x,
-        //        TileCoordinateAtMousePos.y,
-        //    );
-        //} else if (e.which === 2) {
-        //    click.middle = true;
-        //} else if (e.which === 3) {
-        //    click.right = true;
-        //    Layer.getActive(this.layers).removeAt(TileCoordinateAtMousePos.x, TileCoordinateAtMousePos.y);
-        //}
+    }
+    handleMouseUp(e) {
+        Tool.getActive(this.tools).onMouseUp(e);
+        this.tools.camera.onMouseUp(e);
     }
 
     handleMouseMove(e) {
-        const click = this.state.click;
-        const lastMousePos = this.state.lastMousePos;
-        const container = this.state.container;
-        const map = this.state.map;
-        let grid = this.state.grid;
-        const mousePos = getMouseInCanvas({ x: e.pageX, y: e.pageY }, container);
-        const CoordinateAtMouse = getCoordinateAt(mousePos, grid);
-
-        if (click.middle) {
-            if (
-                grid.offset.x - (lastMousePos.x - e.pageX) > container.width ||
-                grid.offset.x - (lastMousePos.x - e.pageX) < map.width * -grid.size ||
-                grid.offset.y - (lastMousePos.y - e.pageY) > container.height ||
-                grid.offset.y - (lastMousePos.y - e.pageY) < map.height * -grid.size
-            ) {
-                return;
-            } else {
-                grid.offset.x -= lastMousePos.x - e.pageX;
-                grid.offset.y -= lastMousePos.y - e.pageY;
-                this.setState({ grid: grid });
-            }
-        } else if (click.left) {
-            Layer.getActive(this.layers).setAt(
-                new Tile(this.state.img.tile, CoordinateAtMouse.x, CoordinateAtMouse.y),
-                CoordinateAtMouse.x,
-                CoordinateAtMouse.y,
-            );
-        } else if (click.right) {
-            Layer.getActive(this.layers).removeAt(CoordinateAtMouse.x, CoordinateAtMouse.y);
-        }
-
-        this.setState({ lastMousePos: { x: e.pageX, y: e.pageY } });
+        Tool.getActive(this.tools).onMouseMove(e, this.state, this.layers);
+        this.tools.camera.onMouseMove(e, this.state, this.setState.bind(this));
+        this.updateLayers();
     }
 
     render() {
