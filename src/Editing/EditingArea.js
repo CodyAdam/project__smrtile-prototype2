@@ -1,5 +1,5 @@
 import React from "react";
-import tileImg from "./assets/tileset/test.png";
+import tileImg from "../assets/tileset/test.png";
 import { getCoordinateAt, getMouseInCanvas } from "./EditingFunctions";
 import { Layer, Grid } from "./Layer";
 import Tile from "./Tile";
@@ -40,6 +40,7 @@ class EditingArea extends React.Component {
             new Layer("layer 1", this.state.map.width, this.state.map.height),
             new Grid(true, this.state.map.width, this.state.map.height),
         ];
+        this.tools = {};
     }
 
     componentDidMount() {
