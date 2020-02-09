@@ -1,6 +1,7 @@
 import React from "react";
 import tileImg from "../assets/tileset/test.png";
 import { Layer, Grid } from "./Layer";
+
 import Tool from "./Tools/Tool";
 import Camera from "./Tools/Camera";
 import Brush from "./Tools/Brush";
@@ -33,17 +34,17 @@ class EditingArea extends React.Component {
                 middle: false,
                 right: false,
             },
-            img: { tile: new Image() },
-            lastMousePos: { x: 0, y: 0 },
         };
 
         this.layers = [
             new Layer("layer 1", this.state.map.width, this.state.map.height),
             new Grid(true, this.state.map.width, this.state.map.height),
         ];
+
         //TODO a changer le system de sprite
-        this.state.img.tile.src = tileImg;
-        this.tools = { brush: new Brush(2, this.state.img.tile), camera: new Camera() };
+        let tile = new Image();
+        tile.src = tileImg;
+        this.tools = { brush: new Brush(2, tile), camera: new Camera() };
         this.tools.brush.active = true;
     }
 
@@ -73,11 +74,8 @@ class EditingArea extends React.Component {
 
     onStart() {
         let map = this.state.map;
-        let img = this.state.img;
         let grid = this.state.grid;
         const div = this.refs.div;
-
-        img.tile.src = tileImg;
 
         grid.offset = {
             x: Math.round(div.offsetWidth / 2 - (map.width * this.state.grid.size) / 2),
@@ -85,7 +83,6 @@ class EditingArea extends React.Component {
         };
         this.setState({
             grid: grid,
-            img: img,
         });
     }
 
@@ -99,7 +96,6 @@ class EditingArea extends React.Component {
 
         //Clear canvas
         context.clearRect(0, 0, container.width, container.height);
-
         for (let i = 0; i < this.layers.length; i++) {
             if (this.layers[i].delete) this.layers.splice(i, 1);
             else this.layers[i].render(this.state);
@@ -128,31 +124,6 @@ class EditingArea extends React.Component {
     handleWheel(e) {
         this.tools.camera.onWheel(e, this.state, this.setState.bind(this));
         this.updateLayers();
-        // const SCROLL_SENSIVITY = 0.1;
-
-        // const container = this.state.container;
-        // const lastMousePos = this.state.lastMousePos;
-        // let offset = this.state.grid.offset;
-        // let grid = this.state.grid;
-        // const scrollValue = 1 - Math.sign(e.deltaY) * SCROLL_SENSIVITY;
-        // const before = {
-        //     x: lastMousePos.x - offset.x - container.offset.x,
-        //     y: lastMousePos.y - offset.y - container.offset.y,
-        //     gSize: grid.size,
-        // };
-        // if (Math.round(grid.size * scrollValue) < grid.minSize) grid.size = grid.minSize;
-        // else if (Math.round(grid.size * scrollValue) > grid.maxSize) grid.size = grid.maxSize;
-        // else grid.size = Math.round(grid.size * scrollValue);
-        // const after = {
-        //     xDif: (before.x * grid.size) / before.gSize,
-        //     yDif: (before.y * grid.size) / before.gSize,
-        //     gsize: grid.size,
-        // };
-
-        // offset.x += Math.round(before.x - after.xDif);
-        // offset.y += Math.round(before.y - after.yDif);
-        // grid.offset = offset;
-        // this.setState({ grid: grid });
     }
 
     handleMouseLeave() {
@@ -180,7 +151,6 @@ class EditingArea extends React.Component {
         return (
             <div id="EditingArea" ref="div">
                 <canvas ref="canvas"></canvas>
-                {/* <input type="checkbox" id="useDot" ref={this.input} name="useDot" checked /> */}
             </div>
         );
     }
