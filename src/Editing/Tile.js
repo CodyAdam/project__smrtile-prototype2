@@ -8,10 +8,13 @@ export default class Tile {
 	}
 
 	static isTileOnScreen(x, y, state) {
-		let topLeft = state.container.offset;
+		let topLeft = {
+			x: 0,
+			y: 0
+		};
 		let bottomRight = {
-			x: topLeft.x + state.container.width,
-			y: topLeft.y + state.container.height
+			x: state.container.width,
+			y: state.container.height
 		};
 
 		topLeft = getCoordinateAt(topLeft, state.grid);

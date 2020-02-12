@@ -141,9 +141,11 @@ class EditingArea extends React.Component {
 	}
 
 	handleMouseMove(e) {
-		Tool.getActive(this.tools).onMouseMove(e, this.state, this.layers);
-		this.tools.camera.onMouseMove(e, this.state, this.setState.bind(this));
-		this.updateLayers();
+		if (
+			Tool.getActive(this.tools).onMouseMove(e, this.state, this.layers) ||
+			this.tools.camera.onMouseMove(e, this.state, this.setState.bind(this))
+		)
+			this.updateLayers();
 	}
 
 	render() {

@@ -5,24 +5,25 @@ import "./style/index.css";
 import EditingArea from "./Editing/EditingArea.js";
 import PanelArea from "./PanelArea";
 import TitleArea from "./TitleArea";
+import ToolBarArea from "./ToolBarArea";
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
+	constructor(props) {
+		super(props);
+		this.state = {};
+	}
 
-    render() {
-        return (
-            <div id="App">
-                <EditingArea />
-                <TitleArea />
-                <div id="ToolBarArea"></div>
-                <PanelArea />
-                <div id="StatusBarArea"></div>
-            </div>
-        );
-    }
+	render() {
+		return (
+			<div id="App">
+				<EditingArea />
+				<TitleArea />
+				<ToolBarArea />
+				<PanelArea />
+				<div id="StatusBarArea"></div>
+			</div>
+		);
+	}
 }
 
 //const map = {
