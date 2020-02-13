@@ -47,3 +47,16 @@ app.on("activate", () => {
 		createWindow();
 	}
 });
+
+// function minimize() {
+// 	win.minimize();
+// }
+
+// function maximize() {
+// 	if (!win.isMaximized()) win.maximize();
+// 	else win.unmaximize();
+// }
+
+// function close() {
+// 	win.close();
+// }

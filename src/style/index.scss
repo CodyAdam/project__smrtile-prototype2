@@ -100,17 +100,17 @@ body {
 			width: 60px;
 			background-color: $themeColor1;
 			color: whitesmoke;
-			border: solid 6px rgba(0, 0, 0, 0.5);
+			border: solid 3px rgba(0, 0, 0, 0.5);
 			border-radius: 10px;
 			margin: 5px;
 			padding: 5px;
 		}
 		button:focus {
-			border: solid 6px rgb(221, 221, 214);
+			border: solid 3px rgb(221, 221, 214);
 			outline: none;
 		}
 		button:hover {
-			border: solid 6px rgba(0, 0, 0, 0.8);
+			border: solid 3px rgba(0, 0, 0, 0.8);
 		}
 	}
 }

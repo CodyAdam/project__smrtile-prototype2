@@ -1,4 +1,4 @@
-import { getCoordinateAt, getMouseInCanvas } from "./Helper";
+import { getCoordinateAt } from "./Helper";
 
 export default class Tile {
 	constructor(sprite, x, y) {
