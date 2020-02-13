@@ -94,21 +94,31 @@ body {
 	display: flex;
 	flex-direction: row;
 
-	.tileButton,
-	.buttonCanvas {
-		background-color: $themeColor1;
-		color: whitesmoke;
-		outline: solid 3px rgba(250, 248, 248, 0.5);
-		border-radius: 10px;
-		margin: 5px;
-		padding: 5px;
+	.tileButton {
+		div {
+			height: 70px;
+			width: 70px;
+			padding: 10px;
+			button {
+				height: 50px;
+				width: 50px;
+				background-color: rgb(95, 156, 108);
+				border: none;
+				border-radius: 8px;
+				box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.377);
+				:focus,
+				:hover {
+					outline: none;
+				}
 
-		:focus {
-			outline: solid 3px rgb(221, 221, 214);
-			outline: none;
-		}
-		:hover {
-			outline: solid 3px rgba(0, 0, 0, 0.8);
+				canvas {
+					position: relative;
+					top: 0px;
+					left: -8px;
+					margin: 0;
+					// background-color: green;
+				}
+			}
 		}
 	}
 }
