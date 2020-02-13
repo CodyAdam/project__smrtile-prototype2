@@ -1,6 +1,5 @@
 import React from "react";
 import frame_cross from "./assets/frame/cross.svg";
-import { app } from "electron";
 
 class TitleArea extends React.Component {
 	constructor(props) {
@@ -16,12 +15,15 @@ class TitleArea extends React.Component {
 		this.refs.close.addEventListener("click", this.onClose);
 	}
 
-	onMinimize() {}
+	onMinimize() {
+		//const win = remote.getCurrentWindow();
+		//win.minimize();
+	}
 
 	onMaximize() {
-		//var win = remote.getCurrentWindow();
-		//if (!win.isMaximized()) win.maximize();
-		//else win.unmaximize();
+		// var win = remote.getCurrentWindow();
+		// if (!win.isMaximized()) win.maximize();
+		// else win.unmaximize();
 	}
 
 	onClose() {
