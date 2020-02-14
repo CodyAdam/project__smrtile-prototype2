@@ -1,5 +1,5 @@
 import React from "react";
-import testImg from "./assets/tileset/test.png";
+import tileImg from "./assets/tileset/test.png";
 
 class ToolBarArea extends React.Component {
 	constructor(props) {
@@ -15,23 +15,23 @@ class ToolBarArea extends React.Component {
 		this.buttons.push();
 	}
 
-	select(selection) {
-		this.state.select.selected = false;
-		selection.selected = true;
-		this.setState({ select: selection });
-	}
+	//select(selection) {
+	//	this.state.select.selected = false;
+	//	selection.selected = true;
+	//	this.setState({ select: selection });
+	//}
 
 	render() {
 		return (
 			<div id="ToolBarArea">
-				<TileButton tileset={testImg} x={0} y={0} width={236} height={236} />
-				<TileButton tileset={testImg} x={0} y={0} width={236} height={236} />
-				<TileButton tileset={testImg} x={0} y={0} width={236} height={236} />
+				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
+				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
+				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
 				<TileButton />
 				<TileButton />
-				<TileButton tileset={testImg} x={0} y={0} width={236} height={236} />
-				<TileButton tileset={testImg} x={0} y={0} width={236} height={236} />
-				<TileButton tileset={testImg} x={0} y={0} width={236} height={236} />
+				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
+				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
+				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
 				<TileButton />
 				<TileButton />
 			</div>
@@ -54,25 +54,19 @@ class TileButton extends React.Component {
 	componentDidMount() {
 		const ctx = this.refs.canvas.getContext("2d");
 		let img = new Image();
-		img.src = this.state.tileset;
-		ctx.fillStyle = "#FF0000";
-		ctx.fillRect(0, 0, 50, 50);
-		ctx.clearRect(2, 2, 46, 46);
+		img.src = tileImg;
+		ctx.drawImage(img, 0, 0, 50, 50);
+		//ctx.clearRect(2, 2, 46, 46);
 	}
 
 	render() {
 		return (
 			<div className="tileButton">
-				<div>
-					<button>
-						<canvas
-							className="buttonCanvas"
-							ref="canvas"
-							width="50"
-							height="50"
-						></canvas>
-					</button>
-				</div>
+				<button>
+					<canvas className="buttonCanvas" ref="canvas" width="50" height="50">
+						<img src={tileImg} alt="" width="50" height="50" />
+					</canvas>
+				</button>
 			</div>
 		);
 	}

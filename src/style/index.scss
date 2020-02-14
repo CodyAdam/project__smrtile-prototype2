@@ -95,30 +95,18 @@ body {
 	flex-direction: row;
 
 	.tileButton {
-		div {
-			height: 70px;
-			width: 70px;
-			padding: 10px;
-			button {
-				height: 50px;
-				width: 50px;
-				background-color: rgb(95, 156, 108);
-				border: none;
-				border-radius: 8px;
-				box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.377);
-				:focus,
-				:hover {
-					outline: none;
-				}
-
-				canvas {
-					position: relative;
-					top: 0px;
-					left: -8px;
-					margin: 0;
-					// background-color: green;
-				}
-			}
+		height: 70px;
+		width: 70px;
+		padding: 10px;
+		button {
+			height: 50px;
+			width: 50px;
+			border: none;
+			background-color: transparent;
+			border-radius: 8px;
+			box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.2),
+				0px 0px 10px 3px rgba(253, 253, 253, 0.07) inset;
+			padding: 0;
 		}
 	}
 }
