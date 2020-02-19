@@ -156,6 +156,23 @@ body {
   line-height: 20px;
 }
 
+#PanelArea .layer {
+  background-color: #272729;
+  height: 40px;
+  margin: 10px;
+  border-radius: 6px;
+}
+
+#PanelArea .layer .layerName {
+  display: inline;
+  margin: 0;
+  text-align: center;
+}
+
+#PanelArea .layer img {
+  height: 80%;
+}
+
 #StatusBarArea {
   -ms-grid-row: 4;
   -ms-grid-column: 1;
