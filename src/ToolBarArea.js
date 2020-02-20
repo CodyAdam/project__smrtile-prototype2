@@ -50,7 +50,7 @@ class TileButton extends React.Component {
 		const ctx = this.refs.canvas.getContext("2d");
 		let img = new Image();
 		img.src = this.state.tileset;
-		ctx.drawImage(
+		img.onload = ctx.drawImage(
 			img,
 			this.state.position.x,
 			this.state.position.y,
@@ -67,9 +67,7 @@ class TileButton extends React.Component {
 		return (
 			<div className="tileButton">
 				<button>
-					<canvas className="buttonCanvas" ref="canvas" width="50" height="50">
-						{/* <img src={this.state.tileset} alt="" width="50" height="50" /> */}
-					</canvas>
+					<canvas className="buttonCanvas" ref="canvas" width="50" height="50"></canvas>
 				</button>
 			</div>
 		);
