@@ -9,12 +9,16 @@ class ToolBarArea extends React.Component {
 		this.state = {
 			select: null
 		};
-
 		this.buttons = [];
 	}
 
 	componentDidMount() {
+		//TODO
 		this.buttons.push();
+	}
+
+	componentDidUpdate() {
+		this.tools.brush.sprite = this.state.select;
 	}
 
 	//select(selection) {
@@ -26,9 +30,30 @@ class ToolBarArea extends React.Component {
 	render() {
 		return (
 			<div id="ToolBarArea">
-				<TileButton tileset={tile1} x={0} y={0} width={512} height={512} />
-				<TileButton tileset={tile2} x={0} y={0} width={512} height={512} />
-				<TileButton tileset={tile3} x={0} y={0} width={512} height={512} />
+				<TileButton
+					tileset={tile1}
+					x={0}
+					y={0}
+					width={512}
+					height={512}
+					tools={this.props.tools}
+				/>
+				<TileButton
+					tileset={tile2}
+					x={0}
+					y={0}
+					width={512}
+					height={512}
+					tools={this.props.tools}
+				/>
+				<TileButton
+					tileset={tile3}
+					x={0}
+					y={0}
+					width={512}
+					height={512}
+					tools={this.props.tools}
+				/>
 			</div>
 		);
 	}
@@ -42,11 +67,19 @@ class TileButton extends React.Component {
 			tileset: props.tileset,
 			position: { x: props.x, y: props.y },
 			width: props.width,
-			height: props.height
+			height: props.height,
+			img: null
 		};
+		this.tools = this.props.tools;
+	}
+
+	handleMouseDown() {
+		this.tools.brush.sprite = this.state.image;
 	}
 
 	componentDidMount() {
+		this.refs.canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
+
 		const ctx = this.refs.canvas.getContext("2d");
 		let img = new Image();
 		img.src = this.state.tileset;
@@ -61,6 +94,9 @@ class TileButton extends React.Component {
 			50,
 			50
 		);
+		this.setState({
+			image: img
+		});
 	}
 
 	render() {

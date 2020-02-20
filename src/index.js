@@ -7,18 +7,44 @@ import PanelArea from "./PanelArea";
 import TitleArea from "./TitleArea";
 import ToolBarArea from "./ToolBarArea";
 
+import { Layer, Grid } from "./Editing/Layer";
+import Camera from "./Editing/Tools/Camera";
+import Brush from "./Editing/Tools/Brush";
+
+import tile1 from "./assets/tileset/test1.png";
+import tile2 from "./assets/tileset/test2.png";
+import tile3 from "./assets/tileset/test3.png";
+
 class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			map: {
+				width: 40,
+				height: 30
+			},
+			layers: [new Grid(40, 30), new Layer("layer 1", 40, 30)],
+			tools: { brush: new Brush(2), camera: new Camera() }
+		};
+
+		//TODO make the grid as css background
+
+		let tile = new Image();
+		tile.src = tile1;
+		this.state.tools.brush.sprite = tile;
+		this.state.tools.brush.active = true;
 	}
 
 	render() {
 		return (
 			<div id="App">
-				<EditingArea />
+				<EditingArea
+					layers={this.state.layers}
+					tools={this.state.tools}
+					map={this.state.map}
+				/>
 				<TitleArea />
-				<ToolBarArea />
+				<ToolBarArea tools={this.state.tools} />
 				<PanelArea />
 				<div id="StatusBarArea"></div>
 			</div>

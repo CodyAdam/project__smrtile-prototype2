@@ -1,10 +1,5 @@
 import React from "react";
-import tileImg from "../assets/tileset/test1.png";
-import { Layer, Grid } from "./Layer";
-
 import Tool from "./Tools/Tool";
-import Camera from "./Tools/Camera";
-import Brush from "./Tools/Brush";
 
 class EditingArea extends React.Component {
 	constructor(props) {
@@ -23,28 +18,15 @@ class EditingArea extends React.Component {
 				maxSize: 300,
 				offset: { x: 0, y: 0 }
 			},
-			map: {
-				width: 40,
-				height: 30
-			},
+			map: this.props.map,
 			click: {
 				left: false,
 				middle: false,
 				right: false
 			}
 		};
-		//TODO make the grid as css background
-		this.layers = [
-			new Grid(this.state.map.width, this.state.map.height),
-			new Layer("layer 1", this.state.map.width, this.state.map.height)
-		];
-
-		//TODO a changer le system de sprite
-		let tile = new Image();
-		tile.src = tileImg;
-		this.tools = { brush: new Brush(2), camera: new Camera() };
-		this.tools.brush.sprite = tile;
-		this.tools.brush.active = true;
+		this.layers = this.props.layers;
+		this.tools = this.props.tools;
 	}
 
 	componentDidMount() {
