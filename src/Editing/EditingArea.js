@@ -1,5 +1,5 @@
 import React from "react";
-import tileImg from "../assets/tileset/test.png";
+import tileImg from "../assets/tileset/test1.png";
 import { Layer, Grid } from "./Layer";
 
 import Tool from "./Tools/Tool";
@@ -42,7 +42,8 @@ class EditingArea extends React.Component {
 		//TODO a changer le system de sprite
 		let tile = new Image();
 		tile.src = tileImg;
-		this.tools = { brush: new Brush(2, tile), camera: new Camera() };
+		this.tools = { brush: new Brush(2), camera: new Camera() };
+		this.tools.brush.sprite = tile;
 		this.tools.brush.active = true;
 	}
 

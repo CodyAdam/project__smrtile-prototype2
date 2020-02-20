@@ -3,10 +3,10 @@ import { Layer } from "../Layer";
 import { getCoordinateAt, getMouseInCanvas } from "../Helper";
 
 export default class Brush {
-	constructor(size, sprite) {
+	constructor(size) {
 		this.active = false;
 		this.size = size;
-		this.sprite = sprite;
+		this.sprite = null;
 		this.click = { left: false, right: false };
 		this.lastMouse = { x: null, y: null };
 	}
@@ -31,7 +31,8 @@ export default class Brush {
 	}
 
 	placeAt(pos, layers) {
-		Layer.getActive(layers).setAt(new Tile(this.sprite, pos.x, pos.y), pos.x, pos.y);
+		if (this.sprite != null)
+			Layer.getActive(layers).setAt(new Tile(this.sprite, pos.x, pos.y), pos.x, pos.y);
 	}
 
 	eraseAt(pos, layers) {

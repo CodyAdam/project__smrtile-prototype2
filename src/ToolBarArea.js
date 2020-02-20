@@ -1,5 +1,7 @@
 import React from "react";
-import tileImg from "./assets/tileset/test.png";
+import tile1 from "./assets/tileset/test1.png";
+import tile2 from "./assets/tileset/test2.png";
+import tile3 from "./assets/tileset/test3.png";
 
 class ToolBarArea extends React.Component {
 	constructor(props) {
@@ -24,16 +26,9 @@ class ToolBarArea extends React.Component {
 	render() {
 		return (
 			<div id="ToolBarArea">
-				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
-				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
-				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
-				<TileButton />
-				<TileButton />
-				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
-				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
-				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
-				<TileButton />
-				<TileButton />
+				<TileButton tileset={tile1} x={0} y={0} width={512} height={512} />
+				<TileButton tileset={tile2} x={0} y={0} width={512} height={512} />
+				<TileButton tileset={tile3} x={0} y={0} width={512} height={512} />
 			</div>
 		);
 	}
@@ -54,9 +49,18 @@ class TileButton extends React.Component {
 	componentDidMount() {
 		const ctx = this.refs.canvas.getContext("2d");
 		let img = new Image();
-		img.src = tileImg;
-		ctx.drawImage(img, 0, 0, 50, 50);
-		//ctx.clearRect(2, 2, 46, 46);
+		img.src = this.state.tileset;
+		ctx.drawImage(
+			img,
+			this.state.position.x,
+			this.state.position.y,
+			this.state.width,
+			this.state.height,
+			0,
+			0,
+			50,
+			50
+		);
 	}
 
 	render() {
@@ -64,7 +68,7 @@ class TileButton extends React.Component {
 			<div className="tileButton">
 				<button>
 					<canvas className="buttonCanvas" ref="canvas" width="50" height="50">
-						<img src={tileImg} alt="" width="50" height="50" />
+						{/* <img src={this.state.tileset} alt="" width="50" height="50" /> */}
 					</canvas>
 				</button>
 			</div>
