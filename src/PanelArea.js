@@ -64,7 +64,7 @@ class LayersPanel extends React.Component {
 				</div>
 				<div className="layersList">
 					<Layer name="foreground" />
-					<Layer name="game object" />
+					<Layer name="qwertyuiopasdfghjklzxcvbnm" />
 					<Layer name="background" />
 				</div>
 			</div>
@@ -81,24 +81,24 @@ class Layer extends React.Component {
 		};
 	}
 
-	visibleToggle(img) {
+	visibleToggle() {
 		const visible = this.state.visible;
-		if (visible) img.src = eyeClose;
-		else img.src = eyeOpen;
 		this.setState({ visible: !visible });
 	}
 
 	render() {
+		const eye = this.state.visible ? eyeClose : eyeOpen;
 		return (
 			<div className="layer">
 				<img
 					className="visibleButton"
-					onClick={img => this.visibleToggle(img)}
-					src={eyeOpen}
+					onClick={img => this.visibleToggle()}
+					src={eye}
 					alt="eyeOpen"
 				></img>
-				<img className="interactableButton" src={eyeOpen} alt="eyeOpen"></img>
-				<p className="layerName">{this.state.name}</p>
+				<div className="text-container">
+					<p className="layerName">{this.state.name}</p>
+				</div>
 			</div>
 		);
 	}

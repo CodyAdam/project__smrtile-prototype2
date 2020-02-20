@@ -161,12 +161,31 @@ body {
   height: 40px;
   margin: 10px;
   border-radius: 6px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
-#PanelArea .layer .layerName {
-  display: inline;
+#PanelArea .layer .text-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+#PanelArea .layer .text-container .layerName {
   margin: 0;
-  text-align: center;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  white-space: nowrap;
 }
 
 #PanelArea .layer img {

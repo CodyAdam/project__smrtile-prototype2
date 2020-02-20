@@ -147,10 +147,18 @@ body {
 		height: 40px;
 		margin: 10px;
 		border-radius: 6px;
-		.layerName {
-			display: inline;
-			margin: 0;
-			text-align: center;
+		display: flex;
+		.text-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-grow: 1;
+			.layerName {
+				margin: 0;
+				text-overflow: ellipsis;
+				max-width: 200px;
+				white-space: nowrap;
+			}
 		}
 		img {
 			height: 80%;
