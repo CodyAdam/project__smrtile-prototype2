@@ -148,6 +148,7 @@ body {
 		margin: 10px;
 		border-radius: 6px;
 		display: flex;
+		align-items: center;
 		.text-container {
 			display: flex;
 			justify-content: center;
@@ -161,7 +162,8 @@ body {
 			}
 		}
 		img {
-			height: 80%;
+			margin: 5px;
+			height: 70%;
 		}
 	}
 }
