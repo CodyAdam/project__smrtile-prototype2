@@ -25,14 +25,14 @@ class App extends React.Component {
 
         this.state = {
             map: {
-                width: 6,
-                height: 6,
+                width: 15,
+                height: 20,
             },
             layers: [
-                new Layer("layer 1", 6, 6),
-                new Layer("layer 2", 6, 6),
-                new Layer("layer 3", 6, 6),
-                new Grid(6, 6),
+                new Layer("layer 1", 15, 20),
+                new Layer("layer 2", 15, 20),
+                new Layer("layer 3", 15, 20),
+                new Grid(15, 20),
             ],
             objects: [
                 new Tile(source1, 0, 0, 512, 512),

@@ -2,48 +2,60 @@ import React from "react";
 import frame_cross from "./assets/frame/cross.svg";
 
 class TitleArea extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			title: "• This is a test.map"
-		};
-	}
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: "• This is a test.map",
+            menu: [
+                {
+                    name: "File",
+                    subMenu: [
+                        { name: "New", avaliable: false, function: this.testFunction },
+                        { name: "Open", avaliable: true, function: this.testFunction },
+                        { name: "Close", avaliable: true, function: this.testFunction },
+                    ],
+                },
+                {
+                    name: "Edit",
+                    subMenu: [
+                        { name: "Copy", avaliable: true, function: this.testFunction },
+                        { name: "Paste", avaliable: true, function: this.testFunction },
+                    ],
+                },
+            ],
+        };
+    }
 
-	componentDidMount() {
-		this.refs.minimize.addEventListener("click", this.onMinimize);
-		this.refs.maximize.addEventListener("click", this.onMaximize);
-		this.refs.close.addEventListener("click", this.onClose);
-	}
+    testFunction() {
+        alert("This button does nothing yet");
+    }
 
-	onMinimize() {
-		//const win = remote.getCurrentWindow();
-		//win.minimize();
-	}
+    render() {
+        const menu = this.state.menu;
 
-	onMaximize() {
-		// var win = remote.getCurrentWindow();
-		// if (!win.isMaximized()) win.maximize();
-		// else win.unmaximize();
-	}
+        let menuElement = menu.map((menu, index) => {
+            return (
+                <div className="container" key={index}>
+                    <span className="name">{menu.name}</span>
+                </div>
+            );
+        });
 
-	onClose() {
-		//const win = remote.getCurrentWindow();
-		//win.close();
-	}
+        console.log(menuElement);
 
-	render() {
-		return (
-			<div id="TitleArea">
-				<div className="drag"></div>
-				<p className="title">{this.state.title}</p>
-				<div className="iconContainer">
-					<img ref="minimize" src={frame_cross} alt="" />
-					<img ref="maximize" src={frame_cross} alt="" />
-					<img ref="close" src={frame_cross} alt="" />
-				</div>
-			</div>
-		);
-	}
+        return (
+            <div id="TitleArea">
+                <div className="menu">{menuElement}</div>
+                {/* <div className="drag"></div> */}
+                <p className="title">{this.state.title}</p>
+                <div className="iconContainer">
+                    <img ref="minimize" src={frame_cross} alt="" />
+                    <img ref="maximize" src={frame_cross} alt="" />
+                    <img ref="close" src={frame_cross} alt="" />
+                </div>
+            </div>
+        );
+    }
 }
 
 export default TitleArea;
