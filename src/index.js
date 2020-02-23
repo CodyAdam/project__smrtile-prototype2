@@ -10,46 +10,89 @@ import ToolBarArea from "./ToolBarArea";
 import { Layer, Grid } from "./Editing/Layer";
 import Camera from "./Editing/Tools/Camera";
 import Brush from "./Editing/Tools/Brush";
+import Tile from "./Editing/Tile";
 
-import tile1 from "./assets/tileset/test1.png";
-import tile2 from "./assets/tileset/test2.png";
-import tile3 from "./assets/tileset/test3.png";
+import source1 from "./assets/tileset/test1.png";
+import source2 from "./assets/tileset/test2.png";
+import source3 from "./assets/tileset/test3.png";
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			map: {
-				width: 40,
-				height: 30
-			},
-			layers: [new Grid(40, 30), new Layer("layer 1", 40, 30)],
-			tools: { brush: new Brush(2), camera: new Camera() }
-		};
+    constructor(props) {
+        super(props);
+        this.onObjectChange = this.onObjectChange.bind(this);
+        this.onLayerChange = this.onLayerChange.bind(this);
+        this.updateBrush = this.updateBrush.bind(this);
 
-		//TODO make the grid as css background
+        this.state = {
+            map: {
+                width: 6,
+                height: 6,
+            },
+            layers: [
+                new Layer("layer 1", 6, 6),
+                new Layer("layer 2", 6, 6),
+                new Layer("layer 3", 6, 6),
+                new Grid(6, 6),
+            ],
+            objects: [
+                new Tile(source1, 0, 0, 512, 512),
+                new Tile(source2, 0, 0, 512, 512),
+                new Tile(source3, 0, 0, 512, 512),
+            ],
+            tools: { brush: new Brush(), camera: new Camera() },
+        };
 
-		let tile = new Image();
-		tile.src = tile1;
-		this.state.tools.brush.sprite = tile;
-		this.state.tools.brush.active = true;
-	}
+        //TODO make the grid as css background
+    }
 
-	render() {
-		return (
-			<div id="App">
-				<EditingArea
-					layers={this.state.layers}
-					tools={this.state.tools}
-					map={this.state.map}
-				/>
-				<TitleArea />
-				<ToolBarArea tools={this.state.tools} />
-				<PanelArea />
-				<div id="StatusBarArea"></div>
-			</div>
-		);
-	}
+    componentDidMount() {
+        this.updateBrush();
+
+        //make the first object selected
+        let newObject = this.state.objects[0];
+        newObject.active = true;
+        this.onObjectChange(newObject, 0);
+    }
+
+    onObjectChange(newObject, index) {
+        let newObjects = this.state.objects;
+        newObjects[index] = newObject;
+        this.setState({ objects: newObjects });
+        this.updateBrush();
+    }
+
+    updateBrush() {
+        let tools = this.state.tools;
+
+        //Update the object to the active one
+        let activeIndex = 0;
+        this.state.objects.forEach((object, index) => {
+            if (object.active) {
+                activeIndex = index;
+            }
+        });
+        tools.brush.object = this.state.objects[activeIndex];
+
+        this.setState({ tools: tools });
+    }
+
+    onLayerChange(index, newLayer) {
+        let newLayers = this.state.layers;
+        newLayers[index] = newLayer;
+        this.setState({ layers: newLayers });
+    }
+
+    render() {
+        return (
+            <div id="App">
+                <EditingArea layers={this.state.layers} tools={this.state.tools} map={this.state.map} />
+                <TitleArea />
+                <ToolBarArea objects={this.state.objects} onObjectChange={this.onObjectChange} />
+                <PanelArea layers={this.state.layers} onLayerChange={this.onLayerChange} />
+                <div id="StatusBarArea"></div>
+            </div>
+        );
+    }
 }
 
 //const map = {

@@ -1,113 +1,68 @@
 import React from "react";
-import tile1 from "./assets/tileset/test1.png";
-import tile2 from "./assets/tileset/test2.png";
-import tile3 from "./assets/tileset/test3.png";
+import Tile from "./Editing/Tile";
 
 class ToolBarArea extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			select: null
-		};
-		this.buttons = [];
-	}
-
-	componentDidMount() {
-		//TODO
-		this.buttons.push();
-	}
-
-	componentDidUpdate() {
-		this.tools.brush.sprite = this.state.select;
-	}
-
-	//select(selection) {
-	//	this.state.select.selected = false;
-	//	selection.selected = true;
-	//	this.setState({ select: selection });
-	//}
-
-	render() {
-		return (
-			<div id="ToolBarArea">
-				<TileButton
-					tileset={tile1}
-					x={0}
-					y={0}
-					width={512}
-					height={512}
-					tools={this.props.tools}
-				/>
-				<TileButton
-					tileset={tile2}
-					x={0}
-					y={0}
-					width={512}
-					height={512}
-					tools={this.props.tools}
-				/>
-				<TileButton
-					tileset={tile3}
-					x={0}
-					y={0}
-					width={512}
-					height={512}
-					tools={this.props.tools}
-				/>
-			</div>
-		);
-	}
+    render() {
+        const objectsButtonsElements = this.props.objects.map((object, index) => {
+            return (
+                <TileButton
+                    objects={this.props.objects}
+                    object={object}
+                    onObjectChange={this.props.onObjectChange}
+                    key={index}
+                    index={index}
+                />
+            );
+        });
+        return <div id="ToolBarArea">{objectsButtonsElements}</div>;
+    }
 }
 
 class TileButton extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			selected: false,
-			tileset: props.tileset,
-			position: { x: props.x, y: props.y },
-			width: props.width,
-			height: props.height,
-			img: null
-		};
-		this.tools = this.props.tools;
-	}
+    constructor(props) {
+        super(props);
+        this.onSelect = this.onSelect.bind(this);
+        this.drawButton = this.drawButton.bind(this);
+    }
 
-	handleMouseDown() {
-		this.tools.brush.sprite = this.state.image;
-	}
+    onSelect() {
+        let objects = this.props.objects;
+        objects.forEach((object, i) => {
+            let newObject = new Tile(object.source, object.pos, object.relative);
+            newObject.active = this.props.index === i;
+            this.props.onObjectChange(newObject, i);
+        });
+    }
 
-	componentDidMount() {
-		this.refs.canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
+    componentDidUpdate() {
+        this.drawButton();
+    }
 
-		const ctx = this.refs.canvas.getContext("2d");
-		let img = new Image();
-		img.src = this.state.tileset;
-		img.onload = ctx.drawImage(
-			img,
-			this.state.position.x,
-			this.state.position.y,
-			this.state.width,
-			this.state.height,
-			0,
-			0,
-			50,
-			50
-		);
-		this.setState({
-			image: img
-		});
-	}
+    drawButton() {
+        const ctx = this.refs.canvas.getContext("2d");
+        const object = this.props.object;
 
-	render() {
-		return (
-			<div className="tileButton">
-				<button>
-					<canvas className="buttonCanvas" ref="canvas" width="50" height="50"></canvas>
-				</button>
-			</div>
-		);
-	}
+        ctx.drawImage(object.image, 0, 0, 50, 50);
+        if (this.props.object.active) {
+            ctx.clearRect(15, 15, 20, 20);
+        }
+    }
+
+    render() {
+        return (
+            <div className="tileButton">
+                <div>
+                    <canvas
+                        className="buttonCanvas"
+                        ref="canvas"
+                        width="50"
+                        height="50"
+                        onClick={this.onSelect}
+                    ></canvas>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default ToolBarArea;
