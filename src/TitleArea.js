@@ -4,6 +4,8 @@ import frame_cross from "./assets/frame/cross.svg";
 class TitleArea extends React.Component {
     constructor(props) {
         super(props);
+        this.onOpenMenu = this.onOpenMenu.bind(this);
+        this.onCloseMenu = this.onCloseMenu.bind(this);
         this.state = {
             title: "• This is a test.map",
             menu: [
@@ -23,6 +25,7 @@ class TitleArea extends React.Component {
                     ],
                 },
             ],
+            selected: null,
         };
     }
 
@@ -30,18 +33,53 @@ class TitleArea extends React.Component {
         alert("This button does nothing yet");
     }
 
+    onOpenMenu(index) {
+        if (this.state.selected != index) this.setState({ selected: index });
+    }
+
+    onCloseMenu() {
+        this.setState({ selected: null });
+    }
+
     render() {
         const menu = this.state.menu;
 
         let menuElement = menu.map((menu, index) => {
-            return (
-                <div className="container" key={index}>
-                    <span className="name">{menu.name}</span>
-                </div>
-            );
+            let OpenedMenuContent = null;
+            if (this.state.selected === index)
+                return (
+                    <div key={index}>
+                        <div className="background" onClick={this.onCloseMenu}></div>
+                        <div
+                            className="selectedContainer"
+                            onClick={() => {
+                                this.onOpenMenu(index);
+                            }}
+                            onMouseMove={() => {
+                                if (this.state.selected != null) this.onOpenMenu(index);
+                            }}
+                        >
+                            <span className="name">{menu.name}</span>
+                        </div>
+                    </div>
+                );
+            else
+                return (
+                    <div key={index}>
+                        <div
+                            className="container"
+                            onClick={() => {
+                                this.onOpenMenu(index);
+                            }}
+                            onMouseMove={() => {
+                                if (this.state.selected != null) this.onOpenMenu(index);
+                            }}
+                        >
+                            <span className="name">{menu.name}</span>
+                        </div>
+                    </div>
+                );
         });
-
-        console.log(menuElement);
 
         return (
             <div id="TitleArea">

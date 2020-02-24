@@ -64,8 +64,8 @@ body {
           align-items: center;
   -ms-flex-negative: 0;
       flex-shrink: 0;
-  padding-left: 50px;
-  padding-right: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 #TitleArea .menu .container {
@@ -84,6 +84,31 @@ body {
 
 #TitleArea .menu .container:hover {
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+#TitleArea .menu .selectedContainer {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  height: 30px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: whitesmoke;
+  color: #21252b;
+}
+
+#TitleArea .menu .background {
+  position: absolute;
+  top: 30px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 #TitleArea .title {

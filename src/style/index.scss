@@ -68,8 +68,8 @@ body {
         display: inline-flex;
         align-items: center;
         flex-shrink: 0;
-        padding-left: 50px;
-        padding-right: 50px;
+        margin-left: 50px;
+        margin-right: 50px;
         .container {
             flex-shrink: 0;
             height: 30px;
@@ -81,6 +81,24 @@ body {
             &:hover {
                 background-color: rgba(255, 255, 255, 0.2);
             }
+        }
+        .selectedContainer {
+            flex-shrink: 0;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            padding-left: 15px;
+            padding-right: 15px;
+            background-color: whitesmoke;
+            color: $themeColor1;
+        }
+        .background {
+            position: absolute;
+            top: 30px;
+            left: 0px;
+            bottom: 0px;
+            right: 0px;
+            background-color: rgba(0, 0, 0, 0.4);
         }
     }
     .title {
