@@ -6,7 +6,7 @@ _Project is work in progress_
 
 -   What is it ?
 
-I'm making a tile base map editor ([Tiled](www.mapeditor.org)-like) using reactjs and electronjs to make it a desktop and browser app.
+I'm making a tile base map editor ([Tiled](https://www.mapeditor.org/)-like) using reactjs and electronjs to make it a desktop and browser app.
 
 # Commands
 
