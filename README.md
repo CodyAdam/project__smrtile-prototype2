@@ -1,4 +1,4 @@
-# Try it at : https://codyadam.github.io/Editor/
+# Try it here : https://codyadam.github.io/Editor/
 
 _Project is work in progress_
 
