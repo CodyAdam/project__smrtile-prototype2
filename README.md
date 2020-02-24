@@ -1,23 +1,19 @@
-# Try at : https://codyadam.github.io/Editor/
-
-# TileMapEditor
+# Try it at : https://codyadam.github.io/Editor/
 
 _Project is work in progress_
 
+# Map Editor
+
 -   What is it ?
 
-I'm learning how to use ReactJs, and to do so I'm making a tile base map editor (like Tiled www.mapeditor.org) using reactjs and electronjs to make it a desktop app.
+I'm making a tile base map editor (like Tiled www.mapeditor.org) using reactjs and electronjs to make it a desktop and browser app.
 
-# Launch
+# Commands
 
-To start on `localhost:3000` use :
+-   Install dependencies : `npm install`
 
-```
-npm start
-```
+-   Start : `npm start`
 
-To start the electron app during dev (requier the node server to be up on the port 3000) use :
+-   Start with electron (during dev) : `npm run electron-dev`
 
-```
-npm run electron-dev
-```
+-   Start with electron : `npm run electron .`
