@@ -1,75 +1,68 @@
 import React from "react";
-import tileImg from "./assets/tileset/test.png";
+import Tile from "./Editing/Tile";
 
 class ToolBarArea extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			select: null
-		};
-
-		this.buttons = [];
-	}
-
-	componentDidMount() {
-		this.buttons.push();
-	}
-
-	//select(selection) {
-	//	this.state.select.selected = false;
-	//	selection.selected = true;
-	//	this.setState({ select: selection });
-	//}
-
-	render() {
-		return (
-			<div id="ToolBarArea">
-				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
-				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
-				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
-				<TileButton />
-				<TileButton />
-				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
-				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
-				<TileButton tileset={tileImg} x={0} y={0} width={236} height={236} />
-				<TileButton />
-				<TileButton />
-			</div>
-		);
-	}
+    render() {
+        const objectsButtonsElements = this.props.objects.map((object, index) => {
+            return (
+                <TileButton
+                    objects={this.props.objects}
+                    object={object}
+                    onObjectChange={this.props.onObjectChange}
+                    key={index}
+                    index={index}
+                />
+            );
+        });
+        return <div id="ToolBarArea">{objectsButtonsElements}</div>;
+    }
 }
 
 class TileButton extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			selected: false,
-			tileset: props.tileset,
-			position: { x: props.x, y: props.y },
-			width: props.width,
-			height: props.height
-		};
-	}
+    constructor(props) {
+        super(props);
+        this.onSelect = this.onSelect.bind(this);
+        this.drawButton = this.drawButton.bind(this);
+    }
 
-	componentDidMount() {
-		const ctx = this.refs.canvas.getContext("2d");
-		let img = new Image();
-		img.src = tileImg;
-		ctx.drawImage(img, 0, 0, 50, 50);
-		//ctx.clearRect(2, 2, 46, 46);
-	}
+    onSelect() {
+        let objects = this.props.objects;
+        objects.forEach((object, i) => {
+            let newObject = new Tile(object.source, object.pos, object.relative);
+            newObject.active = this.props.index === i;
+            this.props.onObjectChange(newObject, i);
+        });
+    }
 
-	render() {
-		return (
-			<div className="tileButton">
-				<button>
-					<canvas className="buttonCanvas" ref="canvas" width="50" height="50">
-						<img src={tileImg} alt="" width="50" height="50" />
-					</canvas>
-				</button>
-			</div>
-		);
-	}
+    componentDidUpdate() {
+        this.drawButton();
+    }
+
+    drawButton() {
+        const ctx = this.refs.canvas.getContext("2d");
+        const object = this.props.object;
+
+        ctx.drawImage(object.image, 0, 0, 50, 50);
+        if (this.props.object.active) {
+            ctx.clearRect(15, 15, 20, 20);
+        }
+    }
+
+    render() {
+        return (
+            <div className="tileButton">
+                <div>
+                    <canvas
+                        className="buttonCanvas"
+                        ref="canvas"
+                        width="50"
+                        height="50"
+                        onClick={this.onSelect}
+                    ></canvas>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default ToolBarArea;

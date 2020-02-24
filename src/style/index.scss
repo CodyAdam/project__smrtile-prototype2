@@ -18,147 +18,212 @@ $themeColor3: #111111;
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
-	overflow: hidden;
-	user-select: none;
+    box-sizing: border-box;
+    overflow: hidden;
+    user-select: none;
 }
 
 body {
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-		"Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+        "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 #App {
-	display: grid;
-	height: 100vh;
-	grid-template-rows: 30px 70px 1fr 25px;
-	grid-template-columns: 1fr 300px;
-	grid-template-areas:
-		"TitleArea       	TitleArea"
-		"ToolBarArea   		ToolBarArea"
-		"EditingArea     	PanelArea"
-		"StatusBarArea      StatusBarArea";
+    display: grid;
+    height: 100vh;
+    grid-template-rows: 30px 70px 1fr 25px;
+    grid-template-columns: 1fr 300px;
+    grid-template-areas:
+        "TitleArea       	TitleArea"
+        "ToolBarArea   		ToolBarArea"
+        "EditingArea     	PanelArea"
+        "StatusBarArea      StatusBarArea";
 }
 
 #EditingArea {
-	grid-area: EditingArea;
-	background-color: $backgroundColor;
-	div {
-		z-index: -10;
-	}
+    grid-area: EditingArea;
+    background-color: $backgroundColor;
+    div {
+        z-index: -10;
+    }
 }
 
 #TitleArea {
-	grid-area: TitleArea;
-	background-color: $themeColor1;
-	z-index: 10;
-	-webkit-app-region: drag;
-	.drag {
-		position: absolute; //TODO FIX SIZE = 0
-		grid-area: TitleArea;
-		-webkit-app-region: drag;
-		padding: 3px 3px 3px 0;
-	}
-	.title {
-		color: $fontColor;
-		padding: 4px;
-		margin: 0;
-		text-align: center;
-		width: 100%;
-	}
-	.iconContainer {
-		position: absolute;
-		height: 30px;
-		right: 0;
-		top: 0;
-		width: 135px;
-		-webkit-app-region: no-drag;
-		img {
-			width: 45px;
-			padding: 10px 17.5px 10px 17.5px;
-			height: 30px;
-		}
-		img:hover {
-			background-color: $myRed;
-		}
-	}
+    grid-area: TitleArea;
+    background-color: $themeColor1;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    // .drag {
+    //     position: absolute; //TODO FIX SIZE = 0
+    //     grid-area: TitleArea;
+    //     -webkit-app-region: drag;
+    //     padding: 3px 3px 3px 0;
+    // }
+    .menu {
+        color: $fontColor;
+        display: inline-flex;
+        align-items: center;
+        flex-shrink: 0;
+        margin-left: 50px;
+        margin-right: 50px;
+        .container {
+            flex-shrink: 0;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            padding-left: 15px;
+            padding-right: 15px;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+        }
+        .selectedContainer {
+            flex-shrink: 0;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            padding-left: 15px;
+            padding-right: 15px;
+            background-color: whitesmoke;
+            color: $themeColor1;
+
+            .subMenu {
+                display: flex;
+                flex-direction: column;
+
+                position: absolute;
+                left: 50px;
+                top: 30px;
+                .subContainer {
+                    padding: 10px 60px 10px 25px;
+                    color: $themeColor1;
+                    background-color: whitesmoke;
+                    &:hover {
+                        color: whitesmoke;
+                        background-color: rgb(118, 138, 248);
+                    }
+                }
+            }
+        }
+        .background {
+            position: absolute;
+            top: 30px;
+            left: 0px;
+            bottom: 0px;
+            right: 0px;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+    }
+    .title {
+        color: $fontColor;
+        flex-grow: 1;
+        margin: 0;
+        text-align: center;
+        width: 100%;
+    }
+    .iconContainer {
+        display: inline-flex;
+        align-items: center;
+        -webkit-app-region: no-drag;
+        flex-shrink: 0;
+        img {
+            width: 45px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            height: 30px;
+            &:hover {
+                background-color: $myRed;
+            }
+        }
+    }
 }
 
 #ToolBarArea {
-	grid-area: ToolBarArea;
-	background-color: $themeColor2;
+    grid-area: ToolBarArea;
+    background-color: $themeColor2;
 
-	display: flex;
-	flex-direction: row;
+    display: flex;
+    flex-direction: row;
 
-	.tileButton {
-		height: 70px;
-		width: 70px;
-		padding: 10px;
-		button {
-			height: 50px;
-			width: 50px;
-			border: none;
-			background-color: transparent;
-			border-radius: 8px;
-			box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.2),
-				0px 0px 10px 3px rgba(253, 253, 253, 0.07) inset;
-			padding: 0;
-		}
-	}
+    .tileButton {
+        height: 70px;
+        width: 70px;
+        padding: 10px;
+        div {
+            height: 50px;
+            width: 50px;
+            border: none;
+            background-color: transparent;
+            border-radius: 8px;
+            padding: 0;
+        }
+    }
 }
 
 #PanelArea {
-	grid-area: PanelArea;
-	background-color: $themeColor2;
+    grid-area: PanelArea;
+    background-color: $themeColor2;
 
-	width: 100%;
-	flex-flow: column;
-	color: $fontColor;
+    width: 100%;
+    flex-flow: column;
+    color: $fontColor;
 
-	.header {
-		height: 25px;
-		h1 {
-			height: 25px;
-			text-align: center;
-			font-size: 1em;
-			margin: 0;
-			background-color: $themeColor1;
-			color: $fontColor;
-		}
-	}
-	.body {
-		h2 {
-			margin: 8px;
-			font-size: 0.8em;
-			line-height: 20px;
-		}
-		p {
-			margin: 8px;
-			font-size: 0.7em;
-			line-height: 20px;
-		}
-	}
-	.layer {
-		background-color: rgb(39, 39, 41);
-		height: 40px;
-		margin: 10px;
-		border-radius: 6px;
-		.layerName {
-			display: inline;
-			margin: 0;
-			text-align: center;
-		}
-		img {
-			height: 80%;
-		}
-	}
+    .header {
+        height: 25px;
+        h1 {
+            height: 25px;
+            text-align: center;
+            font-size: 1em;
+            margin: 0;
+            background-color: $themeColor1;
+            color: $fontColor;
+        }
+    }
+    .body {
+        h2 {
+            margin: 8px;
+            font-size: 0.8em;
+            line-height: 20px;
+        }
+        p {
+            margin: 8px;
+            font-size: 0.7em;
+            line-height: 20px;
+        }
+    }
+    .layer {
+        background-color: rgb(39, 39, 41);
+        height: 40px;
+        margin: 10px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        .text-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            height: 100%;
+            .layerName {
+                margin: 0;
+                text-overflow: ellipsis;
+                max-width: 200px;
+                white-space: nowrap;
+            }
+        }
+        img {
+            margin: 5px;
+            height: 70%;
+        }
+    }
 }
 
 #StatusBarArea {
-	grid-area: StatusBarArea;
-	background-color: $themeColor3;
+    grid-area: StatusBarArea;
+    background-color: $themeColor3;
 }
