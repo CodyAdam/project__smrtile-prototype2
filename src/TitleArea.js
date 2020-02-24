@@ -6,6 +6,7 @@ class TitleArea extends React.Component {
         super(props);
         this.onOpenMenu = this.onOpenMenu.bind(this);
         this.onCloseMenu = this.onCloseMenu.bind(this);
+        this.testFunction = this.testFunction.bind(this);
         this.state = {
             title: "• This is a test.map",
             menu: [
@@ -31,10 +32,30 @@ class TitleArea extends React.Component {
 
     testFunction() {
         alert("This button does nothing yet");
+        this.onCloseMenu();
+    }
+
+    componentDidMount() {
+        window.addEventListener("keydown", (event) => {
+            if (event.ctrlKey || event.metaKey) {
+                switch (String.fromCharCode(event.which).toLowerCase()) {
+                    case "s":
+                        event.preventDefault();
+                        alert("ctrl-s");
+                        break;
+                    case "f":
+                        event.preventDefault();
+                        alert("ctrl-f");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
     onOpenMenu(index) {
-        if (this.state.selected != index) this.setState({ selected: index });
+        if (this.state.selected !== index) this.setState({ selected: index });
     }
 
     onCloseMenu() {
@@ -43,10 +64,20 @@ class TitleArea extends React.Component {
 
     render() {
         const menu = this.state.menu;
+        const selected = this.state.selected;
+
+        let subMenuElement = null;
+        if (selected !== null)
+            subMenuElement = menu[selected].subMenu.map((subMenu, index) => {
+                return (
+                    <div key={index} className="subContainer" onClick={subMenu.function}>
+                        {subMenu.name}
+                    </div>
+                );
+            });
 
         let menuElement = menu.map((menu, index) => {
-            let OpenedMenuContent = null;
-            if (this.state.selected === index)
+            if (selected === index)
                 return (
                     <div key={index}>
                         <div className="background" onClick={this.onCloseMenu}></div>
@@ -56,10 +87,11 @@ class TitleArea extends React.Component {
                                 this.onOpenMenu(index);
                             }}
                             onMouseMove={() => {
-                                if (this.state.selected != null) this.onOpenMenu(index);
+                                if (selected != null) this.onOpenMenu(index);
                             }}
                         >
                             <span className="name">{menu.name}</span>
+                            <div className="subMenu">{subMenuElement}</div>
                         </div>
                     </div>
                 );
@@ -72,7 +104,7 @@ class TitleArea extends React.Component {
                                 this.onOpenMenu(index);
                             }}
                             onMouseMove={() => {
-                                if (this.state.selected != null) this.onOpenMenu(index);
+                                if (selected != null) this.onOpenMenu(index);
                             }}
                         >
                             <span className="name">{menu.name}</span>

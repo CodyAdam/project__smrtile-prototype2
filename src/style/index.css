@@ -102,13 +102,37 @@ body {
   color: #21252b;
 }
 
+#TitleArea .menu .selectedContainer .subMenu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  left: 50px;
+  top: 30px;
+}
+
+#TitleArea .menu .selectedContainer .subMenu .subContainer {
+  padding: 10px 60px 10px 25px;
+  color: #21252b;
+  background-color: whitesmoke;
+}
+
+#TitleArea .menu .selectedContainer .subMenu .subContainer:hover {
+  color: whitesmoke;
+  background-color: #768af8;
+}
+
 #TitleArea .menu .background {
   position: absolute;
   top: 30px;
   left: 0px;
   bottom: 0px;
   right: 0px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 #TitleArea .title {
@@ -171,8 +195,6 @@ body {
   border: none;
   background-color: transparent;
   border-radius: 8px;
-  -webkit-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.2), 0px 0px 10px 3px rgba(253, 253, 253, 0.07) inset;
-          box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.2), 0px 0px 10px 3px rgba(253, 253, 253, 0.07) inset;
   padding: 0;
 }
 
