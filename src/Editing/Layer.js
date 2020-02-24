@@ -1,4 +1,4 @@
-import Tile, { GridTile } from "./Tile";
+import Tile from "./Tile";
 
 export class Layer {
     constructor(name, width, height) {
@@ -57,70 +57,5 @@ export class Layer {
 
     static getActive(layers) {
         for (let i = 0; i < layers.length; i++) if (layers[i].active) return layers[i];
-    }
-}
-
-export class Grid extends Layer {
-    constructor(width, height) {
-        super("Grid", width + 1, height + 1);
-        this.active = false;
-        this.layout = Grid.initGrid(this.width, this.height);
-        this.useDot = false;
-        this.color = "grey";
-        this.opacity = 0.4;
-        this.dotSize = 0.12;
-        this.crossSize = 0.05;
-    }
-
-    set useDot(value) {
-        this.layout.forEach((subTab) => {
-            subTab.forEach((gridTile) => {
-                gridTile.useDot = value;
-            });
-        });
-    }
-
-    set color(value) {
-        this.layout.forEach((subTab) => {
-            subTab.forEach((gridTile) => {
-                gridTile.color = value;
-            });
-        });
-    }
-
-    set opacity(value) {
-        this.layout.forEach((subTab) => {
-            subTab.forEach((gridTile) => {
-                gridTile.opacity = value;
-            });
-        });
-    }
-
-    set dotSize(value) {
-        this.layout.forEach((subTab) => {
-            subTab.forEach((gridTile) => {
-                gridTile.dotSize = value;
-            });
-        });
-    }
-
-    set crossSize(value) {
-        this.layout.forEach((subTab) => {
-            subTab.forEach((gridTile) => {
-                gridTile.crossSize = value;
-            });
-        });
-    }
-
-    static initGrid(width, height) {
-        let grid;
-        grid = new Array(width);
-        for (let x = 0; x < grid.length; x++) {
-            grid[x] = new Array(height);
-            for (let y = 0; y < grid[x].length; y++) {
-                grid[x][y] = new GridTile({ x: x, y: y });
-            }
-        }
-        return grid;
     }
 }

@@ -1,9 +1,12 @@
 import React from "react";
 import Tool from "./Tools/Tool";
 
+import gridPath from "../assets/grid/grid-dot.svg";
+
 class EditingArea extends React.Component {
     constructor(props) {
         super(props);
+        this.updateGrid = this.updateGrid.bind(this);
         this.state = {
             container: {
                 div: null,
@@ -39,11 +42,6 @@ class EditingArea extends React.Component {
         canvas.addEventListener("mouseup", this.handleMouseUp.bind(this));
         canvas.addEventListener("mouseleave", this.handleMouseLeave.bind(this));
 
-        //disable right click menu
-        document.oncontextmenu = function() {
-            return false;
-        };
-
         let container = this.state.container;
         container.canvas = canvas;
         container.div = this.refs.div;
@@ -53,10 +51,20 @@ class EditingArea extends React.Component {
         this.onStart();
     }
 
+    updateGrid() {
+        const div = this.state.container.div;
+        const grid = this.state.grid;
+        console.log("daw");
+
+        div.style.backgroundSize = grid.size + "px";
+        div.style.backgroundPosition = grid.offset.x + "px " + grid.offset.y + "px";
+    }
+
     onStart() {
         let map = this.state.map;
         let grid = this.state.grid;
         const div = this.refs.div;
+        div.style.backgroundImage = "url(" + gridPath + ")";
 
         grid.offset = {
             x: Math.round(div.offsetWidth / 2 - (map.width * this.state.grid.size) / 2),
@@ -69,6 +77,7 @@ class EditingArea extends React.Component {
 
     componentDidUpdate() {
         this.updateLayers();
+        this.updateGrid();
     }
 
     updateLayers() {
