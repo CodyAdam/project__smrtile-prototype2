@@ -18,8 +18,8 @@ import source3 from "./assets/tileset/test3.png";
 
 class App extends React.Component {
     constructor(props) {
-        document.oncontextmenu = () => {
-            return false; //disable right click menu
+        document.oncontextmenu = (e) => {
+            e.preventDefault();
         };
         super(props);
         this.onObjectChange = this.onObjectChange.bind(this);

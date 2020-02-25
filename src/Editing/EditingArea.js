@@ -1,12 +1,10 @@
 import React from "react";
 import Tool from "./Tools/Tool";
-
-import gridPath from "../assets/grid/grid-dot.svg";
+import Grid from "./Grid";
 
 class EditingArea extends React.Component {
     constructor(props) {
         super(props);
-        this.updateGrid = this.updateGrid.bind(this);
         this.state = {
             container: {
                 div: null,
@@ -51,20 +49,10 @@ class EditingArea extends React.Component {
         this.onStart();
     }
 
-    updateGrid() {
-        const div = this.state.container.div;
-        const grid = this.state.grid;
-        console.log("daw");
-
-        div.style.backgroundSize = grid.size + "px";
-        div.style.backgroundPosition = grid.offset.x + "px " + grid.offset.y + "px";
-    }
-
     onStart() {
         let map = this.state.map;
         let grid = this.state.grid;
         const div = this.refs.div;
-        div.style.backgroundImage = "url(" + gridPath + ")";
 
         grid.offset = {
             x: Math.round(div.offsetWidth / 2 - (map.width * this.state.grid.size) / 2),
@@ -77,7 +65,6 @@ class EditingArea extends React.Component {
 
     componentDidUpdate() {
         this.updateLayers();
-        this.updateGrid();
     }
 
     updateLayers() {
@@ -124,8 +111,9 @@ class EditingArea extends React.Component {
     }
 
     handleMouseDown(e) {
-        Tool.getActive(this.tools).onMouseDown(e, this.state, this.state.layers);
-        this.tools.camera.onMouseDown(e);
+        e.preventDefault();
+        if (e.which === 2) this.tools.camera.onMouseDown(e);
+        else Tool.getActive(this.tools).onMouseDown(e, this.state, this.state.layers);
         this.updateLayers();
     }
     handleMouseUp(e) {
@@ -145,6 +133,7 @@ class EditingArea extends React.Component {
         return (
             <div id="EditingArea" ref="div">
                 <canvas ref="canvas"></canvas>
+                <Grid grid={this.state.grid} container={this.state.container} map={this.state.map} />
             </div>
         );
     }
