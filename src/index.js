@@ -28,10 +28,10 @@ class App extends React.Component {
 
         this.state = {
             map: {
-                width: 15,
-                height: 20,
+                width: 400,
+                height: 350,
             },
-            layers: [new Layer("layer 1", 15, 20), new Layer("layer 2", 15, 20), new Layer("layer 3", 15, 20)],
+            layers: [new Layer("layer 1", 400, 350), new Layer("layer 2", 400, 350), new Layer("layer 3", 400, 350)],
             objects: [
                 new Tile(source1, 0, 0, 512, 512),
                 new Tile(source2, 0, 0, 512, 512),

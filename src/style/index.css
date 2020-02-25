@@ -48,7 +48,7 @@ body {
   -ms-grid-column-span: 2;
   grid-area: TitleArea;
   background-color: #21252b;
-  z-index: 10;
+  z-index: 11;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;

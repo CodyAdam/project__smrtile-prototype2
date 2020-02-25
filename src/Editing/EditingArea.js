@@ -15,7 +15,7 @@ class EditingArea extends React.Component {
             },
             grid: {
                 size: 50,
-                minSize: 3,
+                minSize: 1,
                 maxSize: 300,
                 offset: { x: 0, y: 0 },
             },
