@@ -8,6 +8,7 @@ export default class EditingArea extends React.Component {
             div: null,
             image: gridPath,
             outlineOffset: 0.5,
+            opacity: 0.2,
         };
     }
 
@@ -26,6 +27,7 @@ export default class EditingArea extends React.Component {
 
         const outlineOffset = this.state.outlineOffset * grid.size;
 
+        div.style.opacity = this.state.opacity;
         div.style.backgroundSize = grid.size + "px";
         div.style.backgroundPosition = outlineOffset + "px " + outlineOffset + "px";
         div.style.left = grid.offset.x + container.offset.x - outlineOffset + "px";

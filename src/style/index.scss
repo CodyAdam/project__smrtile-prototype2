@@ -48,7 +48,7 @@ body {
     background-color: $backgroundColor;
     z-index: 0;
     .grid {
-        outline: 4px dotted rgba(255, 0, 0, 0.274);
+        outline: 4px dotted rgb(255, 0, 149);
         position: absolute;
         z-index: -1;
     }
