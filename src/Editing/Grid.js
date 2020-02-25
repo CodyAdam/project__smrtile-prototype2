@@ -7,6 +7,7 @@ export default class EditingArea extends React.Component {
         this.state = {
             div: null,
             image: gridPath,
+            outlineOffset: 0.5,
         };
     }
 
@@ -23,15 +24,15 @@ export default class EditingArea extends React.Component {
         const container = this.props.container;
         const map = this.props.map;
 
+        const outlineOffset = this.state.outlineOffset * grid.size;
+
         div.style.backgroundSize = grid.size + "px";
-        div.style.left = grid.offset.x + container.offset.x + "px";
-        div.style.top = grid.offset.y + container.offset.y + "px ";
+        div.style.backgroundPosition = outlineOffset + "px " + outlineOffset + "px";
+        div.style.left = grid.offset.x + container.offset.x - outlineOffset + "px";
+        div.style.top = grid.offset.y + container.offset.y - outlineOffset + "px ";
 
-        let width = map.width * grid.size;
-        let height = map.height * grid.size;
-
-        div.style.width = width + "px";
-        div.style.height = height + "px";
+        div.style.width = map.width * grid.size + 2 * outlineOffset + "px";
+        div.style.height = map.height * grid.size + 2 * outlineOffset + "px";
     }
 
     render() {
