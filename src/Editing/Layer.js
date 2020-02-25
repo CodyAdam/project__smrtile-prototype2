@@ -65,7 +65,7 @@ export class Grid extends Layer {
         super("Grid", width + 1, height + 1);
         this.active = false;
         this.layout = Grid.initGrid(this.width, this.height);
-        this.useDot = false;
+        this.useDot = true;
         this.color = "grey";
         this.opacity = 0.4;
         this.dotSize = 0.12;
