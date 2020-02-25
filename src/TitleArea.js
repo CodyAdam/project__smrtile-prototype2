@@ -8,7 +8,7 @@ class TitleArea extends React.Component {
         this.onCloseMenu = this.onCloseMenu.bind(this);
         this.testFunction = this.testFunction.bind(this);
         this.state = {
-            title: "• This is a test.map",
+            title: "• This is a test This is a test This is a test.map",
             menu: [
                 {
                     name: "File",
@@ -90,8 +90,8 @@ class TitleArea extends React.Component {
                                 if (selected != null) this.onOpenMenu(index);
                             }}
                         >
-                            <span className="name">{menu.name}</span>
                             <div className="subMenu">{subMenuElement}</div>
+                            <span className="name">{menu.name}</span>
                         </div>
                     </div>
                 );

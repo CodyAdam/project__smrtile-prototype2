@@ -90,17 +90,18 @@ body {
             height: 30px;
             display: inline-flex;
             align-items: center;
-            padding-left: 15px;
-            padding-right: 15px;
             background-color: whitesmoke;
-            color: $themeColor1;
-
+            .name {
+                color: $themeColor1;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
             .subMenu {
                 display: flex;
                 flex-direction: column;
 
                 position: absolute;
-                left: 50px;
+                left: inherit;
                 top: 30px;
                 .subContainer {
                     padding: 10px 60px 10px 25px;
@@ -123,6 +124,8 @@ body {
         }
     }
     .title {
+        white-space: nowrap;
+        text-overflow: ellipsis;
         color: $fontColor;
         flex-grow: 1;
         margin: 0;
