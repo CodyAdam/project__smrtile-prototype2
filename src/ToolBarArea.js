@@ -34,6 +34,10 @@ class TileButton extends React.Component {
         });
     }
 
+    componentDidMount() {
+        this.props.object.image.onload = this.drawButton();
+    }
+
     componentDidUpdate() {
         this.drawButton();
     }
