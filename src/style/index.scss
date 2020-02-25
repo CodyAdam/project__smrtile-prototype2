@@ -181,30 +181,39 @@ body {
     flex-flow: column;
     color: $fontColor;
 
+    .propertiesPanel {
+        .slider {
+            cursor: ns-resize;
+            height: 5px;
+            background-color: rgb(70, 75, 74);
+        }
+        .body {
+            padding: 20px;
+            h2 {
+                margin: 0;
+                font-size: 0.8em;
+                line-height: 20px;
+            }
+            p {
+                margin: 0;
+                font-size: 0.7em;
+                line-height: 20px;
+            }
+        }
+    }
+
     .header {
         height: 25px;
-        h1 {
-            height: 25px;
-            text-align: center;
-            font-size: 1em;
-            margin: 0;
-            background-color: $themeColor1;
-            color: $fontColor;
-        }
+        height: 25px;
+        text-align: center;
+        font-size: 1em;
+        margin: 0;
+        background-color: $themeColor1;
+        color: $fontColor;
     }
-    .body {
-        h2 {
-            margin: 8px;
-            font-size: 0.8em;
-            line-height: 20px;
-        }
-        p {
-            margin: 8px;
-            font-size: 0.7em;
-            line-height: 20px;
-        }
-    }
+
     .layer {
+        cursor: pointer;
         background-color: rgb(39, 39, 41);
         height: 40px;
         margin: 10px;

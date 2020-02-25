@@ -221,11 +221,30 @@ body {
   color: #f3f3f3;
 }
 
-#PanelArea .header {
-  height: 25px;
+#PanelArea .propertiesPanel .slider {
+  cursor: ns-resize;
+  height: 5px;
+  background-color: #464b4a;
 }
 
-#PanelArea .header h1 {
+#PanelArea .propertiesPanel .body {
+  padding: 20px;
+}
+
+#PanelArea .propertiesPanel .body h2 {
+  margin: 0;
+  font-size: 0.8em;
+  line-height: 20px;
+}
+
+#PanelArea .propertiesPanel .body p {
+  margin: 0;
+  font-size: 0.7em;
+  line-height: 20px;
+}
+
+#PanelArea .header {
+  height: 25px;
   height: 25px;
   text-align: center;
   font-size: 1em;
@@ -234,19 +253,8 @@ body {
   color: #f3f3f3;
 }
 
-#PanelArea .body h2 {
-  margin: 8px;
-  font-size: 0.8em;
-  line-height: 20px;
-}
-
-#PanelArea .body p {
-  margin: 8px;
-  font-size: 0.7em;
-  line-height: 20px;
-}
-
 #PanelArea .layer {
+  cursor: pointer;
   background-color: #272729;
   height: 40px;
   margin: 10px;

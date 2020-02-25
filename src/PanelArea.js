@@ -28,21 +28,26 @@ class PropertiesPanel extends React.Component {
         this.state = {
             panelName: "Information",
             title: "How to use",
-            description:
-                "Left Click : Place blocks / Right Click : Delete blocks / Middle Click : Pan the camera / Mouse Wheel : Zoom",
+            size: "200px",
         };
     }
+
+    changePanelSize(newSize) {
+        this.setState({ size: newSize });
+    }
+
     render() {
-        //TODO faire un sous component qui correspondqu differents objet du panel
         return (
             <div className="propertiesPanel">
-                <div className="header">
-                    <h1>{this.state.panelName}</h1>
-                </div>
-                <div className="body">
+                <div className="header">{this.state.panelName}</div>
+                <div className="body" style={{ height: this.state.size }}>
                     <h2>{this.state.title}</h2>
-                    <p>{this.state.description}</p>
+                    <p> Left Click : Place blocks</p>
+                    <p> Right Click : Delete blocks</p>
+                    <p> Middle Click : Pan the camera</p>
+                    <p> Mouse Wheel : Zoom</p>
                 </div>
+                <div className="slider"></div>
             </div>
         );
     }
@@ -71,9 +76,7 @@ class LayersPanel extends React.Component {
 
         return (
             <div className="layersPanel">
-                <div className="header">
-                    <h1>{this.state.panelName}</h1>
-                </div>
+                <div className="header">{this.state.panelName}</div>
                 <div className="layersList">{layersElements}</div>
             </div>
         );
