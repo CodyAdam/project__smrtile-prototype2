@@ -33,14 +33,13 @@ body {
   -ms-grid-column: 1;
   grid-area: EditingArea;
   background-color: #f3f3f3;
-  z-index: 1;
+  z-index: 0;
 }
 
 #EditingArea .grid {
-  outline: 4px dotted blue;
+  outline: 4px dotted rgba(255, 0, 0, 0.274);
   position: absolute;
   z-index: -1;
-  opacity: 0.6;
 }
 
 #TitleArea {
@@ -173,6 +172,7 @@ body {
 }
 
 #ToolBarArea {
+  z-index: 10;
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
@@ -203,6 +203,7 @@ body {
 }
 
 #PanelArea {
+  z-index: 10;
   -ms-grid-row: 3;
   -ms-grid-column: 2;
   grid-area: PanelArea;
@@ -282,6 +283,7 @@ body {
 }
 
 #StatusBarArea {
+  z-index: 10;
   -ms-grid-row: 4;
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
