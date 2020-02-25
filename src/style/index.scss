@@ -46,15 +46,18 @@ body {
 #EditingArea {
     grid-area: EditingArea;
     background-color: $backgroundColor;
-    div {
-        z-index: -10;
+    z-index: 0;
+    .grid {
+        outline: 4px dotted rgba(255, 0, 0, 0.274);
+        position: absolute;
+        z-index: -1;
     }
 }
 
 #TitleArea {
     grid-area: TitleArea;
     background-color: $themeColor1;
-    z-index: 10;
+    z-index: 11;
     display: inline-flex;
     align-items: center;
     // .drag {
@@ -144,6 +147,7 @@ body {
 }
 
 #ToolBarArea {
+    z-index: 10;
     grid-area: ToolBarArea;
     background-color: $themeColor2;
 
@@ -166,6 +170,7 @@ body {
 }
 
 #PanelArea {
+    z-index: 10;
     grid-area: PanelArea;
     background-color: $themeColor2;
 
@@ -224,6 +229,7 @@ body {
 }
 
 #StatusBarArea {
+    z-index: 10;
     grid-area: StatusBarArea;
     background-color: $themeColor3;
 }

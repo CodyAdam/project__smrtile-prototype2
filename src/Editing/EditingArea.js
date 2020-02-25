@@ -1,5 +1,6 @@
 import React from "react";
 import Tool from "./Tools/Tool";
+import Grid from "./Grid";
 
 class EditingArea extends React.Component {
     constructor(props) {
@@ -14,7 +15,7 @@ class EditingArea extends React.Component {
             },
             grid: {
                 size: 50,
-                minSize: 3,
+                minSize: 1,
                 maxSize: 300,
                 offset: { x: 0, y: 0 },
             },
@@ -38,11 +39,6 @@ class EditingArea extends React.Component {
         canvas.addEventListener("mousemove", this.handleMouseMove.bind(this));
         canvas.addEventListener("mouseup", this.handleMouseUp.bind(this));
         canvas.addEventListener("mouseleave", this.handleMouseLeave.bind(this));
-
-        //disable right click menu
-        document.oncontextmenu = function() {
-            return false;
-        };
 
         let container = this.state.container;
         container.canvas = canvas;
@@ -115,8 +111,9 @@ class EditingArea extends React.Component {
     }
 
     handleMouseDown(e) {
-        Tool.getActive(this.tools).onMouseDown(e, this.state, this.state.layers);
-        this.tools.camera.onMouseDown(e);
+        e.preventDefault();
+        if (e.which === 2) this.tools.camera.onMouseDown(e);
+        else Tool.getActive(this.tools).onMouseDown(e, this.state, this.state.layers);
         this.updateLayers();
     }
     handleMouseUp(e) {
@@ -136,6 +133,7 @@ class EditingArea extends React.Component {
         return (
             <div id="EditingArea" ref="div">
                 <canvas ref="canvas"></canvas>
+                <Grid grid={this.state.grid} container={this.state.container} map={this.state.map} />
             </div>
         );
     }

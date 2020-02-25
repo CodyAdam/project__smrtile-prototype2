@@ -7,7 +7,7 @@ import PanelArea from "./PanelArea";
 import TitleArea from "./TitleArea";
 import ToolBarArea from "./ToolBarArea";
 
-import { Layer, Grid } from "./Editing/Layer";
+import { Layer } from "./Editing/Layer";
 import Camera from "./Editing/Tools/Camera";
 import Brush from "./Editing/Tools/Brush";
 import Tile from "./Editing/Tile";
@@ -18,6 +18,9 @@ import source3 from "./assets/tileset/test3.png";
 
 class App extends React.Component {
     constructor(props) {
+        document.oncontextmenu = (e) => {
+            e.preventDefault();
+        };
         super(props);
         this.onObjectChange = this.onObjectChange.bind(this);
         this.onLayerChange = this.onLayerChange.bind(this);
@@ -28,12 +31,8 @@ class App extends React.Component {
                 width: 400,
                 height: 350,
             },
-            layers: [
-                new Layer("layer 1", 400, 350),
-                new Layer("layer 2", 400, 350),
-                new Layer("layer 3", 400, 350),
-                new Grid(400, 350),
-            ],
+            layers: [new Layer("layer 1", 400, 350), new Layer("layer 2", 400, 350), new Layer("layer 3", 400, 350)],
+
             objects: [
                 new Tile(source1, 0, 0, 512, 512),
                 new Tile(source2, 0, 0, 512, 512),
@@ -42,7 +41,7 @@ class App extends React.Component {
             tools: { brush: new Brush(), camera: new Camera() },
         };
 
-        //TODO make the grid as css background
+        //TODO make map border
     }
 
     componentDidMount() {
