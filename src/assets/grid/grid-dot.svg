@@ -3,7 +3,7 @@
 <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
 <style type="text/css">
-	.st0{opacity:0.2;fill-rule:evenodd;clip-rule:evenodd;fill:#212123;enable-background:new    ;}
+	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#1B1B1E;enable-background:new    ;}
 </style>
 <path class="st0" d="M5.1,0c0,1.4-0.6,2.7-1.5,3.6S1.4,5.1,0,5.1V0H5.1z"/>
 <path class="st0" d="M100,0v5.1c-2.8,0-5.1-2.3-5.1-5.1H100z"/>
