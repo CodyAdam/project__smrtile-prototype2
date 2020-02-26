@@ -20,11 +20,6 @@ class EditingArea extends React.Component {
                 offset: { x: 0, y: 0 },
             },
             map: this.props.map,
-            click: {
-                left: false,
-                middle: false,
-                right: false,
-            },
             layers: props.layers,
         };
         this.tools = this.props.tools;
@@ -40,16 +35,15 @@ class EditingArea extends React.Component {
         canvas.addEventListener("mouseup", this.handleMouseUp.bind(this));
         canvas.addEventListener("mouseleave", this.handleMouseLeave.bind(this));
 
+        canvas.getContext("2d").rect(50, 50, 50, 50);
+
         let container = this.state.container;
         container.canvas = canvas;
         container.div = this.refs.div;
         this.setState({ container: container });
 
         this.handleResize();
-        this.onStart();
-    }
 
-    onStart() {
         let map = this.state.map;
         let grid = this.state.grid;
         const div = this.refs.div;

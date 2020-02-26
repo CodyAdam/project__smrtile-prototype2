@@ -168,23 +168,25 @@ body {
         background-color: $backgroundColor;
         z-index: 0;
         .grid {
-            outline: 4px dotted rgb(255, 0, 149);
+            outline: 4px dotted rgb(0, 0, 0);
             position: absolute;
             z-index: -1;
         }
     }
 
     .slider {
-        cursor: ns-resize;
-        width: 5px;
-        background-color: rgb(255, 73, 73);
+        z-index: 0;
+        cursor: ew-resize;
+        width: 3px;
+        flex-shrink: 0;
+        background-color: rgb(31, 31, 31);
     }
 
     #PanelArea {
         z-index: 10;
+        flex-shrink: 0;
         background-color: $themeColor2;
 
-        width: 400px;
         flex-flow: column;
         color: $fontColor;
 
@@ -216,18 +218,19 @@ body {
 
         .layer {
             cursor: pointer;
-            background-color: rgb(39, 39, 41);
             height: 40px;
             margin: 10px;
             border-radius: 6px;
+
             display: flex;
             align-items: center;
             .text-container {
+                flex-grow: 1;
+                height: 100%;
+
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                flex-grow: 1;
-                height: 100%;
                 .layerName {
                     margin: 0;
                     text-overflow: ellipsis;

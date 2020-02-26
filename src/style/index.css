@@ -209,21 +209,25 @@ body {
 }
 
 #MiddleArea #EditingArea .grid {
-  outline: 4px dotted #ff0095;
+  outline: 4px dotted black;
   position: absolute;
   z-index: -1;
 }
 
 #MiddleArea .slider {
-  cursor: ns-resize;
-  width: 5px;
-  background-color: #ff4949;
+  z-index: 0;
+  cursor: ew-resize;
+  width: 3px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  background-color: #1f1f1f;
 }
 
 #MiddleArea #PanelArea {
   z-index: 10;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   background-color: #181a1f;
-  width: 400px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-flow: column;
@@ -259,7 +263,6 @@ body {
 
 #MiddleArea #PanelArea .layer {
   cursor: pointer;
-  background-color: #272729;
   height: 40px;
   margin: 10px;
   border-radius: 6px;
@@ -272,6 +275,10 @@ body {
 }
 
 #MiddleArea #PanelArea .layer .text-container {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -281,10 +288,6 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  height: 100%;
 }
 
 #MiddleArea #PanelArea .layer .text-container .layerName {
