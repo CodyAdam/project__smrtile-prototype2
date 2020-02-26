@@ -181,12 +181,12 @@ body {
     flex-flow: column;
     color: $fontColor;
 
+    .slider {
+        cursor: ns-resize;
+        width: 5px;
+        background-color: rgb(70, 75, 74);
+    }
     .propertiesPanel {
-        .slider {
-            cursor: ns-resize;
-            height: 5px;
-            background-color: rgb(70, 75, 74);
-        }
         .body {
             padding: 20px;
             h2 {
