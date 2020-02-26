@@ -44,7 +44,7 @@ export default class MiddleArea extends React.Component {
                     ref="editingArea"
                     layers={this.props.layers}
                     tools={this.props.tools}
-                    map={this.props.map + "px"}
+                    map={this.props.map}
                 />
                 <Draggable
                     axis="none"
