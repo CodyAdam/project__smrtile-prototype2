@@ -7,7 +7,6 @@ import PanelArea from "./Panel/PanelArea";
 export default class MiddleArea extends React.Component {
     constructor(props) {
         super(props);
-        this.onDragStart = this.onDragStart.bind(this);
         this.onDrag = this.onDrag.bind(this);
         this.onDragEnd = this.onDragEnd.bind(this);
         this.state = {
@@ -17,11 +16,8 @@ export default class MiddleArea extends React.Component {
         };
     }
 
-    onDragStart() {
-        document.body.style.cursor = "ew-resize";
-    }
-
     onDrag(e, ui) {
+        document.body.style.cursor = "ew-resize";
         const min = this.state.panelMin * document.body.clientWidth;
         const max = this.state.panelMax * document.body.clientWidth;
         let value = this.state.panelWidth;
@@ -37,6 +33,7 @@ export default class MiddleArea extends React.Component {
     onDragEnd() {
         document.body.style.cursor = "default";
     }
+
     render() {
         return (
             <div id="MiddleArea" ref="div">
@@ -49,7 +46,6 @@ export default class MiddleArea extends React.Component {
                 <Draggable
                     axis="none"
                     bound={{ right: 150 }}
-                    onStart={this.onDragStart}
                     onDrag={this.onDrag}
                     onStop={this.onDragEnd}
                     defaultPosition={{ x: this.lastHeight }}

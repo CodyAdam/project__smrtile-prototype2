@@ -179,7 +179,10 @@ body {
         cursor: ew-resize;
         width: 3px;
         flex-shrink: 0;
-        background-color: rgb(226, 68, 68);
+        background-color: $themeColor3;
+        &:hover {
+            background-color: rgb(255, 107, 61);
+        }
     }
 
     #PanelArea {

@@ -220,7 +220,11 @@ body {
   width: 3px;
   -ms-flex-negative: 0;
       flex-shrink: 0;
-  background-color: #e24444;
+  background-color: #111111;
+}
+
+#MiddleArea .slider:hover {
+  background-color: #ff6b3d;
 }
 
 #MiddleArea #PanelArea {
