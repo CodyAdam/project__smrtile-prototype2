@@ -18,37 +18,22 @@ body {
 }
 
 #App {
-  display: -ms-grid;
-  display: grid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   height: 100vh;
-  -ms-grid-rows: 30px 70px 1fr 25px;
-      grid-template-rows: 30px 70px 1fr 25px;
-  -ms-grid-columns: 1fr 300px;
-      grid-template-columns: 1fr 300px;
-      grid-template-areas: "TitleArea       	TitleArea" "ToolBarArea   		ToolBarArea" "EditingArea     	PanelArea" "StatusBarArea      StatusBarArea";
-}
-
-#EditingArea {
-  -ms-grid-row: 3;
-  -ms-grid-column: 1;
-  grid-area: EditingArea;
-  background-color: #f3f3f3;
-  z-index: 0;
-}
-
-#EditingArea .grid {
-  outline: 4px dotted #ff0095;
-  position: absolute;
-  z-index: -1;
+  width: 100vw;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 #TitleArea {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-area: TitleArea;
   background-color: #21252b;
   z-index: 11;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -178,11 +163,10 @@ body {
 
 #ToolBarArea {
   z-index: 10;
-  -ms-grid-row: 2;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-area: ToolBarArea;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   background-color: #181a1f;
+  height: 70px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -193,8 +177,7 @@ body {
 }
 
 #ToolBarArea .tileButton {
-  height: 70px;
-  width: 70px;
+  height: 100%;
   padding: 10px;
 }
 
@@ -207,13 +190,40 @@ body {
   padding: 0;
 }
 
-#PanelArea {
+#MiddleArea {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  z-index: 0;
+}
+
+#MiddleArea #EditingArea {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  background-color: #f3f3f3;
+  z-index: 0;
+}
+
+#MiddleArea #EditingArea .grid {
+  outline: 4px dotted #ff0095;
+  position: absolute;
+  z-index: -1;
+}
+
+#MiddleArea .slider {
+  cursor: ns-resize;
+  width: 5px;
+  background-color: #ff4949;
+}
+
+#MiddleArea #PanelArea {
   z-index: 10;
-  -ms-grid-row: 3;
-  -ms-grid-column: 2;
-  grid-area: PanelArea;
   background-color: #181a1f;
-  width: 100%;
+  width: 400px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-flow: column;
@@ -221,29 +231,23 @@ body {
   color: #f3f3f3;
 }
 
-#PanelArea .propertiesPanel .slider {
-  cursor: ns-resize;
-  height: 5px;
-  background-color: #464b4a;
-}
-
-#PanelArea .propertiesPanel .body {
+#MiddleArea #PanelArea .propertiesPanel .body {
   padding: 20px;
 }
 
-#PanelArea .propertiesPanel .body h2 {
+#MiddleArea #PanelArea .propertiesPanel .body h2 {
   margin: 0;
   font-size: 0.8em;
   line-height: 20px;
 }
 
-#PanelArea .propertiesPanel .body p {
+#MiddleArea #PanelArea .propertiesPanel .body p {
   margin: 0;
   font-size: 0.7em;
   line-height: 20px;
 }
 
-#PanelArea .header {
+#MiddleArea #PanelArea .header {
   height: 25px;
   height: 25px;
   text-align: center;
@@ -253,7 +257,7 @@ body {
   color: #f3f3f3;
 }
 
-#PanelArea .layer {
+#MiddleArea #PanelArea .layer {
   cursor: pointer;
   background-color: #272729;
   height: 40px;
@@ -267,7 +271,7 @@ body {
           align-items: center;
 }
 
-#PanelArea .layer .text-container {
+#MiddleArea #PanelArea .layer .text-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -283,24 +287,23 @@ body {
   height: 100%;
 }
 
-#PanelArea .layer .text-container .layerName {
+#MiddleArea #PanelArea .layer .text-container .layerName {
   margin: 0;
   text-overflow: ellipsis;
   max-width: 200px;
   white-space: nowrap;
 }
 
-#PanelArea .layer img {
+#MiddleArea #PanelArea .layer img {
   margin: 5px;
   height: 70%;
 }
 
 #StatusBarArea {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   z-index: 10;
-  -ms-grid-row: 4;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-area: StatusBarArea;
+  height: 25px;
   background-color: #111111;
 }
 /*# sourceMappingURL=index.css.map */

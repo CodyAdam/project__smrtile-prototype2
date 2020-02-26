@@ -1,6 +1,6 @@
 import React from "react";
-import eyeClose from "./assets/panel/eye_close.png";
-import eyeOpen from "./assets/panel/eye_open.png";
+import eyeClose from "../assets/panel/eye_close.png";
+import eyeOpen from "../assets/panel/eye_open.png";
 import Draggable from "react-draggable";
 
 class PanelArea extends React.Component {
