@@ -35,8 +35,6 @@ class EditingArea extends React.Component {
         canvas.addEventListener("mouseup", this.handleMouseUp.bind(this));
         canvas.addEventListener("mouseleave", this.handleMouseLeave.bind(this));
 
-        canvas.getContext("2d").rect(50, 50, 50, 50);
-
         let container = this.state.container;
         container.canvas = canvas;
         container.div = this.refs.div;
