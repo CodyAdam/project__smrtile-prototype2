@@ -14,17 +14,12 @@ class EditingArea extends React.Component {
                 offset: { x: null, y: null },
             },
             grid: {
-                size: 50,
+                size: 25,
                 minSize: 1,
                 maxSize: 300,
                 offset: { x: 0, y: 0 },
             },
             map: this.props.map,
-            click: {
-                left: false,
-                middle: false,
-                right: false,
-            },
             layers: props.layers,
         };
         this.tools = this.props.tools;
@@ -46,10 +41,7 @@ class EditingArea extends React.Component {
         this.setState({ container: container });
 
         this.handleResize();
-        this.onStart();
-    }
 
-    onStart() {
         let map = this.state.map;
         let grid = this.state.grid;
         const div = this.refs.div;

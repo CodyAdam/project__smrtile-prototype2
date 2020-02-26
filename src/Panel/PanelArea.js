@@ -1,45 +1,12 @@
 import React from "react";
-import eyeClose from "./assets/panel/eye_close.png";
-import eyeOpen from "./assets/panel/eye_open.png";
-import Draggable from "react-draggable";
+import eyeClose from "../assets/panel/eye_close.png";
+import eyeOpen from "../assets/panel/eye_open.png";
 
 class PanelArea extends React.Component {
-    constructor(props) {
-        super(props);
-        this.onDragStart = this.onDragStart.bind(this);
-        this.onDrag = this.onDrag.bind(this);
-        this.onDragEnd = this.onDragEnd.bind(this);
-        this.state = {
-            name: "Information",
-            title: "How to use",
-            description: "Left Click : Place blocks / Right Click : Delete blocks / Middle Click : Pan the camera",
-        };
-        this.lastHeight = 300;
-    }
-
-    onDragStart() {
-        document.body.style.cursor = "ew-resize";
-    }
-
-    onDrag() {}
-
-    onDragEnd() {
-        document.body.style.cursor = "default";
-    }
-
     render() {
         return (
-            <div id="PanelArea">
+            <div id="PanelArea" style={{ width: this.props.width }}>
                 <PropertiesPanel />
-                <Draggable
-                    axis="none"
-                    onStart={this.onDragStart}
-                    onDrag={this.onDrag}
-                    onStop={this.onDragEnd}
-                    defaultPosition={{ x: this.lastHeight }}
-                >
-                    <div className="slider"></div>
-                </Draggable>
                 <LayersPanel layers={this.props.layers} onLayerChange={this.props.onLayerChange} />
             </div>
         );
@@ -127,7 +94,7 @@ class Layer extends React.Component {
     updateColor() {
         const container = this.refs.container;
         if (this.props.layer.active) container.style.backgroundColor = "rgb(175, 53, 53)";
-        else container.style.backgroundColor = "rgb(39, 39, 41)";
+        else container.style.backgroundColor = "rgb(255, 255, 255, 0.06)";
     }
 
     onVisibleToggle() {

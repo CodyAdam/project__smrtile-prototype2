@@ -2,8 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./style/index.css";
 
-import EditingArea from "./Editing/EditingArea.js";
-import PanelArea from "./PanelArea";
+import MiddleArea from "./MiddleArea";
 import TitleArea from "./TitleArea";
 import ToolBarArea from "./ToolBarArea";
 
@@ -84,10 +83,14 @@ class App extends React.Component {
     render() {
         return (
             <div id="App">
-                <EditingArea layers={this.state.layers} tools={this.state.tools} map={this.state.map} />
                 <TitleArea />
                 <ToolBarArea objects={this.state.objects} onObjectChange={this.onObjectChange} />
-                <PanelArea layers={this.state.layers} onLayerChange={this.onLayerChange} />
+                <MiddleArea
+                    layers={this.state.layers}
+                    tools={this.state.tools}
+                    map={this.state.map}
+                    onLayerChange={this.onLayerChange}
+                />
                 <div id="StatusBarArea"></div>
             </div>
         );

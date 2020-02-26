@@ -13,9 +13,9 @@ class TitleArea extends React.Component {
                 {
                     name: "File",
                     subMenu: [
-                        { name: "New", avaliable: false, function: this.testFunction },
+                        { name: "New", avaliable: true, function: this.testFunction },
                         { name: "Open", avaliable: true, function: this.testFunction },
-                        { name: "Close", avaliable: true, function: this.testFunction },
+                        { name: "Close", avaliable: false, function: this.testFunction },
                     ],
                 },
                 {
@@ -23,6 +23,8 @@ class TitleArea extends React.Component {
                     subMenu: [
                         { name: "Copy", avaliable: true, function: this.testFunction },
                         { name: "Paste", avaliable: true, function: this.testFunction },
+                        { name: "Undo", avaliable: false, function: this.testFunction },
+                        { name: "Redo", avaliable: false, function: this.testFunction },
                     ],
                 },
             ],
@@ -43,9 +45,9 @@ class TitleArea extends React.Component {
                         event.preventDefault();
                         alert("ctrl-s");
                         break;
-                    case "f":
+                    case "z":
                         event.preventDefault();
-                        alert("ctrl-f");
+                        alert("ctrl-z");
                         break;
                     default:
                         break;
@@ -69,8 +71,10 @@ class TitleArea extends React.Component {
         let subMenuElement = null;
         if (selected !== null)
             subMenuElement = menu[selected].subMenu.map((subMenu, index) => {
+                let style = null;
+                if (!subMenu.avaliable) style = { color: "#B8B8B6" };
                 return (
-                    <div key={index} className="subContainer" onClick={subMenu.function}>
+                    <div key={index} className="subContainer" onClick={subMenu.function} style={style}>
                         {subMenu.name}
                     </div>
                 );
