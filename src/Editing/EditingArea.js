@@ -103,7 +103,7 @@ export default class EditingArea extends React.Component {
 
     handleMouseLeave() {
         const tools = this.props.tools;
-        tools.getActive(tools).onMouseLeave();
+        tools.getActive().onMouseLeave();
         tools.camera.onMouseLeave();
     }
 
@@ -111,20 +111,20 @@ export default class EditingArea extends React.Component {
         const tools = this.props.tools;
         e.preventDefault();
         if (e.which === 2) tools.camera.onMouseDown(e);
-        else tools.getActive(tools).onMouseDown(e, this.state, this.state.layers);
+        else tools.getActive().onMouseDown(e, this.state, this.state.layers);
         this.updateLayers();
     }
 
     handleMouseUp(e) {
         const tools = this.props.tools;
-        tools.getActive(tools).onMouseUp(e);
+        tools.getActive().onMouseUp(e);
         tools.camera.onMouseUp(e);
     }
 
     handleMouseMove(e) {
         const tools = this.props.tools;
         if (
-            tools.getActive(tools).onMouseMove(e, this.state, this.state.layers) ||
+            tools.getActive().onMouseMove(e, this.state, this.state.layers) ||
             tools.camera.onMouseMove(e, this.state, this.setGrid)
         )
             this.updateLayers();
