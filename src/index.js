@@ -26,6 +26,17 @@ class App extends React.Component {
         this.updateBrush = this.updateBrush.bind(this);
 
         this.state = {
+            tools: {
+                brush: new Brush(),
+                camera: new Camera(),
+                getActive() {
+                    for (const [, tool] of Object.entries(this)) {
+                        if (tool.active) return tool;
+                    }
+                    return this.brush;
+                },
+            },
+
             map: {
                 width: 30,
                 height: 25,
@@ -37,17 +48,6 @@ class App extends React.Component {
                 new Tile(source2, 0, 0, 512, 512),
                 new Tile(source3, 0, 0, 512, 512),
             ],
-
-            tools: {
-                brush: new Brush(),
-                camera: new Camera(),
-                getActive: (tools) => {
-                    for (const [, tool] of Object.entries(tools)) {
-                        if (tool.active) return tool;
-                    }
-                    return tools.camera;
-                },
-            },
         };
 
         //TODO make map border
