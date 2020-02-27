@@ -5,7 +5,7 @@ export default class Brush {
     constructor(size) {
         this.active = true;
         this.object = null;
-        this.size = 1;
+        this.size = 2;
         this.sprite = null;
         this.click = { left: false, right: false };
         this.lastMouse = { x: null, y: null };
@@ -32,34 +32,61 @@ export default class Brush {
     }
 
     placeAt(pos, layers) {
-        if (this.object != null) Layer.getActive(layers).setAt(this.object, pos);
+        if (this.object === null) return;
+        const { x, y } = pos;
+        const s = this.size;
+        let squarePos = {};
+
+        if (s % 2 == 0) {
+            const center = { x: Math.round(x), y: Math.round(y) };
+            squarePos = { x: center.x - s / 2, y: center.y - s / 2 };
+        } else {
+            const center = { x: Math.floor(x), y: Math.floor(y) };
+            squarePos = { x: center.x - s / 2 + 1, y: center.y - s / 2 + 1 };
+        }
+        for (let offsetX = 0; offsetX < s; offsetX++) {
+            for (let offsetY = 0; offsetY < s; offsetY++) {
+                Layer.getActive(layers).set([
+                    { x: Math.floor(squarePos.x) + offsetX, y: Math.floor(squarePos.y) + offsetY, object: this.object },
+                ]);
+            }
+        }
     }
 
     eraseAt(pos, layers) {
-        Layer.getActive(layers).eraseAt(pos.x, pos.y);
+        if (this.object === null) return;
+        const { x, y } = pos;
+        const s = this.size;
+        let squarePos = {};
+
+        if (s % 2 == 0) {
+            const center = { x: Math.round(x), y: Math.round(y) };
+            squarePos = { x: center.x - s / 2, y: center.y - s / 2 };
+        } else {
+            const center = { x: Math.floor(x), y: Math.floor(y) };
+            squarePos = { x: center.x - s / 2 + 1, y: center.y - s / 2 + 1 };
+        }
+        for (let offsetX = 0; offsetX < s; offsetX++) {
+            for (let offsetY = 0; offsetY < s; offsetY++) {
+                Layer.getActive(layers).set([
+                    { x: Math.floor(squarePos.x) + offsetX, y: Math.floor(squarePos.y) + offsetY, object: null },
+                ]);
+            }
+        }
     }
 
     onMouseMove(e, state, layers) {
         let grid = state.grid;
         const mousePos = getMouseInCanvas({ x: e.pageX, y: e.pageY }, state.container);
+        const lastCoordinateAtMouse = getCoordinateAt(getMouseInCanvas(this.lastMouse, state.container), grid);
         const coordinateAtMouse = getCoordinateAt(mousePos, grid);
 
         if (this.click.left) {
-            this.makeLine(
-                getCoordinateAt(getMouseInCanvas(this.lastMouse, state.container), grid),
-                coordinateAtMouse,
-                layers,
-                true,
-            );
+            this.makeLine(lastCoordinateAtMouse, coordinateAtMouse, layers, true);
             this.lastMouse = { x: e.pageX, y: e.pageY };
             return true;
         } else if (this.click.right) {
-            this.makeLine(
-                getCoordinateAt(getMouseInCanvas(this.lastMouse, state.container), grid),
-                coordinateAtMouse,
-                layers,
-                false,
-            );
+            this.makeLine(lastCoordinateAtMouse, coordinateAtMouse, layers, false);
             this.lastMouse = { x: e.pageX, y: e.pageY };
             return true;
         }
@@ -76,8 +103,8 @@ export default class Brush {
         var difY = end.y - start.y;
         var dist = Math.abs(difX) + Math.abs(difY);
         if (dist < 0.5) {
-            if (isPlacing) this.placeAt({ x: Math.floor(start.x), y: Math.floor(start.y) }, layers);
-            else this.eraseAt({ x: Math.floor(start.x), y: Math.floor(start.y) }, layers);
+            if (isPlacing) this.placeAt({ x: start.x, y: start.y }, layers);
+            else this.eraseAt({ x: start.x, y: start.y }, layers);
             return;
         }
 
@@ -85,8 +112,8 @@ export default class Brush {
         var dy = difY / dist;
 
         for (var i = 0, x, y; i <= Math.ceil(dist); i++) {
-            x = Math.floor(start.x + dx * i);
-            y = Math.floor(start.y + dy * i);
+            x = start.x + dx * i;
+            y = start.y + dy * i;
             if (isPlacing) this.placeAt({ x: x, y: y }, layers);
             else this.eraseAt({ x: x, y: y }, layers);
         }

@@ -32,11 +32,6 @@ export default class Tile {
         if (x < topLeft.x || x > bottomRight.x || y < topLeft.y || y > bottomRight.y) return false;
         return true;
     }
-
-    destroy() {
-        this.delete = true;
-    }
-
     render(state) {
         const context = state.container.canvas.getContext("2d");
         const grid = state.grid;

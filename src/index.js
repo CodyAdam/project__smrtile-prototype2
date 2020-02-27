@@ -49,8 +49,6 @@ class App extends React.Component {
                 new Tile(source3, 0, 0, 512, 512),
             ],
         };
-
-        //TODO make map border
     }
 
     componentDidMount() {

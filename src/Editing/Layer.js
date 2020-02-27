@@ -10,23 +10,25 @@ export class Layer {
         this.visible = true;
     }
 
-    setAt(object, pos) {
-        if (this.isCoordinateOnLayer(pos.x, pos.y))
-            this.layout[pos.x][pos.y] = new Tile(object.source, pos, object.relative);
+    set(points) {
+        points.forEach((point) => {
+            const { x, y, object } = point;
+            if (this.isOnLayer(x, y) && object !== null)
+                this.layout[x][y] = new Tile(object.source, { x: x, y: y }, object.relative);
+            else if (this.isOnLayer(x, y)) this.layout[x][y] = null;
+        });
     }
 
-    getAt(x, y) {
-        return this.layout[x][y];
+    get(points) {
+        let result = [];
+        points.forEach((point) => {
+            const { x, y } = point;
+            result.push(this.layout[x][y]);
+        });
+        return result;
     }
 
-    eraseAt(x, y) {
-        if (this.isCoordinateOnLayer(x, y) && this.layout[x][y] !== null) {
-            this.layout[x][y].destroy();
-            this.layout[x][y] = null;
-        }
-    }
-
-    isCoordinateOnLayer(x, y) {
+    isOnLayer(x, y) {
         return x >= 0 && y >= 0 && x < this.width && y < this.height;
     }
 
