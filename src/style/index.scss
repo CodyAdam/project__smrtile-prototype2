@@ -177,11 +177,11 @@ body {
     .slider {
         z-index: 0;
         cursor: ew-resize;
-        width: 3px;
+        width: 5px;
         flex-shrink: 0;
-        background-color: $themeColor3;
+        background-color: $themeColor2;
         &:hover {
-            background-color: rgb(255, 107, 61);
+            background-color: rgba(29, 55, 73, 0.883);
         }
     }
 
@@ -192,6 +192,18 @@ body {
 
         flex-flow: column;
         color: $fontColor;
+
+        .slider {
+            z-index: 0;
+            cursor: ns-resize;
+            height: 4px;
+            width: 100%;
+            flex-shrink: 0;
+            background-color: $themeColor2;
+            &:hover {
+                background-color: rgba(87, 188, 255, 0.226);
+            }
+        }
 
         .propertiesPanel {
             .body {
@@ -210,7 +222,6 @@ body {
         }
 
         .header {
-            height: 25px;
             height: 25px;
             text-align: center;
             font-size: 1em;

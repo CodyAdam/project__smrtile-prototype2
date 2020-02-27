@@ -37,7 +37,17 @@ class App extends React.Component {
                 new Tile(source2, 0, 0, 512, 512),
                 new Tile(source3, 0, 0, 512, 512),
             ],
-            tools: { brush: new Brush(), camera: new Camera() },
+
+            tools: {
+                brush: new Brush(),
+                camera: new Camera(),
+                getActive: (tools) => {
+                    for (const [, tool] of Object.entries(tools)) {
+                        if (tool.active) return tool;
+                    }
+                    return tools.camera;
+                },
+            },
         };
 
         //TODO make map border
@@ -47,9 +57,9 @@ class App extends React.Component {
         this.updateBrush();
 
         //make the first object selected
-        let newObject = this.state.objects[0];
-        newObject.active = true;
-        this.onObjectChange(newObject, 0);
+        let firstObj = this.state.objects[0];
+        firstObj.active = true;
+        this.onObjectChange(firstObj, 0);
     }
 
     onObjectChange(newObject, index) {

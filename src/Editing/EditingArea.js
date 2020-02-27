@@ -1,10 +1,16 @@
 import React from "react";
-import Tool from "./Tools/Tool";
 import Grid from "./Grid";
 
-class EditingArea extends React.Component {
+export default class EditingArea extends React.Component {
     constructor(props) {
         super(props);
+        this.handleResize = this.handleResize.bind(this);
+        this.handleWheel = this.handleWheel.bind(this);
+        this.handleMouseDown = this.handleMouseDown.bind(this);
+        this.handleMouseMove = this.handleMouseMove.bind(this);
+        this.handleMouseUp = this.handleMouseUp.bind(this);
+        this.handleMouseLeave = this.handleMouseLeave.bind(this);
+        this.setGrid = this.setGrid.bind(this);
         this.state = {
             container: {
                 div: null,
@@ -22,18 +28,21 @@ class EditingArea extends React.Component {
             map: this.props.map,
             layers: props.layers,
         };
-        this.tools = this.props.tools;
+    }
+
+    setGrid(newGrid) {
+        this.setState({ grid: newGrid });
     }
 
     componentDidMount() {
-        const canvas = this.refs.canvas;
+        const { canvas, div } = this.refs;
 
-        window.addEventListener("resize", this.handleResize.bind(this));
-        canvas.addEventListener("wheel", this.handleWheel.bind(this));
-        canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
-        canvas.addEventListener("mousemove", this.handleMouseMove.bind(this));
-        canvas.addEventListener("mouseup", this.handleMouseUp.bind(this));
-        canvas.addEventListener("mouseleave", this.handleMouseLeave.bind(this));
+        window.addEventListener("resize", this.handleResize);
+        canvas.addEventListener("wheel", this.handleWheel);
+        canvas.addEventListener("mousedown", this.handleMouseDown);
+        canvas.addEventListener("mousemove", this.handleMouseMove);
+        canvas.addEventListener("mouseup", this.handleMouseUp);
+        canvas.addEventListener("mouseleave", this.handleMouseLeave);
 
         let container = this.state.container;
         container.canvas = canvas;
@@ -42,10 +51,7 @@ class EditingArea extends React.Component {
 
         this.handleResize();
 
-        let map = this.state.map;
-        let grid = this.state.grid;
-        const div = this.refs.div;
-
+        let { map, grid } = this.state;
         grid.offset = {
             x: Math.round(div.offsetWidth / 2 - (map.width * this.state.grid.size) / 2),
             y: Math.round(div.offsetHeight / 2 - (map.height * this.state.grid.size) / 2),
@@ -60,63 +66,66 @@ class EditingArea extends React.Component {
     }
 
     updateLayers() {
-        const container = this.state.container;
+        const { container, layers } = this.state;
         const context = container.canvas.getContext("2d");
 
-        //Clear canvas
         context.clearRect(0, 0, container.width, container.height);
-        if (this.state.layers.length > 0)
-            for (let i = this.state.layers.length - 1; i >= 0; i--) {
-                if (this.state.layers[i].delete) this.state.layers.splice(i, 1);
-                else this.state.layers[i].render(this.state);
+        if (layers.length > 0)
+            for (let i = layers.length - 1; i >= 0; i--) {
+                if (layers[i].delete) layers.splice(i, 1);
+                else layers[i].render(this.state);
             }
     }
 
     handleResize() {
-        const div = this.refs.div;
+        const { canvas, div } = this.refs;
         const w = div.offsetWidth;
         const h = div.offsetHeight;
-        const containerOffset = { x: div.offsetLeft, y: div.offsetTop };
 
         let container = this.state.container;
         container.width = w;
         container.height = h;
-        container.offset = containerOffset;
-
+        container.offset = { x: div.offsetLeft, y: div.offsetTop };
         this.setState({
             container: container,
         });
-        const canvas = this.refs.canvas;
+
         canvas.width = w;
         canvas.height = h;
         this.updateLayers();
     }
 
     handleWheel(e) {
-        this.tools.camera.onWheel(e, this.state, this.setState.bind(this));
+        const tools = this.props.tools;
+        tools.camera.onWheel(e, this.state, this.setGrid);
         this.updateLayers();
     }
 
     handleMouseLeave() {
-        Tool.getActive(this.tools).onMouseLeave();
-        this.tools.camera.onMouseLeave();
+        const tools = this.props.tools;
+        tools.getActive(tools).onMouseLeave();
+        tools.camera.onMouseLeave();
     }
 
     handleMouseDown(e) {
+        const tools = this.props.tools;
         e.preventDefault();
-        if (e.which === 2) this.tools.camera.onMouseDown(e);
-        else Tool.getActive(this.tools).onMouseDown(e, this.state, this.state.layers);
+        if (e.which === 2) tools.camera.onMouseDown(e);
+        else tools.getActive(tools).onMouseDown(e, this.state, this.state.layers);
         this.updateLayers();
     }
+
     handleMouseUp(e) {
-        Tool.getActive(this.tools).onMouseUp(e);
-        this.tools.camera.onMouseUp(e);
+        const tools = this.props.tools;
+        tools.getActive(tools).onMouseUp(e);
+        tools.camera.onMouseUp(e);
     }
 
     handleMouseMove(e) {
+        const tools = this.props.tools;
         if (
-            Tool.getActive(this.tools).onMouseMove(e, this.state, this.state.layers) ||
-            this.tools.camera.onMouseMove(e, this.state, this.setState.bind(this))
+            tools.getActive(tools).onMouseMove(e, this.state, this.state.layers) ||
+            tools.camera.onMouseMove(e, this.state, this.setGrid)
         )
             this.updateLayers();
     }
@@ -130,5 +139,3 @@ class EditingArea extends React.Component {
         );
     }
 }
-
-export default EditingArea;

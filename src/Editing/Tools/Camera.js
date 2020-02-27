@@ -1,73 +1,58 @@
 export default class Camera {
     constructor() {
         this.active = false;
-        this.click = { left: false, middle: false, right: false };
+        this.grabbing = false;
         this.lastMouse = { x: null, y: null };
         this.scrollSensivity = 0.1;
     }
 
     onMouseDown(e) {
-        if (e.which === 1) this.click.left = true;
-        else if (e.which === 2) {
-            this.click.middle = true;
-            document.body.style.cursor = "grabbing";
-        } else if (e.which === 3) this.click.right = true;
+        this.grabbing = true;
+        document.body.style.cursor = "grabbing";
         this.lastMouse = { x: e.pageX, y: e.pageY };
     }
 
     onMouseUp(e) {
-        if (e.which === 1) this.click.left = false;
-        if (e.which === 2) {
-            this.click.middle = false;
-            document.body.style.cursor = "default";
-        }
-        if (e.which === 3) this.click.right = false;
+        this.grabbing = false;
+        document.body.style.cursor = "default";
         this.lastMouse = { x: e.pageX, y: e.pageY };
     }
 
-    onMouseMove(e, state, setState) {
+    onMouseMove(e, state, setGrid) {
         let grid = state.grid;
         const map = state.map;
         const container = state.container;
         const lastMouse = this.lastMouse;
 
-        if (this.click.middle) {
-            if (
-                grid.offset.x - (lastMouse.x - e.pageX) > container.width ||
-                grid.offset.x - (lastMouse.x - e.pageX) < map.width * -grid.size ||
-                grid.offset.y - (lastMouse.y - e.pageY) > container.height ||
-                grid.offset.y - (lastMouse.y - e.pageY) < map.height * -grid.size
-            ) {
-                return false;
-            } else {
-                grid.offset.x -= lastMouse.x - e.pageX;
-                grid.offset.y -= lastMouse.y - e.pageY;
+        if (
+            !this.grabbing ||
+            grid.offset.x - (lastMouse.x - e.pageX) > container.width ||
+            grid.offset.x - (lastMouse.x - e.pageX) < map.width * -grid.size ||
+            grid.offset.y - (lastMouse.y - e.pageY) > container.height ||
+            grid.offset.y - (lastMouse.y - e.pageY) < map.height * -grid.size
+        ) {
+            return false;
+        } else {
+            grid.offset.x -= lastMouse.x - e.pageX;
+            grid.offset.y -= lastMouse.y - e.pageY;
 
-                this.lastMouse = { x: e.pageX, y: e.pageY };
+            this.lastMouse = { x: e.pageX, y: e.pageY };
 
-                setState({ grid: grid });
-                return true;
-            }
-        } else if (this.click.left && this.ative) {
-            //TODO Do somethings
-        } else if (this.click.right && this.ative) {
-            //TODO Do somethings
+            setGrid(grid);
+            return true;
         }
-        return false;
     }
 
     onMouseLeave() {
-        this.click.left = false;
-        this.click.middle = false;
-        this.click.right = false;
+        this.grabbing = false;
         document.body.style.cursor = "default";
     }
 
-    onWheel(e, state, setState) {
+    onWheel(e, state, setGrid) {
         const container = state.container;
-        const mouse = { x: e.pageX, y: e.pageY };
         let grid = state.grid;
         let offset = grid.offset;
+        const mouse = { x: e.pageX, y: e.pageY };
         const scrollValue = 1 - Math.sign(e.deltaY) * this.scrollSensivity;
 
         const before = {
@@ -89,6 +74,6 @@ export default class Camera {
         offset.x += Math.round(before.x - after.xDif);
         offset.y += Math.round(before.y - after.yDif);
         grid.offset = offset;
-        setState({ grid: grid });
+        setGrid(grid);
     }
 }

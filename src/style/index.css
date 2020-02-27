@@ -217,14 +217,14 @@ body {
 #MiddleArea .slider {
   z-index: 0;
   cursor: ew-resize;
-  width: 3px;
+  width: 5px;
   -ms-flex-negative: 0;
       flex-shrink: 0;
-  background-color: #111111;
+  background-color: #181a1f;
 }
 
 #MiddleArea .slider:hover {
-  background-color: #ff6b3d;
+  background-color: rgba(29, 55, 73, 0.883);
 }
 
 #MiddleArea #PanelArea {
@@ -237,6 +237,20 @@ body {
       -ms-flex-flow: column;
           flex-flow: column;
   color: #f3f3f3;
+}
+
+#MiddleArea #PanelArea .slider {
+  z-index: 0;
+  cursor: ns-resize;
+  height: 4px;
+  width: 100%;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  background-color: #181a1f;
+}
+
+#MiddleArea #PanelArea .slider:hover {
+  background-color: rgba(87, 188, 255, 0.226);
 }
 
 #MiddleArea #PanelArea .propertiesPanel .body {
@@ -256,7 +270,6 @@ body {
 }
 
 #MiddleArea #PanelArea .header {
-  height: 25px;
   height: 25px;
   text-align: center;
   font-size: 1em;
