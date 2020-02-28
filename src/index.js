@@ -24,6 +24,7 @@ class App extends React.Component {
         this.onObjectChange = this.onObjectChange.bind(this);
         this.onLayerChange = this.onLayerChange.bind(this);
         this.updateBrush = this.updateBrush.bind(this);
+        this.select = this.select.bind(this);
 
         this.state = {
             tools: {
@@ -42,13 +43,17 @@ class App extends React.Component {
                 height: 25,
             },
             layers: [new Layer("layer 1", 30, 25), new Layer("layer 2", 30, 25), new Layer("layer 3", 30, 25)],
-
+            selected: null,
             objects: [
                 new Tile(source1, 0, 0, 512, 512),
                 new Tile(source2, 0, 0, 512, 512),
                 new Tile(source3, 0, 0, 512, 512),
             ],
         };
+    }
+
+    select(selection) {
+        this.setState({ selected: selection });
     }
 
     componentDidMount() {
@@ -98,6 +103,8 @@ class App extends React.Component {
                     tools={this.state.tools}
                     map={this.state.map}
                     onLayerChange={this.onLayerChange}
+                    select={this.select}
+                    selected={this.state.selected}
                 />
                 <div id="StatusBarArea"></div>
             </div>

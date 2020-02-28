@@ -20,6 +20,7 @@ export class LayersPanel extends React.Component {
                     onLayerChange={this.props.onLayerChange}
                     key={index}
                     index={index}
+                    select={this.props.select}
                 />
             );
         });
@@ -39,8 +40,20 @@ class Layer extends React.Component {
         this.updateColor = this.updateColor.bind(this);
         this.onVisibleToggle = this.onVisibleToggle.bind(this);
         this.onSelect = this.onSelect.bind(this);
+        this.properties = {
+            name: {
+                name: "Name",
+                value: this.props.layer.name,
+                type: "string",
+                set: this.setName,
+            },
+        };
 
         if (this.props.index === 0) this.onSelect();
+    }
+
+    setName(value) {
+        this.name = value;
     }
 
     componentDidMount() {
@@ -70,6 +83,7 @@ class Layer extends React.Component {
             newLayer.active = this.props.index === i;
             this.props.onLayerChange(newLayer, this.props.index);
         });
+        this.props.select(this);
     }
 
     render() {

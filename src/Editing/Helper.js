@@ -6,10 +6,6 @@ export function getCoordinateAt(mousePos, grid) {
     return { x: x, y: y };
 }
 
-function mod(n, m) {
-    return ((n % m) + m) % m;
-}
-
 export function getMouseInCanvas(mousePosInWindow, container) {
     return {
         x: mousePosInWindow.x - container.offset.x,

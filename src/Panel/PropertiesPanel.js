@@ -14,6 +14,12 @@ export default class PropertiesPanel extends React.Component {
     }
 
     render() {
+        let propertie = this.props.selected;
+        console.log(propertie);
+        if (this.props.selected !== null) {
+            propertie = this.props.selected.properties.name.value;
+        }
+
         return (
             <div className="propertiesPanel" style={{ height: this.props.height }}>
                 <div className="header">{this.state.panelName}</div>
@@ -23,6 +29,7 @@ export default class PropertiesPanel extends React.Component {
                     <p> Right Click : Delete blocks</p>
                     <p> Middle Click : Pan the camera</p>
                     <p> Mouse Wheel : Zoom</p>
+                    <p>{propertie}</p>
                 </div>
             </div>
         );

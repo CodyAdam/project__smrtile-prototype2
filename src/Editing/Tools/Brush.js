@@ -6,9 +6,19 @@ export default class Brush {
         this.active = true;
         this.object = null;
         this.size = 2;
-        this.sprite = null;
         this.click = { left: false, right: false };
         this.lastMouse = { x: null, y: null };
+        this.propeties = {
+            size: {
+                name: "Size",
+                type: "number",
+                set: this.setSize,
+            },
+        };
+    }
+
+    setSize(value) {
+        this.size = value;
     }
 
     onMouseDown(e, state, layers) {
@@ -37,7 +47,7 @@ export default class Brush {
         const s = this.size;
         let squarePos = {};
 
-        if (s % 2 == 0) {
+        if (s % 2 === 0) {
             const center = { x: Math.round(x), y: Math.round(y) };
             squarePos = { x: center.x - s / 2, y: center.y - s / 2 };
         } else {
@@ -59,7 +69,7 @@ export default class Brush {
         const s = this.size;
         let squarePos = {};
 
-        if (s % 2 == 0) {
+        if (s % 2 === 0) {
             const center = { x: Math.round(x), y: Math.round(y) };
             squarePos = { x: center.x - s / 2, y: center.y - s / 2 };
         } else {

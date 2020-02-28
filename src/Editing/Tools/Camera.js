@@ -4,6 +4,17 @@ export default class Camera {
         this.grabbing = false;
         this.lastMouse = { x: null, y: null };
         this.scrollSensivity = 0.1;
+        this.propeties = {
+            scrollSensivity: {
+                name: "Zoom Sensivity",
+                type: "number",
+                set: this.setScrollSensivity,
+            },
+        };
+    }
+
+    setScrollSensivity(value) {
+        this.setScrollSensivity = value;
     }
 
     onMouseDown(e) {
