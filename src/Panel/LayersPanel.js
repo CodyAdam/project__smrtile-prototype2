@@ -40,12 +40,15 @@ class Layer extends React.Component {
         this.updateColor = this.updateColor.bind(this);
         this.onVisibleToggle = this.onVisibleToggle.bind(this);
         this.onSelect = this.onSelect.bind(this);
-        this.properties = {
-            name: {
-                name: "Name",
-                value: this.props.layer.name,
-                type: "string",
-                set: this.setName,
+        this.setName = this.setName.bind(this);
+        this.state = {
+            properties: {
+                name: {
+                    name: "Name",
+                    value: this.props.layer.name,
+                    type: "string",
+                    set: this.setName,
+                },
             },
         };
 
@@ -53,7 +56,10 @@ class Layer extends React.Component {
     }
 
     setName(value) {
-        this.name = value;
+        let properties = this.state.properties;
+        properties.name.value = value;
+        this.setState({});
+        console.log(this.name);
     }
 
     componentDidMount() {
@@ -93,7 +99,7 @@ class Layer extends React.Component {
             <div className="layer" ref="container">
                 <img className="visibleButton" onClick={this.onVisibleToggle} src={eye} alt="eyeOpen"></img>
                 <div className="text-container" onClick={this.onSelect}>
-                    <p className="layerName">{this.props.layer.name}</p>
+                    <p className="layerName">{this.state.properties.name.value}</p>
                 </div>
             </div>
         );

@@ -10,7 +10,7 @@ export class PanelArea extends React.Component {
         this.onDrag = this.onDrag.bind(this);
         this.onDragEnd = this.onDragEnd.bind(this);
         this.state = {
-            panelHeight: 200,
+            panelHeight: 400,
             panelMin: 0,
             panelMax: 1,
         };

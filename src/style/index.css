@@ -257,16 +257,41 @@ body {
   padding: 20px;
 }
 
-#MiddleArea #PanelArea .propertiesPanel .body h2 {
+#MiddleArea #PanelArea .propertiesPanel .body .subTitle {
+  font-weight: bold;
   margin: 0;
-  font-size: 0.8em;
-  line-height: 20px;
+  font-size: 1.3em;
 }
 
-#MiddleArea #PanelArea .propertiesPanel .body p {
+#MiddleArea #PanelArea .propertiesPanel .body .input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#MiddleArea #PanelArea .propertiesPanel .body .input .textInput {
+  border: 1.4px solid rgba(255, 255, 255, 0.226);
+  background-color: #303235;
+  color: whitesmoke;
+  -webkit-user-select: text;
+     -moz-user-select: text;
+      -ms-user-select: text;
+          user-select: text;
+}
+
+#MiddleArea #PanelArea .propertiesPanel .body .info {
+  color: #686872;
   margin: 0;
-  font-size: 0.7em;
-  line-height: 20px;
+  font-size: 0.8em;
+}
+
+#MiddleArea #PanelArea .propertiesPanel .body .info .subTitle {
+  font-weight: bold;
+  margin: 0;
+  font-size: 1.3em;
 }
 
 #MiddleArea #PanelArea .header {

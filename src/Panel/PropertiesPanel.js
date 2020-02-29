@@ -14,23 +14,62 @@ export default class PropertiesPanel extends React.Component {
     }
 
     render() {
-        let propertie = this.props.selected;
-        console.log(propertie);
+        let propertie = <div>this.props.selected;</div>;
         if (this.props.selected !== null) {
-            propertie = this.props.selected.properties.name.value;
+            propertie = (
+                <div>
+                    <span className="subTitle">{this.props.selected.constructor.name}</span>
+                    <br />
+                    <br />
+                    <TextInput propertie={this.props.selected.properties.name} />
+                </div>
+            );
         }
+
+        let informations = (
+            <span className="info">
+                <span className="subTitle">{this.state.title}</span>
+                <br />
+                Left Click : Place blocks <br />
+                Right Click : Delete blocks
+                <br />
+                Middle Click : Pan the camera
+                <br />
+                Mouse Wheel : Zoom
+                <br />
+                <br />
+            </span>
+        );
 
         return (
             <div className="propertiesPanel" style={{ height: this.props.height }}>
                 <div className="header">{this.state.panelName}</div>
                 <div className="body">
-                    <h2>{this.state.title}</h2>
-                    <p> Left Click : Place blocks</p>
-                    <p> Right Click : Delete blocks</p>
-                    <p> Middle Click : Pan the camera</p>
-                    <p> Mouse Wheel : Zoom</p>
-                    <p>{propertie}</p>
+                    {informations}
+
+                    {propertie}
                 </div>
+            </div>
+        );
+    }
+}
+
+class TextInput extends React.Component {
+    render() {
+        const propertie = this.props.propertie;
+        return (
+            <div>
+                <span className="input">
+                    {propertie.name}
+                    <input
+                        type="text"
+                        className="textInput"
+                        onChange={(input) => {
+                            propertie.set(input.target.value);
+                        }}
+                    />
+                </span>
+                <br />
             </div>
         );
     }

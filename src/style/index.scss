@@ -207,16 +207,31 @@ body {
 
         .propertiesPanel {
             .body {
+                .subTitle {
+                    font-weight: bold;
+                    margin: 0;
+                    font-size: 1.3em;
+                }
+                .input {
+                    display: flex;
+                    justify-content: space-between;
+                    .textInput {
+                        border: 1.4px solid rgba(255, 255, 255, 0.226);
+                        background-color: #303235;
+                        color: whitesmoke;
+                        user-select: text;
+                    }
+                }
                 padding: 20px;
-                h2 {
+                .info {
+                    color: rgb(104, 104, 114);
                     margin: 0;
                     font-size: 0.8em;
-                    line-height: 20px;
-                }
-                p {
-                    margin: 0;
-                    font-size: 0.7em;
-                    line-height: 20px;
+                    .subTitle {
+                        font-weight: bold;
+                        margin: 0;
+                        font-size: 1.3em;
+                    }
                 }
             }
         }
