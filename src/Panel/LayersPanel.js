@@ -58,8 +58,7 @@ class Layer extends React.Component {
     setName(value) {
         let properties = this.state.properties;
         properties.name.value = value;
-        this.setState({});
-        console.log(this.name);
+        this.setState({ properties: properties });
     }
 
     componentDidMount() {

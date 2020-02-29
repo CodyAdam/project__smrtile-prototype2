@@ -15,13 +15,15 @@ export default class PropertiesPanel extends React.Component {
 
     render() {
         let propertie = <div>this.props.selected;</div>;
-        if (this.props.selected !== null) {
+        if (this.props.selected !== null && this.props.selected !== undefined) {
+            console.log(this.props.selected);
+
             propertie = (
                 <div>
-                    <span className="subTitle">{this.props.selected.constructor.name}</span>
+                    <span className="subTitle">{this.props.selected.constructor.name} Properties</span>
                     <br />
                     <br />
-                    <TextInput propertie={this.props.selected.properties.name} />
+                    <TextInput propertie={this.props.selected.state.properties.name} />
                 </div>
             );
         }
@@ -55,6 +57,12 @@ export default class PropertiesPanel extends React.Component {
 }
 
 class TextInput extends React.Component {
+    componentDidUpdate() {
+        this.refs.input.value = this.props.propertie.value;
+    }
+    componentDidMount() {
+        this.refs.input.value = this.props.propertie.value;
+    }
     render() {
         const propertie = this.props.propertie;
         return (
@@ -64,6 +72,7 @@ class TextInput extends React.Component {
                     <input
                         type="text"
                         className="textInput"
+                        ref="input"
                         onChange={(input) => {
                             propertie.set(input.target.value);
                         }}
