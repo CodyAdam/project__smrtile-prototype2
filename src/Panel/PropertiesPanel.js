@@ -16,8 +16,6 @@ export default class PropertiesPanel extends React.Component {
     render() {
         let propertie = <div>this.props.selected;</div>;
         if (this.props.selected !== null && this.props.selected !== undefined) {
-            console.log(this.props.selected);
-
             propertie = (
                 <div>
                     <span className="subTitle">{this.props.selected.constructor.name} Properties</span>
