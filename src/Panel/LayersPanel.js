@@ -55,6 +55,7 @@ class LayerButton extends React.Component {
 
 	setName(value) {
 		this.props.layer.name = value;
+		this.forceUpdate();
 	}
 
 	componentDidMount() {
