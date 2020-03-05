@@ -2,23 +2,23 @@ import React from "react";
 
 export default class TextInput extends React.Component {
 	componentDidUpdate() {
-		this.refs.input.value = this.props.propertie.value;
+		this.refs.input.value = this.props.value;
 	}
 	componentDidMount() {
-		this.refs.input.value = this.props.propertie.value;
+		this.refs.input.value = this.props.value;
 	}
 	render() {
-		const propertie = this.props.propertie;
+		const { name, setName } = this.props;
 		return (
 			<div>
 				<span className="input">
-					{propertie.name}
+					{name}
 					<input
 						type="text"
 						className="textInput"
 						ref="input"
 						onChange={input => {
-							propertie.set(input.target.value);
+							setName(input.target.value);
 						}}
 					/>
 				</span>

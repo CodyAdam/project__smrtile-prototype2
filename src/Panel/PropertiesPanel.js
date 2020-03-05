@@ -1,5 +1,4 @@
 import React from "react";
-import TextInput from "./Inputs/TextInput";
 
 export default class PropertiesPanel extends React.Component {
 	constructor(props) {
@@ -19,12 +18,10 @@ export default class PropertiesPanel extends React.Component {
 		if (this.props.selected !== null && this.props.selected !== undefined) {
 			propertie = (
 				<div>
-					<span className="subTitle">
-						{this.props.selected.constructor.name} Properties
-					</span>
+					<span className="subTitle">{this.props.selected.state.name} Properties</span>
 					<br />
 					<br />
-					<TextInput propertie={this.props.selected.state.properties.name} />
+					{this.props.selected.state.properties.name}
 				</div>
 			);
 		}
