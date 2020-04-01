@@ -49,7 +49,9 @@ export class PanelArea extends React.Component {
             <div id="PanelArea" style={{ width: this.props.width }}>
                 <PropertiesPanel height={this.state.panelHeight + "px"} selected={this.props.selected} />
                 <Draggable axis="none" onDrag={this.onDrag} onStop={this.onDragEnd}>
-                    <div className="slider"></div>
+                    <div className="slider">
+                        <div className="break"></div>
+                    </div>
                 </Draggable>
                 <LayersPanel
                     layers={this.props.layers}

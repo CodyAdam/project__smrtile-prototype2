@@ -2,14 +2,15 @@ $myRed: #e04f5f;
 $myWhite: rgb(243, 243, 243);
 
 //Dark Theme
-$fontColor: rgb(243, 243, 243);
-$backgroundColor: rgb(243, 243, 243);
-$themeColor1: #21252b;
-$themeColor2: #181a1f;
-$themeColor3: #111111;
+$fontMainColor: #f2f2f3;
+$fontSecondColor: #cfd2d6;
+$canvasBackgroundColor: rgb(226, 221, 221);
+$mainColor: #2d2d2d;
+$secondColor: #393939;
+$thirdColor: #242729;
 
 // Light Theme WIP
-// $fontColor: #0f0f0f;
+// $fontMainColor: #0f0f0f;
 // $backgroundColor : rgb(243, 243, 243);
 // $themeColor1: #c3c7cd;
 // $themeColor2: #dfe4e7;
@@ -40,7 +41,7 @@ body {
 }
 
 #TitleArea {
-    background-color: $themeColor1;
+    background-color: $secondColor;
     z-index: 11;
     flex-shrink: 0;
 
@@ -53,7 +54,7 @@ body {
     //     padding: 3px 3px 3px 0;
     // }
     .menu {
-        color: $fontColor;
+        color: $fontMainColor;
         display: inline-flex;
         align-items: center;
         flex-shrink: 0;
@@ -78,7 +79,7 @@ body {
             align-items: center;
             background-color: whitesmoke;
             .name {
-                color: $themeColor1;
+                color: $mainColor;
                 padding-left: 15px;
                 padding-right: 15px;
             }
@@ -91,7 +92,7 @@ body {
                 top: 30px;
                 .subContainer {
                     padding: 10px 60px 10px 25px;
-                    color: $themeColor1;
+                    color: $mainColor;
                     background-color: whitesmoke;
                     &:hover {
                         color: whitesmoke;
@@ -112,7 +113,7 @@ body {
     .title {
         white-space: nowrap;
         text-overflow: ellipsis;
-        color: $fontColor;
+        color: $fontMainColor;
         flex-grow: 1;
         margin: 0;
         text-align: center;
@@ -138,7 +139,7 @@ body {
 #ToolBarArea {
     z-index: 10;
     flex-shrink: 0;
-    background-color: $themeColor2;
+    background-color: $mainColor;
     height: 70px;
 
     display: flex;
@@ -163,115 +164,117 @@ body {
     flex-grow: 1;
     z-index: 0;
 
-    #EditingArea {
-        flex-grow: 1;
-        background-color: $backgroundColor;
-        z-index: 0;
-        .grid {
-            outline: 4px dotted rgb(0, 0, 0);
-            position: absolute;
-            z-index: -1;
-        }
-    }
-
     .slider {
         z-index: 0;
         cursor: ew-resize;
         width: 5px;
         flex-shrink: 0;
-        background-color: $themeColor2;
+        background-color: $mainColor;
         &:hover {
             background-color: rgba(29, 55, 73, 0.883);
         }
     }
+}
 
-    #PanelArea {
-        z-index: 10;
+#EditingArea {
+    flex-grow: 1;
+    background-color: $canvasBackgroundColor;
+    z-index: 0;
+    .grid {
+        outline: 3px dashed rgb(0, 0, 0);
+        position: absolute;
+        z-index: -1;
+    }
+}
+
+#PanelArea {
+    z-index: 10;
+    flex-shrink: 0;
+    background-color: $mainColor;
+
+    flex-flow: column;
+    color: $fontMainColor;
+
+    .slider {
+        z-index: 0;
+        cursor: ns-resize;
+        height: 20px;
+        width: 100%;
         flex-shrink: 0;
-        background-color: $themeColor2;
-
-        flex-flow: column;
-        color: $fontColor;
-
-        .slider {
-            z-index: 0;
-            cursor: ns-resize;
-            height: 4px;
-            width: 100%;
-            flex-shrink: 0;
-            background-color: $themeColor2;
-            &:hover {
-                background-color: rgba(87, 188, 255, 0.226);
-            }
+        background-color: $mainColor;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        &:hover {
+            background-color: $secondColor;
         }
-
-        .propertiesPanel {
-            .body {
-                .subTitle {
-                    font-weight: bold;
-                    margin: 0;
-                    font-size: 1.3em;
-                }
-                .input {
-                    display: flex;
-                    justify-content: space-between;
-                    .textInput {
-                        width: 45%;
-                        border: 1.4px solid rgba(255, 255, 255, 0.226);
-                        background-color: #303235;
-                        color: whitesmoke;
-                        user-select: text;
-                    }
-                }
-                padding: 20px;
-                .info {
-                    color: rgb(104, 104, 114);
-                    margin: 0;
-                    font-size: 0.8em;
-                    .subTitle {
-                        font-weight: bold;
-                        margin: 0;
-                        font-size: 1.3em;
-                    }
-                }
-            }
+        .break {
+            background-color: $fontSecondColor;
+            opacity: 0.5;
+            height: 1px;
+            width: 90%;
         }
+    }
 
-        .header {
-            height: 25px;
-            text-align: center;
-            font-size: 1em;
+    .propertiesPanel {
+        .subTitle {
+            font-weight: bold;
             margin: 0;
-            background-color: $themeColor1;
-            color: $fontColor;
+            font-size: 1.3em;
         }
+        .input {
+            display: flex;
+            justify-content: space-between;
+        }
+        .textInput {
+            width: 45%;
+            border: 1.4px solid rgba(255, 255, 255, 0.226);
+            background-color: #303235;
+            color: whitesmoke;
+            user-select: text;
+        }
+        padding: 20px;
+        .info {
+            color: rgb(104, 104, 114);
+            margin: 0;
+            font-size: 0.8em;
+        }
+    }
 
-        .layer {
-            cursor: pointer;
-            height: 40px;
-            margin: 10px;
-            border-radius: 6px;
+    .header {
+        font-weight: bold;
+        margin: 20px;
+        font-size: 1.3em;
+        margin: 0;
+        color: $fontMainColor;
+    }
+
+    .layer {
+        cursor: pointer;
+        height: 40px;
+        margin: 10px;
+        border-radius: 6px;
+
+        display: flex;
+        align-items: center;
+        .text-container {
+            flex-grow: 1;
+            height: 100%;
 
             display: flex;
+            justify-content: center;
             align-items: center;
-            .text-container {
-                flex-grow: 1;
-                height: 100%;
-
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                .layerName {
-                    margin: 0;
-                    text-overflow: ellipsis;
-                    max-width: 200px;
-                    white-space: nowrap;
-                }
+            .layerName {
+                margin: 0;
+                text-overflow: ellipsis;
+                max-width: 200px;
+                white-space: nowrap;
             }
-            img {
-                margin: 5px;
-                height: 70%;
-            }
+        }
+        img {
+            margin: 5px;
+            height: 70%;
         }
     }
 }
@@ -280,5 +283,5 @@ body {
     flex-shrink: 0;
     z-index: 10;
     height: 25px;
-    background-color: $themeColor3;
+    background-color: $thirdColor;
 }
