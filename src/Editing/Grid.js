@@ -1,5 +1,5 @@
 import React from "react";
-import gridPath from "../assets/grid/grid-dot.svg";
+import gridPath from "../assets/grid/grid.svg";
 
 export default class EditingArea extends React.Component {
     constructor(props) {
