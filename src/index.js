@@ -11,9 +11,9 @@ import Camera from "./Editing/Tools/Camera";
 import Brush from "./Editing/Tools/Brush";
 import Tile from "./Editing/Tile";
 
-import source1 from "./assets/tileset/test1.png";
-import source2 from "./assets/tileset/test2.png";
-import source3 from "./assets/tileset/test3.png";
+import source1 from "./assets/tileset/red.png";
+import source2 from "./assets/tileset/pink.png";
+import source3 from "./assets/tileset/green.png";
 
 class App extends React.Component {
     constructor(props) {
