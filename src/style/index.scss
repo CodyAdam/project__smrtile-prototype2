@@ -171,7 +171,7 @@ body {
         flex-shrink: 0;
         background-color: $mainColor;
         &:hover {
-            background-color: rgba(29, 55, 73, 0.883);
+            background-color: $secondColor;
         }
     }
 }
@@ -211,18 +211,18 @@ body {
         }
         .break {
             background-color: $fontSecondColor;
-            opacity: 0.5;
+            opacity: 0.3;
             height: 1px;
             width: 90%;
         }
     }
 
     .propertiesPanel {
-        .subTitle {
-            font-weight: bold;
-            margin: 0;
-            font-size: 1.3em;
-        }
+        padding-left: 15px;
+        padding-right: 15px;
+        color: rgb(104, 104, 114);
+        margin: 0;
+        font-size: 0.8em;
         .input {
             display: flex;
             justify-content: space-between;
@@ -231,50 +231,52 @@ body {
             width: 45%;
             border: 1.4px solid rgba(255, 255, 255, 0.226);
             background-color: #303235;
-            color: whitesmoke;
+            color: $fontSecondColor;
             user-select: text;
         }
-        padding: 20px;
-        .info {
-            color: rgb(104, 104, 114);
-            margin: 0;
-            font-size: 0.8em;
-        }
     }
-
+    .subTitle {
+        color: $fontSecondColor;
+        margin: 0;
+        font-size: 1.1em;
+    }
     .header {
         font-weight: bold;
-        margin: 20px;
         font-size: 1.3em;
         margin: 0;
         color: $fontMainColor;
     }
 
-    .layer {
-        cursor: pointer;
-        height: 40px;
-        margin: 10px;
-        border-radius: 6px;
-
-        display: flex;
-        align-items: center;
-        .text-container {
-            flex-grow: 1;
-            height: 100%;
+    .layersPanel {
+        padding-left: 15px;
+        padding-right: 15px;
+        .layer {
+            cursor: pointer;
+            height: 40px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
 
             display: flex;
-            justify-content: center;
             align-items: center;
-            .layerName {
-                margin: 0;
-                text-overflow: ellipsis;
-                max-width: 200px;
-                white-space: nowrap;
+            .text-container {
+                flex-grow: 1;
+                height: 100%;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .layerName {
+                    margin: 0;
+                    text-overflow: ellipsis;
+                    max-width: 200px;
+                    white-space: nowrap;
+                }
             }
-        }
-        img {
-            margin: 5px;
-            height: 70%;
+            img {
+                margin: 5px;
+                height: 70%;
+            }
         }
     }
 }

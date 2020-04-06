@@ -210,7 +210,7 @@ body {
 }
 
 #MiddleArea .slider:hover {
-  background-color: rgba(29, 55, 73, 0.883);
+  background-color: #393939;
 }
 
 #EditingArea {
@@ -265,19 +265,17 @@ body {
 
 #PanelArea .slider .break {
   background-color: #cfd2d6;
-  opacity: 0.5;
+  opacity: 0.3;
   height: 1px;
   width: 90%;
 }
 
 #PanelArea .propertiesPanel {
-  padding: 20px;
-}
-
-#PanelArea .propertiesPanel .subTitle {
-  font-weight: bold;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #686872;
   margin: 0;
-  font-size: 1.3em;
+  font-size: 0.8em;
 }
 
 #PanelArea .propertiesPanel .input {
@@ -293,31 +291,36 @@ body {
   width: 45%;
   border: 1.4px solid rgba(255, 255, 255, 0.226);
   background-color: #303235;
-  color: whitesmoke;
+  color: #cfd2d6;
   -webkit-user-select: text;
      -moz-user-select: text;
       -ms-user-select: text;
           user-select: text;
 }
 
-#PanelArea .propertiesPanel .info {
-  color: #686872;
+#PanelArea .subTitle {
+  color: #cfd2d6;
   margin: 0;
-  font-size: 0.8em;
+  font-size: 1.1em;
 }
 
 #PanelArea .header {
   font-weight: bold;
-  margin: 20px;
   font-size: 1.3em;
   margin: 0;
   color: #f2f2f3;
 }
 
-#PanelArea .layer {
+#PanelArea .layersPanel {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#PanelArea .layersPanel .layer {
   cursor: pointer;
   height: 40px;
-  margin: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 6px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -327,7 +330,7 @@ body {
           align-items: center;
 }
 
-#PanelArea .layer .text-container {
+#PanelArea .layersPanel .layer .text-container {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -343,14 +346,14 @@ body {
           align-items: center;
 }
 
-#PanelArea .layer .text-container .layerName {
+#PanelArea .layersPanel .layer .text-container .layerName {
   margin: 0;
   text-overflow: ellipsis;
   max-width: 200px;
   white-space: nowrap;
 }
 
-#PanelArea .layer img {
+#PanelArea .layersPanel .layer img {
   margin: 5px;
   height: 70%;
 }

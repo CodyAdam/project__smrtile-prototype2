@@ -20,25 +20,26 @@ export default class PropertiesPanel extends React.Component {
                 <div>
                     <span className="subTitle">{this.props.selected.state.name} Properties</span>
                     <br />
-                    <br />
                     {this.props.selected.state.properties.name}
                 </div>
             );
         }
 
         let informations = (
-            <span className="info">
+            <div>
                 <span className="subTitle">{this.state.title}</span>
-                <br />
-                Left Click : Place blocks <br />
-                Right Click : Delete blocks
-                <br />
-                Middle Click : Pan the camera
-                <br />
-                Mouse Wheel : Zoom
-                <br />
-                <br />
-            </span>
+                <span className="info">
+                    <br />
+                    Left Click : Place blocks <br />
+                    Right Click : Delete blocks
+                    <br />
+                    Middle Click : Pan the camera
+                    <br />
+                    Mouse Wheel : Zoom
+                    <br />
+                    <br />
+                </span>
+            </div>
         );
 
         return (
