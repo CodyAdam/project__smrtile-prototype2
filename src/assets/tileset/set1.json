@@ -1,0 +1,120 @@
+{
+    "tileSize": 256,
+    "autor": "Cody",
+    "type": "autotile",
+    "content": {
+        "0": {
+            "condition": [],
+            "probability": 1,
+            "tags": ["red", "debug"]
+        },
+        "1": {
+            "condition": [
+                [
+                    { "isEmpty": true, "x": 1, "y": 0 },
+                    { "isEmpty": true, "x": -1, "y": 0 },
+                    { "isEmpty": true, "x": 0, "y": 1 },
+                    { "isEmpty": true, "x": 0, "y": -1 }
+                ]
+            ],
+            "probability": 1,
+            "tags": ["red", "debug"]
+        },
+        "4": {
+            "condition": [
+                [
+                    { "isEmpty": false, "x": 1, "y": 0 },
+                    { "isEmpty": true, "x": -1, "y": 0 },
+                    { "isEmpty": false, "x": 0, "y": 1 },
+                    { "isEmpty": true, "x": 0, "y": -1 }
+                ]
+            ],
+            "probability": 1,
+            "tags": ["red", "debug"]
+        },
+        "5": {
+            "condition": [
+                [
+                    { "isEmpty": false, "x": 1, "y": 0 },
+                    { "isEmpty": true, "x": -1, "y": 0 },
+                    { "isEmpty": true, "x": 0, "y": 1 },
+                    { "isEmpty": false, "x": 0, "y": -1 }
+                ]
+            ],
+            "probability": 1,
+            "tags": ["red", "debug"]
+        },
+        "6": {
+            "condition": [
+                [
+                    { "isEmpty": true, "x": 1, "y": 0 },
+                    { "isEmpty": false, "x": -1, "y": 0 },
+                    { "isEmpty": true, "x": 0, "y": 1 },
+                    { "isEmpty": false, "x": 0, "y": -1 }
+                ]
+            ],
+            "probability": 1,
+            "tags": ["red", "debug"]
+        },
+        "7": {
+            "condition": [
+                [
+                    { "isEmpty": true, "x": 1, "y": 0 },
+                    { "isEmpty": false, "x": -1, "y": 0 },
+                    { "isEmpty": false, "x": 0, "y": 1 },
+                    { "isEmpty": true, "x": 0, "y": -1 }
+                ]
+            ],
+            "probability": 1,
+            "tags": ["red", "debug"]
+        },
+        "8": {
+            "condition": [
+                [
+                    { "isEmpty": false, "x": 1, "y": 0 },
+                    { "isEmpty": true, "x": -1, "y": 0 },
+                    { "isEmpty": false, "x": 0, "y": 1 },
+                    { "isEmpty": false, "x": 0, "y": -1 }
+                ]
+            ],
+            "probability": 1,
+            "tags": ["red", "debug"]
+        },
+        "9": {
+            "condition": [
+                [
+                    { "isEmpty": false, "x": 1, "y": 0 },
+                    { "isEmpty": false, "x": -1, "y": 0 },
+                    { "isEmpty": true, "x": 0, "y": 1 },
+                    { "isEmpty": false, "x": 0, "y": -1 }
+                ]
+            ],
+            "probability": 1,
+            "tags": ["red", "debug"]
+        },
+        "10": {
+            "condition": [
+                [
+                    { "isEmpty": true, "x": 1, "y": 0 },
+                    { "isEmpty": false, "x": -1, "y": 0 },
+                    { "isEmpty": false, "x": 0, "y": 1 },
+                    { "isEmpty": false, "x": 0, "y": -1 }
+                ]
+            ],
+            "probability": 1,
+            "tags": ["red", "debug"]
+        },
+        "11": {
+            "condition": [
+                [
+                    { "isEmpty": false, "x": 1, "y": 0 },
+                    { "isEmpty": false, "x": -1, "y": 0 },
+                    { "isEmpty": false, "x": 0, "y": 1 },
+                    { "isEmpty": true, "x": 0, "y": -1 }
+                ]
+            ],
+            "probability": 1,
+            "tags": ["red", "debug"]
+        }
+    }
+}
