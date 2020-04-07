@@ -1,8 +1,8 @@
 {
     "tileSize": 256,
     "autor": "Cody",
-    "type": "autotile",
-    "content": {
+    "type": "AutoTileset",
+    "data": {
         "0": {
             "condition": [],
             "probability": 1,
