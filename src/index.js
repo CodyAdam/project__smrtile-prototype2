@@ -9,11 +9,13 @@ import ToolBarArea from "./ToolBarArea";
 import { Layer } from "./Editing/Layer";
 import Camera from "./Editing/Tools/Camera";
 import Brush from "./Editing/Tools/Brush";
-import Tile from "./Editing/Tile";
+import Tile, { Autotile } from "./Editing/Tile";
 
 import source1 from "./assets/tileset/red.png";
 import source2 from "./assets/tileset/pink.png";
 import source3 from "./assets/tileset/green.png";
+import source4 from "./assets/tileset/set1.png";
+import source4json from "./assets/tileset/set1.json";
 
 class App extends React.Component {
     constructor(props) {
@@ -48,6 +50,7 @@ class App extends React.Component {
                 new Tile(source1, 0, 0, 512, 512),
                 new Tile(source2, 0, 0, 512, 512),
                 new Tile(source3, 0, 0, 512, 512),
+                new Autotile(source4, source4json),
             ],
         };
     }
