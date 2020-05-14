@@ -12,10 +12,12 @@ export default class Tileset {
         this.autor = autor;
         this.type = type;
         this.data = data;
+        this.columns = this.image.width / this.tileSize;
+        this.rows = this.image.height / this.tileSize;
     }
 
-    create(id, pos) {
-        return new Tile(this.image, this.tileSize, id, pos, this.data);
+    create(index, pos) {
+        return new Tile(this.image, this.tileSize, index, pos, this.data, this.columns, this.rows);
     }
 }
 
@@ -31,5 +33,7 @@ export class AutoTileset extends Tileset {
         this.autor = autor;
         this.type = type;
         this.data = data;
+        this.columns = this.image.width / this.tileSize;
+        this.rows = this.image.height / this.tileSize;
     }
 }

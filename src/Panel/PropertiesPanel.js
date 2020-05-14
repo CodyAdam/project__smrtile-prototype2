@@ -43,7 +43,7 @@ export default class PropertiesPanel extends React.Component {
         );
 
         return (
-            <div className="propertiesPanel" style={{ height: this.props.height }}>
+            <div className="propertiesPanel" style={{ height: this.props.panelHeight }}>
                 <div className="header">{this.state.panelName}</div>
                 <div className="body">
                     {informations}

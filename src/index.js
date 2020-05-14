@@ -99,7 +99,7 @@ class App extends React.Component {
     render() {
         return (
             <div id="App">
-                <TitleArea />
+                <TitleArea selected={this.state.selected} />
                 <ToolBarArea objects={this.state.objects} onObjectChange={this.onObjectChange} />
                 <MiddleArea
                     layers={this.state.layers}

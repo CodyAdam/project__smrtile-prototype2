@@ -59,11 +59,11 @@ export default class MiddleArea extends React.Component {
                     <div className="slider"></div>
                 </Draggable>
                 <PanelArea
+                    layers={this.props.layers}
                     select={this.props.select}
                     selected={this.props.selected}
-                    layers={this.props.layers}
                     onLayerChange={this.props.onLayerChange}
-                    width={this.state.panelWidth}
+                    panelWidth={this.state.panelWidth}
                 />
             </div>
         );

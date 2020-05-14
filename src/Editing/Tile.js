@@ -1,12 +1,14 @@
 import { getCoordinateAt } from "./Helper";
 
 export default class Tile {
-    constructor(image, tileSize, id, pos, data) {
+    constructor(image, tileSize, index, pos, data, columns, rows) {
         this.image = image;
         this.tileSize = tileSize;
-        this.id = id;
+        this.index = index;
         this.pos = pos;
         this.data = data;
+        this.columns = columns;
+        this.rows = rows;
     }
 
     isTileOnScreen(container, grid) {
@@ -35,50 +37,50 @@ export default class Tile {
     update() {}
 
     render({ container, grid }) {
+        const { image, pos, index, columns, tileSize } = this;
         const context = container.canvas.getContext("2d");
         const offset = grid.offset;
 
         if (!this.isTileOnScreen(container, grid)) return;
 
         context.drawImage(
-            this.image,
-            offset.x + this.pos.x * grid.size,
-            offset.y + this.pos.y * grid.size,
+            image,
+            offset.x + pos.x * grid.size,
+            offset.y + pos.y * grid.size,
             grid.size,
             grid.size,
+            ((index % columns) + 1) * tileSize,
+            ((index - (index % columns)) / columns) * tileSize,
+            tileSize,
+            tileSize,
         );
     }
 }
 
 export class Autotile extends Tile {
-    constructor(source, sourceJSON) {
-        super(source, { x: 0, y: 0 });
-        const { tileSize, autor, type, content } = JSON.parse(sourceJSON);
-
-        this.autotileID = 0;
-        this.tilesetID = -1; // not implemented
-
-        this.source = source;
-        this.pos = pos;
-        this.active = false;
-
-        this.image = new Image();
-        this.image.src = this.source;
+    constructor(image, tileSize, pos, data, columns, rows) {
+        super(image, tileSize, 0, pos, data, columns, rows);
     }
 
-    render(state) {
-        const context = state.container.canvas.getContext("2d");
-        const grid = state.grid;
+    update() {}
+
+    render({ container, grid }) {
+        const { image, pos, index, columns, tileSize } = this;
+        const context = container.canvas.getContext("2d");
         const offset = grid.offset;
 
-        if (!this.isTileOnScreen(state)) return;
+        if (!this.isTileOnScreen(container, grid)) return;
 
         context.drawImage(
-            this.image,
-            offset.x + this.pos.x * grid.size,
-            offset.y + this.pos.y * grid.size,
+            image,
+            offset.x + pos.x * grid.size,
+            offset.y + pos.y * grid.size,
             grid.size,
             grid.size,
+            ((index % columns) + 1) * tileSize,
+            ((index - (index % columns)) / columns) * tileSize,
+            tileSize,
+            tileSize,
         );
     }
 }

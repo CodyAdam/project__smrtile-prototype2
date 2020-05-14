@@ -28,7 +28,6 @@ class TitleArea extends React.Component {
                     ],
                 },
             ],
-            selected: null,
         };
     }
 
