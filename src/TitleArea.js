@@ -68,7 +68,7 @@ class TitleArea extends React.Component {
         const selected = this.state.selected;
 
         let subMenuElement = null;
-        if (selected !== null)
+        if (typeof selected != "undefined")
             subMenuElement = menu[selected].subMenu.map((subMenu, index) => {
                 let style = null;
                 if (!subMenu.avaliable) style = { color: "#B8B8B6" };
