@@ -6,7 +6,7 @@ This is a prototype, the main project can be found here : [CodyAdam/project__smr
 ![preview](previewV1.gif)
 
 
-# Try it here : https://codyadam.github.io/Editor/
+# Try it here : https://codyadam.github.io/project__smrtile-prototype2/
 
 _Project is work in progress_
 
