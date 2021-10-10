@@ -1,3 +1,11 @@
+
+This is a prototype, the main project can be found here : [CodyAdam/project__smrtile](https://github.com/CodyAdam/project__smrtile)
+
+# Preview
+
+![preview](previewV1.gif)
+
+
 # Try it here : https://codyadam.github.io/Editor/
 
 _Project is work in progress_
